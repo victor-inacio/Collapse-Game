@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
         
         let skView = SKView(frame: view.frame)
         view = skView
-        
+        //teste
         if let view = self.view as! SKView? {
             
             let scene = PlataformGameScene(size: view.frame.size)
