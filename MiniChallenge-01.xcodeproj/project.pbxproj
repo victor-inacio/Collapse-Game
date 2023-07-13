@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		989968B32A607BCB0093C110 /* PlatformGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 989968B22A607BCB0093C110 /* PlatformGameScene.sks */; };
 		AB07DB3E2A5F888600721221 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB3D2A5F888600721221 /* AppDelegate.swift */; };
-		AB07DB402A5F888600721221 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB07DB3F2A5F888600721221 /* GameScene.sks */; };
 		AB07DB462A5F888600721221 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB452A5F888600721221 /* GameViewController.swift */; };
 		AB07DB492A5F888600721221 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB07DB472A5F888600721221 /* Main.storyboard */; };
 		AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB07DB4A2A5F888800721221 /* Assets.xcassets */; };
@@ -24,9 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		989968B22A607BCB0093C110 /* PlatformGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlatformGameScene.sks; sourceTree = "<group>"; };
 		AB07DB3A2A5F888600721221 /* MiniChallenge-01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiniChallenge-01.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB07DB3D2A5F888600721221 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AB07DB3F2A5F888600721221 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		AB07DB452A5F888600721221 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		AB07DB482A5F888600721221 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB07DB4A2A5F888800721221 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -94,8 +94,8 @@
 		AB07DB582A5F911B00721221 /* Prologue */ = {
 			isa = PBXGroup;
 			children = (
-				AB07DB3F2A5F888600721221 /* GameScene.sks */,
 				AB07DB542A5F8F0F00721221 /* PlataformGameScene.swift */,
+				989968B22A607BCB0093C110 /* PlatformGameScene.sks */,
 			);
 			name = Prologue;
 			path = "Prólogo";
@@ -172,8 +172,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				989968B32A607BCB0093C110 /* PlatformGameScene.sks in Resources */,
 				AB07DB492A5F888600721221 /* Main.storyboard in Resources */,
-				AB07DB402A5F888600721221 /* GameScene.sks in Resources */,
 				AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */,
 				AB07DB4E2A5F888800721221 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -342,13 +342,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6FXWX5Z987;
+				DEVELOPMENT_TEAM = M67J2XKW43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -369,13 +370,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6FXWX5Z987;
+				DEVELOPMENT_TEAM = M67J2XKW43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
