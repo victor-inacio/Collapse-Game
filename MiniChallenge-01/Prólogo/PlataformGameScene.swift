@@ -10,24 +10,28 @@ import SpriteKit
 
 class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
     
+    //    var camere: SKCameraNode = SKCameraNode()
     
     private let player = Player()
     private var ground = Ground()
     private var plataform: SKSpriteNode = SKSpriteNode()
-
+    
+    private var hud = SKNode()
+    
     private var virtualControllerB = ControllerBack()
     private var virtualControllerF = ControllerFront()
     private var jump = JumpButton()
-    
+    var boundaries1 = SKNode()
     private var joystickInUse: Bool = false
     private var selectedNodes: [UITouch:SKSpriteNode] = [:]
-    
-//    let cameraController = CameraController(camera, player, boundaries)
     
     var controls: [String: ()] = [:]
     var distanceX: CGFloat = 0
     var distanceY: CGFloat = 0
     var joystickTouch: UITouch?
+    
+    var cameraController: CameraController!
+    let camera2 = SKCameraNode()
     
     override func didMove(to view: SKView) {
         
@@ -36,20 +40,38 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
         physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         self.view?.isMultipleTouchEnabled = true
 
-
+        
+        
+        self.camera = camera2
+        cameraController = CameraController(camera: self.camera!, target: player, boundaries: nil)
+        
         addPlayer()
         addGround()
         addPlataform()
         addController()
         addJumpB()
+        
+       
+        addChild(camera2)
+        camera2.addChild(hud)
+
+    }
     
+    override func sceneDidLoad() {
+        
+        
+        let cameraBounds = self.frame.width / 2
+        let bounds = self.calculateAccumulatedFrame().width/2 - cameraBounds
+        let cameraConstraint = SKConstraint.positionX(SKRange(lowerLimit: -bounds, upperLimit: bounds))
+        self.camera?.constraints = [cameraConstraint]
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         for t in touches{
             
-            let location = t.location(in: self)
+            let location = t.location(in: camera2)
             
             let touchedNode = self.atPoint(t.location(in: self))
             
@@ -64,11 +86,11 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
             }
             
             if virtualControllerF.frame.contains(location){
-                 
+                
                 joystickInUse = true
                 self.joystickTouch = t
                 print("move")
-          }
+            }
         }
     }
     
@@ -77,10 +99,10 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
- 
+        
         for t in touches{
-          if touches.first == t{
-                let location = t.location(in: self)
+            if touches.first == t{
+                let location = t.location(in: camera2)
                 
                 //            print(t == self.joystickTouch)  verifica se o toque foi o mesmo
                 if joystickInUse{
@@ -100,9 +122,11 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
                     
                     let radiusB = virtualControllerB.size.width / 2
                     
-                    if  location.x * 0.75 > radiusB && location.y * 1.2 > radiusB && location.y * 0.85 < radiusB * 2 && location.x * 0.8 < radiusB * 2.5 {
+                    if -location.x / 4 > radiusB && -location.x / 5.8 < radiusB  &&  -location.y * 0.9 > radiusB  && -location.y / 2.9 < radiusB {
+                        // 0.8 é o meio até o lado para o x
                         
                         virtualControllerF.position = location
+                        // -267
                         
                     }else{
                         
@@ -129,9 +153,9 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
             }
         }
     }
- 
+    
     override func update(_ currentTime: TimeInterval) {
-
+        
         if !joystickInUse{
             
             distanceX = 0
@@ -139,6 +163,12 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
         }
         
         applyMovement()
+    }
+    
+    override func didFinishUpdate() {
+        
+        self.cameraController.onFinishUpdate()
+        
     }
     
     func applyMovement(){
@@ -154,12 +184,12 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
     
     func addPlataform(){
         
-      plataform = SKSpriteNode(imageNamed: "plataform")
-      plataform.position = CGPoint(x: size.width * 0.8 , y: size.height * 0.2 + plataform.size.height)
-      plataform.zPosition = 1
-      plataform.physicsBody = SKPhysicsBody(texture: plataform.texture!, size: plataform.size)
-      plataform.physicsBody?.affectedByGravity = false
-      plataform.physicsBody?.isDynamic = false
+        plataform = SKSpriteNode(imageNamed: "plataform")
+        plataform.position = CGPoint(x: size.width * 0.8 , y: size.height * 0.2 + plataform.size.height)
+        plataform.zPosition = 1
+        plataform.physicsBody = SKPhysicsBody(texture: plataform.texture!, size: plataform.size)
+        plataform.physicsBody?.affectedByGravity = false
+        plataform.physicsBody?.isDynamic = false
         
         addChild(plataform)
         
@@ -181,18 +211,18 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
     
     func addController(){
         
-        virtualControllerB.position = CGPoint(x: size.width * 0.2 * 0.8, y: size.height * 0.3 * 0.8)
-        virtualControllerF.position = CGPoint(x: size.width * 0.2  * 0.8, y: size.height * 0.3 * 0.8)
-
-        self.addChild(virtualControllerB)
-        self.addChild(virtualControllerF)
+        virtualControllerB.position = CGPoint(x: size.width  - 1120, y: size.height - 500)
+        virtualControllerF.position = CGPoint(x: size.width  - 1120, y: size.height - 500)
+        
+        hud.addChild(virtualControllerB)
+        hud.addChild(virtualControllerF)
         
     }
     
     func addJumpB(){
         
-        jump.position = CGPoint(x: size.width * 0.8, y: size.height * 0.3 * 0.8)
-        self.addChild(jump)
+        jump.position = CGPoint(x: size.width - 550, y: size.height - 520)
+        hud.addChild(jump)
         
     }
 }

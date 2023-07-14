@@ -24,7 +24,7 @@ class CameraController {
     }
     
     func onFinishUpdate() {
-        if let target = target, let boundaries = boundaries {
+        if let target = target{
             self.camera.run(.move(to: target.position, duration: 0.3))
         }
     }
