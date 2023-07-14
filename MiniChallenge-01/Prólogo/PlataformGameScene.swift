@@ -60,11 +60,6 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
     override func sceneDidLoad() {
         
         
-        let cameraBounds = self.frame.width / 2
-        let bounds = self.calculateAccumulatedFrame().width/2 - cameraBounds
-        let cameraConstraint = SKConstraint.positionX(SKRange(lowerLimit: -bounds, upperLimit: bounds))
-        self.camera?.constraints = [cameraConstraint]
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
