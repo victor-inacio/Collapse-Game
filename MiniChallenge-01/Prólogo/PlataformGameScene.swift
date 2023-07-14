@@ -51,6 +51,8 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
         addJump()
         addDash()
         
+        print(controllerJoystick.virtualControllerB.position)
+        
         addChild(camera2)
         camera2.addChild(hud)
   
@@ -84,6 +86,9 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
                     controls[nodeName]!()
                 }
             }
+            
+//            controllerJoystick.virtualControllerB.position = location
+//            controllerJoystick.virtualControllerF.position = location
             
             if controllerJoystick.virtualControllerF.frame.contains(location){
                 
@@ -120,9 +125,10 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
                     player.xScale = xDirection
                     // raiz de 2 - 1
                     
-                    let radiusB = controllerJoystick.virtualControllerB.size.width / 2
+//                    let radiusB = controllerJoystick.virtualControllerB.size.width / 2
                     
-                    if -location.x / 4 > radiusB && -location.x / 5.8 < radiusB  &&  -location.y * 0.9 > radiusB  && -location.y / 2.9 < radiusB {
+                    if controllerJoystick.virtualControllerB.frame.contains(location){
+//                        -location.x / 4 > radiusB && -location.x / 5.8 < radiusB  &&  -location.y * 0.9 > radiusB  && -location.y / 2.9 < radiusB {
                         // 0.8 é o meio até o lado para o x
                         
                         controllerJoystick.virtualControllerF.position = location
@@ -130,7 +136,9 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
                         
                     }else{
                         
-                        controllerJoystick.virtualControllerF.position = CGPoint(x: controllerJoystick.virtualControllerB.position.x + distanceX, y: controllerJoystick.virtualControllerB.position.y + distanceY)
+                        controllerJoystick.virtualControllerB.position = CGPoint(x: controllerJoystick.virtualControllerF.position.x - distanceX, y: controllerJoystick.virtualControllerF.position.y - distanceY)
+                        
+                        controllerJoystick.virtualControllerF.position = location
                         
                     }
                 }
@@ -144,10 +152,12 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
             for t in touches{
                 if t == self.joystickTouch {
                     
-                    let moveback = SKAction.move(to: CGPoint(x: controllerJoystick.virtualControllerB.position.x, y: controllerJoystick.virtualControllerB.position.y), duration: 0.1)
+                    let moveback = SKAction.move(to: CGPoint(x: size.width / -3 + size.width / 50, y: size.height  / -3.7), duration: 0.1)
                     moveback.timingMode = .linear
                     controllerJoystick.virtualControllerF.run(moveback)
+                    controllerJoystick.virtualControllerB.run(moveback)
                     joystickInUse = false
+                    
                     
                 }
             }
@@ -179,7 +189,7 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
     
     func applyDash(){
         
-        player.run(.moveTo(x: joystickAngle, duration: 0.1))
+        player.physicsBody!.applyImpulse(CGVector(dx: distanceX, dy: distanceY))
         
     }
     
@@ -217,8 +227,10 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
     
     func addController(){
         
-        controllerJoystick.virtualControllerB.position = CGPoint(x: size.width  - 1120, y: size.height - 500)
-        controllerJoystick.virtualControllerF.position = CGPoint(x: size.width  - 1120, y: size.height - 500)
+        controllerJoystick.virtualControllerB.position = CGPoint(x: size.width / -3 + size.width / 50 , y: size.height  / -3.7)
+        controllerJoystick.virtualControllerF.position = CGPoint(x: size.width / -3 + size.width / 50, y: size.height / -3.7)
+        
+        
         
         hud.addChild(controllerJoystick.virtualControllerB)
         hud.addChild(controllerJoystick.virtualControllerF)
@@ -227,7 +239,7 @@ class PlataformGameScene: SKScene, SKPhysicsContactDelegate{
     
     func addJump(){
         
-        jump.position = CGPoint(x: size.width - 620, y: size.height - 520)
+        jump.position = CGPoint(x: size.width / -30 + size.width / -20 , y: size.height  / -3.7)
         hud.addChild(jump)
         
     }
