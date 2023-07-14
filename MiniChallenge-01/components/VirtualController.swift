@@ -7,37 +7,25 @@
 
 import SpriteKit
 
-class ControllerBack: SKSpriteNode{
+class ControllerJoystick: SKNode{
     
-    init(){
-        
-        let texture = SKTexture(imageNamed: "virtualControllerB")
-        
-        super.init(texture: texture, color: .red, size: texture.size())
-        
-        
-        name = "controllerBack"
-        zPosition = 5
-        
-    }
+    let virtualControllerB: SKSpriteNode!
+    let virtualControllerF: SKSpriteNode!
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
-class ControllerFront: SKSpriteNode{
-    
-    init(){
+    override init(){
         
-        let texture = SKTexture(imageNamed: "virtualControllerF")
+        let textureControllerB = SKTexture(imageNamed: "virtualControllerB")
+        let textureControllerF = SKTexture(imageNamed: "virtualControllerF")
         
-        super.init(texture: texture, color: .red, size: texture.size())
+        virtualControllerB = SKSpriteNode(texture: textureControllerB, color: .white, size: textureControllerB.size())
+        virtualControllerB.name = "controllerBack"
+        virtualControllerB.zPosition = 5
         
-        name = "controllerFront"
-        zPosition = 6
+        virtualControllerF = SKSpriteNode(texture: textureControllerF, color: .white, size: textureControllerF.size())
+        virtualControllerF.name = "controllerFront"
+        virtualControllerF.zPosition = 6
         
+        super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,6 +42,23 @@ class JumpButton: SKSpriteNode{
         super.init(texture: texture, color: .red, size: texture.size())
         
         name = "jump"
+        zPosition = 6
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class DashButton: SKSpriteNode{
+    init(){
+        
+        let texture = SKTexture(imageNamed: "dash")
+        
+        super.init(texture: texture, color: .red, size: texture.size())
+        
+        name = "dash"
         zPosition = 6
         
     }
