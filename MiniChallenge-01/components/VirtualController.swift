@@ -78,6 +78,50 @@ class VirtualController {
     
     // JOYSTICK
     
+<<<<<<< Updated upstream
+=======
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
+        for t in touches{
+            
+            let location = t.location(in: parent!)
+
+            if jumpButton!.frame.contains(location){
+
+                jumpTouch = t
+
+                target.onJoystickJumpBtnTouch()
+            }
+
+            if dashButton!.frame.contains(location){
+
+                dashTouch = t
+
+                target.onJoystickDashBtnTouch(direction: direction)
+            }
+  
+        
+        firstTouch(location: location, touch: t)
+        
+    }
+}
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
+        if touches.first != nil{
+            for t in touches{
+                if t == joystickTouch {
+                    
+                    movementReset(size: scene!.size)
+                   
+                }
+            }
+        }
+    }
+    
+>>>>>>> Stashed changes
     func firstTouch(location: CGPoint, touch: UITouch ){
         
         if virtualJoystickF!.frame.contains(location) && location.x < 0{
@@ -88,7 +132,22 @@ class VirtualController {
         }
     }
     
+<<<<<<< Updated upstream
     func drag(location: CGPoint, player: SKSpriteNode) {
+=======
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        for t in touches{
+            if touches.first == t{
+                let location = t.location(in: parent!)
+                
+//                drag(location: location, player: P)
+            }
+        }
+    }
+    
+    func drag(location: CGPoint) {
+>>>>>>> Stashed changes
         
         if joystickInUse{
             
@@ -104,8 +163,7 @@ class VirtualController {
             distanceX = CGFloat(sin(joystickAngle - CGFloat.pi / 2) * distanceFromCenter) * -1
             distanceY = CGFloat(cos(joystickAngle - CGFloat.pi / 2) * -distanceFromCenter) * -1
             
-            let xDirection: CGFloat = distanceX < 0 ? -1 : 1
-            player.xScale = xDirection
+        
             // raiz de 2 - 1
             
             //                    let radiusB = controllerJoystick.virtualControllerB.size.width / 2
