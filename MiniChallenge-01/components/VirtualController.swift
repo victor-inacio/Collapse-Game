@@ -87,6 +87,7 @@ class VirtualController: SKNode{
         
         addJump()
         addDash()
+        addController()
    
     }
     

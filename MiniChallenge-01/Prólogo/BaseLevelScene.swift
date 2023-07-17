@@ -50,7 +50,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
 
 
         cameraController = CameraController(camera: self.camera!, target: player.playerNode, boundaries: nil)
-        virtualController.addController()
+     
 
         addGround()
         addPlataform()
