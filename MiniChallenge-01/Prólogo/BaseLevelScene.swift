@@ -10,10 +10,6 @@ import SpriteKit
 import GameplayKit
 
 class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
-    
-    //    var camere: SKCameraNode = SKCameraNode()
-    
-    
     private var ground = Ground()
     
     private var plataform: SKSpriteNode = SKSpriteNode()
@@ -21,7 +17,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     private var selectedNodes: [UITouch:SKSpriteNode] = [:]
     
     var controls: [String: ()] = [:]
-    var canWalk = true
     var player = Player()
     var virtualController: VirtualController!
     var cameraController: CameraController!
