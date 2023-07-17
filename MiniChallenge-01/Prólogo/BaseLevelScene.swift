@@ -106,7 +106,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                 
                 virtualController.dashTouch = t
                 
-                player.Dash(direction: virtualController.direction)
+                player.dash(direction: virtualController.direction)
             }
   
         
@@ -128,8 +128,6 @@ override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
 
 override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     
-    player.stateMachine?.enter(PlayerIdle.self)
-    
     if touches.first != nil{
         for t in touches{
             if t == virtualController.joystickTouch {
@@ -143,7 +141,6 @@ override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 
 override func update(_ currentTime: TimeInterval) {
     
-    player.applyMovement(distanceX: virtualController.distanceX)
     
 }
 

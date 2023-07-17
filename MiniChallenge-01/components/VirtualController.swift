@@ -11,10 +11,9 @@ import GameplayKit
 protocol VirtualControllerTarget {
     
     func onJoystickChange(direction: CGVector) -> Void
-    
 }
 
-class VirtualController{
+class VirtualController {
     
     let virtualJoystickB: SKSpriteNode?
     let virtualJoystickF: SKSpriteNode?
@@ -25,11 +24,10 @@ class VirtualController{
     var joystickTouch: UITouch?
     var jumpTouch: UITouch?
     var dashTouch: UITouch?
-    var direction: CGPoint!
+    var direction: CGVector = CGVector(dx: 0, dy: 0)
     var joystickAngle: CGFloat = 0
     var distanceX: CGFloat = 0 {
         didSet {
-            print(self.distanceX)
             self.target.onJoystickChange(direction: .init(dx: self.distanceX, dy: self.distanceY))
         }
     }
@@ -39,7 +37,6 @@ class VirtualController{
         }
     }
     var gameScene = BaseLevelScene()
-    var player = Player()
     var hud = SKNode()
     var target: VirtualControllerTarget!
     
@@ -99,7 +96,7 @@ class VirtualController{
             
             joystickAngle = atan2(point.y, point.x)
             
-            direction = CGPoint(x: point.x * 40 , y: point.y * 40)
+            direction = CGVector(dx: point.x, dy: point.y)
             
             
             let distanceFromCenter = CGFloat(virtualJoystickB!.frame.size.width / 2) // limita o botao pequeno
@@ -138,8 +135,8 @@ class VirtualController{
         joystickInUse = false
         distanceX = 0
         distanceY = 0
-        
-//        gameScene.player.stateMachine?.enter(PlayerIdle.self)
+        direction = CGVector(dx: 0, dy: 0)
+
     }
     
     

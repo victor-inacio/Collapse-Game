@@ -28,10 +28,7 @@ class TriggerComponent: GKComponent {
             node.physicsBody?.contactTestBitMask = PhysicsCategory.player.rawValue
             node.physicsBody?.collisionBitMask = 0
            
-          
-         
-         
-            
+    
         }
     }
     
