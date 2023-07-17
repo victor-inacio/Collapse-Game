@@ -114,7 +114,7 @@ class VirtualController: SKNode{
 
                 dashTouch = t
 
-                target.onJoystickDashBtnTouch(direction: direction.toCGVector())
+                target.onJoystickDashBtnTouch(direction: direction)
             }
   
         
@@ -124,8 +124,6 @@ class VirtualController: SKNode{
 }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        player.stateMachine?.enter(PlayerIdle.self)
         
         if touches.first != nil{
             for t in touches{
@@ -154,12 +152,12 @@ class VirtualController: SKNode{
             if touches.first == t{
                 let location = t.location(in: parent!)
                 
-                drag(location: location, player:  player.playerNode)
+                drag(location: location)
             }
         }
     }
     
-    func drag(location: CGPoint, player: SKSpriteNode) {
+    func drag(location: CGPoint) {
         
         if joystickInUse{
             
@@ -176,7 +174,6 @@ class VirtualController: SKNode{
             distanceY = CGFloat(cos(joystickAngle - CGFloat.pi / 2) * -distanceFromCenter) * -1
             
             let xDirection: CGFloat = distanceX < 0 ? -1 : 1
-            player.xScale = xDirection
             // raiz de 2 - 1
             
             //                    let radiusB = controllerJoystick.virtualControllerB.size.width / 2

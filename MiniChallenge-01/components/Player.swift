@@ -38,11 +38,17 @@ class Player: VirtualControllerTarget{
     }
     
     func onJoystickChange(direction: CGVector) {
-        
+    
         applyMovement(distanceX: direction.dx)
+        
+        let xDirection: CGFloat = direction.dx < 0 ? -1 : 1
+        playerNode.xScale = xDirection
         
     }
     
+  
+    
+
     func onJoystickJumpBtnTouch() {
         jump()
     }
