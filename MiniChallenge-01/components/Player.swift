@@ -21,10 +21,12 @@ class Player{
         
         player.zPosition = 1
         
-        player.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        player.physicsBody?.collisionBitMask = physicsCategory.playerPhysics.rawValue
-        player.physicsBody?.allowsRotation = false
-        player.physicsBody?.isDynamic = true
+        name = "Player"
+        
+        self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
+        physicsBody?.categoryBitMask = PhysicsCategory.player.rawValue
+        physicsBody?.allowsRotation = false
+        physicsBody?.isDynamic = true
         
     }
     
