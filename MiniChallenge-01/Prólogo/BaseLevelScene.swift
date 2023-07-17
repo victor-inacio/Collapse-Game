@@ -40,31 +40,56 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         addPlayer()
         player.applyMachine()
         
-        virtualController = VirtualController(target: self.player)
+        virtualController = VirtualController(target: self.player, scene: self)
         
-        virtualController.virtualJoystickB?.position = CGPoint(x: size.width / -3 + size.width / 50 , y: size.height  / -3.7)
-        virtualController.virtualJoystickF?.position = CGPoint(x: size.width / -3 + size.width / 50, y: size.height / -3.7)
-        
-        virtualController.jumpButton?.position = CGPoint(x:  size.width / 5 + size.width / 20  , y:  size.height  / -3.7)
-        virtualController.dashButton?.position = CGPoint(x: size.width / 3 - size.width / 200, y: size.height / -9 )
+
 
         cameraController = CameraController(camera: self.camera!, target: player.playerNode, boundaries: nil)
-        virtualController.addController()
+     
 
         addGround()
         addPlataform()
        
-        virtualController.addJump()
-        virtualController.addDash()
-                
-       
+     
         
         addChild(camera2)
-        camera2.addChild(virtualController.hud)
+        camera2.addChild(virtualController)
         
         setupDoors()
-
+        
     }
+    
+    func addTriggerToNode(node: SKSpriteNode, callback: @escaping () -> Void) {
+        let entity = GKEntity()
+        
+        entity.addComponent(SpriteComponent(node: node))
+        entity.addComponent(TriggerComponent(callback: {
+            callback()
+        }))
+        triggersManager.addComponent(foundIn: entity)
+        
+        self.entities.append(entity)
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+           let nodeA = contact.bodyA.node
+           let nodeB = contact.bodyB.node
+           for triggerComponent in triggersManager.components {
+   
+               if let triggerNode = triggerComponent.entity?.component(ofType: SpriteComponent.self)?.node {
+   
+                   if triggerNode == nodeA {
+                       triggerComponent.callback()
+                   }
+   
+                   if triggerNode == nodeB {
+                       triggerComponent.callback()
+                   }
+               }
+   
+           }
+       }
+   
     
     func setupDoors() {
         
@@ -78,66 +103,9 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                 triggersManager.addComponent(foundIn: doorEntity)
                 self.entities.append(doorEntity)
             }
-                
-                
             }
         
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        for t in touches{
-            
-            let location = t.location(in: camera2)
-            
-            if virtualController.jumpButton!.frame.contains(location){
-                
-                virtualController.jumpTouch = t
-                
-                player.jump()
-            }
-      
-            if virtualController.dashButton!.frame.contains(location){
-                
-                virtualController.dashTouch = t
-                
-                player.dash(direction: virtualController.direction)
-            }
-  
-        
-        virtualController.firstTouch(location: location, touch: t)
-        
-    }
-}
-
-override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
-    for t in touches{
-        if touches.first == t{
-            let location = t.location(in: camera2)
-            
-            virtualController.drag(location: location, player:  player.playerNode)
-        }
-    }
-}
-
-override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
-    if touches.first != nil{
-        for t in touches{
-            if t == virtualController.joystickTouch {
-                
-                virtualController.movementReset(size: self.size)
-               
-            }
-        }
-    }
-}
-
-override func update(_ currentTime: TimeInterval) {
-    
-    
-}
 
 override func didFinishUpdate() {
     

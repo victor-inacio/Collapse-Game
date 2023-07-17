@@ -43,6 +43,14 @@ class Player: VirtualControllerTarget{
         
     }
     
+    func onJoystickJumpBtnTouch() {
+        jump()
+    }
+    
+    func onJoystickDashBtnTouch(direction: CGVector) {
+        dash(direction: direction)
+    }
+    
     func applyMovement(distanceX: CGFloat){
         
         
@@ -80,8 +88,7 @@ class PlayerIdle: GKState {
     
     override func didEnter(from previousState: GKState?) {
         
-        print("estou em Idle")
-        
+   
     }
     
     func move() {

@@ -19,4 +19,9 @@ extension CGPoint{
         
         return CGPoint(x: newDx, y: newDy)
     }
+    
+    func toCGVector() -> CGVector {
+        return .init(dx: self.x, dy: self.y)
+    }
+    
 }

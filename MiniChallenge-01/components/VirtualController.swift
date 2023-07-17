@@ -11,14 +11,16 @@ import GameplayKit
 protocol VirtualControllerTarget {
     
     func onJoystickChange(direction: CGVector) -> Void
+    func onJoystickJumpBtnTouch() -> Void
+    func onJoystickDashBtnTouch(direction: CGVector) -> Void
 }
 
-class VirtualController {
+class VirtualController: SKNode{
     
-    let virtualJoystickB: SKSpriteNode?
-    let virtualJoystickF: SKSpriteNode?
-    let jumpButton: SKSpriteNode?
-    let dashButton: SKSpriteNode?
+    var virtualJoystickB: SKSpriteNode?
+    var virtualJoystickF: SKSpriteNode?
+    var jumpButton: SKSpriteNode?
+    var dashButton: SKSpriteNode?
     
     var joystickInUse: Bool = false
     var joystickTouch: UITouch?
@@ -28,6 +30,7 @@ class VirtualController {
     var joystickAngle: CGFloat = 0
     var distanceX: CGFloat = 0 {
         didSet {
+            
             self.target.onJoystickChange(direction: .init(dx: self.distanceX, dy: self.distanceY))
         }
     }
@@ -37,10 +40,11 @@ class VirtualController {
         }
     }
     var gameScene = BaseLevelScene()
-    var hud = SKNode()
     var target: VirtualControllerTarget!
     
-    init(target: VirtualControllerTarget){
+    init(target: VirtualControllerTarget, scene: SKScene){
+        super.init()
+        isUserInteractionEnabled = true
         
         self.target = target
         
@@ -74,9 +78,65 @@ class VirtualController {
         dashButton?.name = "dash"
         dashButton?.zPosition = 6
         
+        virtualJoystickB?.position = CGPoint(x: scene.size.width / -3 + scene.size.width / 50 , y: scene.size.height  / -3.7)
+        virtualJoystickF?.position = CGPoint(x: scene.size.width / -3 + scene.size.width / 50, y: scene.size.height / -3.7)
+        
+        jumpButton?.position = CGPoint(x:  scene.size.width / 5 + scene.size.width / 20  , y:  scene.size.height  / -3.7)
+        dashButton?.position = CGPoint(x: scene.size.width / 3 - scene.size.width / 200, y: scene.size.height / -9 )
+        
+        addJump()
+        addDash()
+        addController()
+   
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("Error")
     }
     
     // JOYSTICK
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
+        for t in touches{
+            
+            let location = t.location(in: parent!)
+
+            if jumpButton!.frame.contains(location){
+
+                jumpTouch = t
+
+                target.onJoystickJumpBtnTouch()
+            }
+
+            if dashButton!.frame.contains(location){
+
+                dashTouch = t
+
+                target.onJoystickDashBtnTouch(direction: direction.toCGVector())
+            }
+  
+        
+        firstTouch(location: location, touch: t)
+        
+    }
+}
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        player.stateMachine?.enter(PlayerIdle.self)
+        
+        if touches.first != nil{
+            for t in touches{
+                if t == joystickTouch {
+                    
+                    movementReset(size: scene!.size)
+                   
+                }
+            }
+        }
+    }
     
     func firstTouch(location: CGPoint, touch: UITouch ){
         
@@ -85,6 +145,17 @@ class VirtualController {
             joystickInUse = true
             joystickTouch = touch
             
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        for t in touches{
+            if touches.first == t{
+                let location = t.location(in: parent!)
+                
+                drag(location: location, player:  player.playerNode)
+            }
         }
     }
     
@@ -142,8 +213,8 @@ class VirtualController {
     
     func addController(){
         
-        hud.addChild(virtualJoystickB!)
-        hud.addChild(virtualJoystickF!)
+        addChild(virtualJoystickB!)
+        addChild(virtualJoystickF!)
         
     }
     
@@ -155,10 +226,7 @@ class VirtualController {
     // JUMP
     
     func addJump(){
-        
-        
-        hud.addChild(jumpButton!)
-        
+        addChild(jumpButton!)
     }
     
     
@@ -167,7 +235,7 @@ class VirtualController {
     func addDash(){
         
         
-        hud.addChild(dashButton!)
+        addChild(dashButton!)
         
     }
     
