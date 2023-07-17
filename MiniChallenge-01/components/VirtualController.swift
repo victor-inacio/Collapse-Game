@@ -11,7 +11,8 @@ import GameplayKit
 protocol VirtualControllerTarget {
     
     func onJoystickChange(direction: CGVector) -> Void
-    
+    func onJoystickJumpBtnTouch() -> Void
+    func onJoystickDashBtnTouch(direction: CGVector) -> Void
 }
 
 class VirtualController: SKNode{
@@ -29,7 +30,7 @@ class VirtualController: SKNode{
     var joystickAngle: CGFloat = 0
     var distanceX: CGFloat = 0 {
         didSet {
-        
+            
             self.target.onJoystickChange(direction: .init(dx: self.distanceX, dy: self.distanceY))
         }
     }
@@ -42,7 +43,7 @@ class VirtualController: SKNode{
     var player = Player()
     var target: VirtualControllerTarget!
     
-    init(target: VirtualControllerTarget){
+    init(target: VirtualControllerTarget, scene: SKScene){
         super.init()
         isUserInteractionEnabled = true
         
@@ -78,6 +79,15 @@ class VirtualController: SKNode{
         dashButton?.name = "dash"
         dashButton?.zPosition = 6
         
+        virtualJoystickB?.position = CGPoint(x: scene.size.width / -3 + scene.size.width / 50 , y: scene.size.height  / -3.7)
+        virtualJoystickF?.position = CGPoint(x: scene.size.width / -3 + scene.size.width / 50, y: scene.size.height / -3.7)
+        
+        jumpButton?.position = CGPoint(x:  scene.size.width / 5 + scene.size.width / 20  , y:  scene.size.height  / -3.7)
+        dashButton?.position = CGPoint(x: scene.size.width / 3 - scene.size.width / 200, y: scene.size.height / -9 )
+        
+        addJump()
+        addDash()
+   
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -92,22 +102,20 @@ class VirtualController: SKNode{
         for t in touches{
             
             let location = t.location(in: parent!)
-//
-//            print(location)
-//
-//            if jumpButton!.frame.contains(location){
-//
-//                jumpTouch = t
-//
-//                player.jump()
-//            }
-//
-//            if dashButton!.frame.contains(location){
-//
-//                dashTouch = t
-//
-////                player.Dash(direction: virtualController.direction)
-//            }
+
+            if jumpButton!.frame.contains(location){
+
+                jumpTouch = t
+
+                target.onJoystickJumpBtnTouch()
+            }
+
+            if dashButton!.frame.contains(location){
+
+                dashTouch = t
+
+                target.onJoystickDashBtnTouch(direction: direction.toCGVector())
+            }
   
         
         firstTouch(location: location, touch: t)

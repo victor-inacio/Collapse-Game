@@ -45,13 +45,9 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         addPlayer()
         player.applyMachine()
         
-        virtualController = VirtualController(target: self.player)
+        virtualController = VirtualController(target: self.player, scene: self)
         
-        virtualController.virtualJoystickB?.position = CGPoint(x: size.width / -3 + size.width / 50 , y: size.height  / -3.7)
-        virtualController.virtualJoystickF?.position = CGPoint(x: size.width / -3 + size.width / 50, y: size.height / -3.7)
-        
-        virtualController.jumpButton?.position = CGPoint(x:  size.width / 5 + size.width / 20  , y:  size.height  / -3.7)
-        virtualController.dashButton?.position = CGPoint(x: size.width / 3 - size.width / 200, y: size.height / -9 )
+
 
         cameraController = CameraController(camera: self.camera!, target: player.playerNode, boundaries: nil)
         virtualController.addController()
@@ -59,8 +55,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         addGround()
         addPlataform()
        
-        virtualController.addJump()
-        virtualController.addDash()
+     
         
         addChild(camera2)
         camera2.addChild(virtualController)
@@ -113,8 +108,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                 triggersManager.addComponent(foundIn: doorEntity)
                 self.entities.append(doorEntity)
             }
-                
-                
             }
         
     }

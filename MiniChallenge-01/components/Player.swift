@@ -45,6 +45,14 @@ class Player: VirtualControllerTarget{
         applyMovement(distanceX: direction.dx)
     }
     
+    func onJoystickJumpBtnTouch() {
+        jump()
+    }
+    
+    func onJoystickDashBtnTouch(direction: CGVector) {
+        dash(direction: direction)
+    }
+    
     func applyMovement(distanceX: CGFloat){
           
         //        print("movendo")
@@ -58,17 +66,11 @@ class Player: VirtualControllerTarget{
     }
     
     func jump(){
-
-        print("tentei ")
         playerNode.physicsBody?.applyImpulse(CGVector(dx: playerNode.size.height * 2 , dy: playerNode.size.width * 0.5))
-
     }
-//
-    func Dash(direction: CGPoint){
 
-       playerNode.physicsBody?.applyImpulse(CGVector(dx:direction.x , dy: direction.y  ))
-        
-        print(direction)
+    func dash(direction: CGVector){
+       playerNode.physicsBody?.applyImpulse(direction)
     }
 }
 
@@ -79,8 +81,7 @@ class PlayerIdle: GKState {
     
     override func didEnter(from previousState: GKState?) {
         
-        print("estou em Idle")
-        
+   
     }
     
     func move() {
@@ -94,11 +95,7 @@ class PlayerRun: GKState{
     var isRunning = false
     
     override func didEnter(from previousState: GKState?) {
-        
-        print("Estou correndo")
-        
         isRunning = true
-
     }
 }
 
