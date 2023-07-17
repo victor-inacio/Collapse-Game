@@ -63,7 +63,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         virtualController.addDash()
         
         addChild(camera2)
-        camera2.addChild(virtualController.hud)
+        camera2.addChild(virtualController)
         
         setupDoors()
         
@@ -118,58 +118,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             }
         
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        for t in touches{
-            
-            let location = t.location(in: camera2)
-            
-            if virtualController.jumpButton!.frame.contains(location){
-                
-                virtualController.jumpTouch = t
-                
-                player.jump()
-            }
-      
-            if virtualController.dashButton!.frame.contains(location){
-                
-                virtualController.dashTouch = t
-                
-                player.Dash(direction: virtualController.direction)
-            }
-  
-        
-        virtualController.firstTouch(location: location, touch: t)
-        
-    }
-}
-
-override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
-    for t in touches{
-        if touches.first == t{
-            let location = t.location(in: camera2)
-            
-            virtualController.drag(location: location, player:  player.playerNode)
-        }
-    }
-}
-
-override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
-    player.stateMachine?.enter(PlayerIdle.self)
-    
-    if touches.first != nil{
-        for t in touches{
-            if t == virtualController.joystickTouch {
-                
-                virtualController.movementReset(size: self.size)
-               
-            }
-        }
-    }
-}
 
 override func update(_ currentTime: TimeInterval) {
     

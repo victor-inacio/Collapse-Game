@@ -14,12 +14,12 @@ protocol VirtualControllerTarget {
     
 }
 
-class VirtualController{
+class VirtualController: SKNode{
     
-    let virtualJoystickB: SKSpriteNode?
-    let virtualJoystickF: SKSpriteNode?
-    let jumpButton: SKSpriteNode?
-    let dashButton: SKSpriteNode?
+    var virtualJoystickB: SKSpriteNode?
+    var virtualJoystickF: SKSpriteNode?
+    var jumpButton: SKSpriteNode?
+    var dashButton: SKSpriteNode?
     
     var joystickInUse: Bool = false
     var joystickTouch: UITouch?
@@ -29,7 +29,7 @@ class VirtualController{
     var joystickAngle: CGFloat = 0
     var distanceX: CGFloat = 0 {
         didSet {
-            print(self.distanceX)
+        
             self.target.onJoystickChange(direction: .init(dx: self.distanceX, dy: self.distanceY))
         }
     }
@@ -40,10 +40,11 @@ class VirtualController{
     }
     var gameScene = BaseLevelScene()
     var player = Player()
-    var hud = SKNode()
     var target: VirtualControllerTarget!
     
     init(target: VirtualControllerTarget){
+        super.init()
+        isUserInteractionEnabled = true
         
         self.target = target
         
@@ -79,7 +80,55 @@ class VirtualController{
         
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("Error")
+    }
+    
     // JOYSTICK
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
+        for t in touches{
+            
+            let location = t.location(in: parent!)
+//
+//            print(location)
+//
+//            if jumpButton!.frame.contains(location){
+//
+//                jumpTouch = t
+//
+//                player.jump()
+//            }
+//
+//            if dashButton!.frame.contains(location){
+//
+//                dashTouch = t
+//
+////                player.Dash(direction: virtualController.direction)
+//            }
+  
+        
+        firstTouch(location: location, touch: t)
+        
+    }
+}
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        player.stateMachine?.enter(PlayerIdle.self)
+        
+        if touches.first != nil{
+            for t in touches{
+                if t == joystickTouch {
+                    
+                    movementReset(size: scene!.size)
+                   
+                }
+            }
+        }
+    }
     
     func firstTouch(location: CGPoint, touch: UITouch ){
         
@@ -88,6 +137,17 @@ class VirtualController{
             joystickInUse = true
             joystickTouch = touch
             
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        for t in touches{
+            if touches.first == t{
+                let location = t.location(in: parent!)
+                
+                drag(location: location, player:  player.playerNode)
+            }
         }
     }
     
@@ -145,8 +205,8 @@ class VirtualController{
     
     func addController(){
         
-        hud.addChild(virtualJoystickB!)
-        hud.addChild(virtualJoystickF!)
+        addChild(virtualJoystickB!)
+        addChild(virtualJoystickF!)
         
     }
     
@@ -158,10 +218,7 @@ class VirtualController{
     // JUMP
     
     func addJump(){
-        
-        
-        hud.addChild(jumpButton!)
-        
+        addChild(jumpButton!)
     }
     
     
@@ -170,7 +227,7 @@ class VirtualController{
     func addDash(){
         
         
-        hud.addChild(dashButton!)
+        addChild(dashButton!)
         
     }
     
