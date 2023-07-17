@@ -61,15 +61,45 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
        
         virtualController.addJump()
         virtualController.addDash()
-                
-       
         
         addChild(camera2)
         camera2.addChild(virtualController.hud)
         
         setupDoors()
-
+        
     }
+    
+    func addTriggerToNode(node: SKSpriteNode, callback: @escaping () -> Void) {
+        let entity = GKEntity()
+        
+        entity.addComponent(SpriteComponent(node: node))
+        entity.addComponent(TriggerComponent(callback: {
+            callback()
+        }))
+        triggersManager.addComponent(foundIn: entity)
+        
+        self.entities.append(entity)
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+           let nodeA = contact.bodyA.node
+           let nodeB = contact.bodyB.node
+           for triggerComponent in triggersManager.components {
+   
+               if let triggerNode = triggerComponent.entity?.component(ofType: SpriteComponent.self)?.node {
+   
+                   if triggerNode == nodeA {
+                       triggerComponent.callback()
+                   }
+   
+                   if triggerNode == nodeB {
+                       triggerComponent.callback()
+                   }
+               }
+   
+           }
+       }
+   
     
     func setupDoors() {
         
