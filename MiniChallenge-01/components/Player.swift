@@ -8,7 +8,7 @@
 import SpriteKit
 
 class Player: SKSpriteNode{
- 
+    
     init(){
         
         let texture = SKTexture(imageNamed: "player")
@@ -17,8 +17,10 @@ class Player: SKSpriteNode{
         
         zPosition = 1
         
+        name = "Player"
+        
         self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        physicsBody?.collisionBitMask = physicsCategory.playerPhysics.rawValue
+        physicsBody?.categoryBitMask = PhysicsCategory.player.rawValue
         physicsBody?.allowsRotation = false
         physicsBody?.isDynamic = true
         
