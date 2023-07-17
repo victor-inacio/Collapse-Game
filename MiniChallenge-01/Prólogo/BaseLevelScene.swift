@@ -112,11 +112,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         
     }
 
-override func update(_ currentTime: TimeInterval) {
-    
-    player.applyMovement(distanceX: virtualController.distanceX)
-    
-}
 
 override func didFinishUpdate() {
     
