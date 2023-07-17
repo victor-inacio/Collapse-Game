@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum physicsCategory: UInt32{
-    
-    case playerPhysics = 1
-    
+enum PhysicsCategory: UInt32{
+    case player = 1
+    case trigger = 2
+    case door = 3
 }

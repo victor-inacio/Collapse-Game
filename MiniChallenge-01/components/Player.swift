@@ -6,25 +6,95 @@
 //
 
 import SpriteKit
+import GameplayKit
 
-class Player: SKSpriteNode{
- 
+class Player{
+    
+    var player: SKSpriteNode!
+    var stateMachine: GKStateMachine?
+    
     init(){
         
         let texture = SKTexture(imageNamed: "player")
         
-        super.init(texture: texture, color: .red, size: texture.size())
+        player = SKSpriteNode(texture: texture, color: .red, size: texture.size())
         
-        zPosition = 1
+        player.zPosition = 1
+        
+        name = "Player"
         
         self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        physicsBody?.collisionBitMask = physicsCategory.playerPhysics.rawValue
+        physicsBody?.categoryBitMask = PhysicsCategory.player.rawValue
         physicsBody?.allowsRotation = false
         physicsBody?.isDynamic = true
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func applyMachine(){
+        
+        stateMachine = GKStateMachine(states: [
+            PlayerIdle(), PlayerRun(), PlayerJump(), PlayerDash()
+        ])
+        
+        stateMachine?.enter(PlayerIdle.self)
+    }
+    
+}
+
+class PlayerIdle: GKState{
+    
+    var player = Player()
+    var virtualController: VirtualController!
+    
+    override func didEnter(from previousState: GKState?) {
+        
+//        virtualController.distanceX = 0
+        print("Idle")
     }
 }
+
+class PlayerRun: GKState{
+    
+    var player = Player()
+    var virtualController: VirtualController!
+    
+    override func didEnter(from previousState: GKState?) {
+        
+        player.player.physicsBody!.velocity.dx = virtualController.distanceX * 4
+        print("entrou")
+
+    }
+}
+
+
+class PlayerJump: GKState{
+    
+    var player = Player()
+    //    var virtualController: VirtualController!
+    
+    override func didEnter(from previousState: GKState?) {
+        
+        player.player.physicsBody?.applyImpulse(CGVector(dx: 3, dy: 3 * 0.5))
+        print("pulou")
+        
+    }
+    
+}
+
+class PlayerDash: GKState{
+    
+    var player = Player()
+    var virtualController: VirtualController!
+    
+    override func didEnter(from previousState: GKState?) {
+        
+        
+        player.player.physicsBody?.applyImpulse(CGVector(dx: virtualController.direction.x, dy: virtualController.direction.y ))
+        
+    }
+}
+
+
+
+
+

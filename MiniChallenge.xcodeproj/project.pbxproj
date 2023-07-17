@@ -7,13 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		989968B32A607BCB0093C110 /* PlatformGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 989968B22A607BCB0093C110 /* PlatformGameScene.sks */; };
+		984AEF072A64B92400792A84 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF062A64B92400792A84 /* Door.swift */; };
+		984AEF0C2A64BCD300792A84 /* DoorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF0B2A64BCD300792A84 /* DoorComponent.swift */; };
+		984AEF0E2A64C42B00792A84 /* TriggerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */; };
+		984AEF102A64C70A00792A84 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */; };
+		9865AC4E2A65B74F003BDA66 /* DoorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865AC4D2A65B74F003BDA66 /* DoorEntity.swift */; };
+		98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */; };
+		98CE02B02A64A0660032DFCC /* BaseLevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */; };
+		98CE02B12A64A0660032DFCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98CE02AC2A64A0660032DFCC /* Assets.xcassets */; };
+		98CE02B72A64A8BF0032DFCC /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98CE02B62A64A8BF0032DFCC /* Level1.sks */; };
+		98CE02BB2A64A92A0032DFCC /* Level1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE02BA2A64A92A0032DFCC /* Level1.swift */; };
+		98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98CE02BE2A64AAE50032DFCC /* PlataformGameScene.sks */; };
+		98CE02C12A64B1DC0032DFCC /* Trigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE02C02A64B1DC0032DFCC /* Trigger.swift */; };
 		AB07DB3E2A5F888600721221 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB3D2A5F888600721221 /* AppDelegate.swift */; };
 		AB07DB462A5F888600721221 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB452A5F888600721221 /* GameViewController.swift */; };
 		AB07DB492A5F888600721221 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB07DB472A5F888600721221 /* Main.storyboard */; };
 		AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB07DB4A2A5F888800721221 /* Assets.xcassets */; };
 		AB07DB4E2A5F888800721221 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB07DB4C2A5F888800721221 /* LaunchScreen.storyboard */; };
-		AB07DB552A5F8F0F00721221 /* PlataformGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB542A5F8F0F00721221 /* PlataformGameScene.swift */; };
 		AB07DB5B2A5F934600721221 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB5A2A5F934600721221 /* Math.swift */; };
 		AB07DB5D2A5F938F00721221 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB5C2A5F938F00721221 /* Player.swift */; };
 		AB07DB5F2A5F9C0300721221 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB5E2A5F9C0300721221 /* SwiftUIView.swift */; };
@@ -24,14 +34,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		989968B22A607BCB0093C110 /* PlatformGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlatformGameScene.sks; sourceTree = "<group>"; };
-		AB07DB3A2A5F888600721221 /* MiniChallenge-01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiniChallenge-01.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		984AEF062A64B92400792A84 /* Door.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
+		984AEF0B2A64BCD300792A84 /* DoorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorComponent.swift; sourceTree = "<group>"; };
+		984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggerComponent.swift; sourceTree = "<group>"; };
+		984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
+		9865AC4D2A65B74F003BDA66 /* DoorEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoorEntity.swift; sourceTree = "<group>"; };
+		98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSetAsset.sks; sourceTree = "<group>"; };
+		98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseLevelScene.swift; sourceTree = "<group>"; };
+		98CE02AC2A64A0660032DFCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		98CE02B62A64A8BF0032DFCC /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
+		98CE02BA2A64A92A0032DFCC /* Level1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level1.swift; sourceTree = "<group>"; };
+		98CE02BE2A64AAE50032DFCC /* PlataformGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlataformGameScene.sks; sourceTree = "<group>"; };
+		98CE02C02A64B1DC0032DFCC /* Trigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trigger.swift; sourceTree = "<group>"; };
+		AB07DB3A2A5F888600721221 /* MiniChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB07DB3D2A5F888600721221 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB07DB452A5F888600721221 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		AB07DB482A5F888600721221 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB07DB4A2A5F888800721221 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB07DB4D2A5F888800721221 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		AB07DB542A5F8F0F00721221 /* PlataformGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlataformGameScene.swift; sourceTree = "<group>"; };
 		AB07DB5A2A5F934600721221 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		AB07DB5C2A5F938F00721221 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		AB07DB5E2A5F9C0300721221 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
@@ -52,6 +72,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		984AEF082A64BBF800792A84 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				9865AC4D2A65B74F003BDA66 /* DoorEntity.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		98CE02A92A64A0660032DFCC /* Prólogo */ = {
+			isa = PBXGroup;
+			children = (
+				98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */,
+				98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */,
+				98CE02AC2A64A0660032DFCC /* Assets.xcassets */,
+				98CE02BE2A64AAE50032DFCC /* PlataformGameScene.sks */,
+			);
+			path = "Prólogo";
+			sourceTree = "<group>";
+		};
+		98CE02B42A64A8A40032DFCC /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				98CE02B52A64A8AD0032DFCC /* Level1 */,
+			);
+			path = Levels;
+			sourceTree = "<group>";
+		};
+		98CE02B52A64A8AD0032DFCC /* Level1 */ = {
+			isa = PBXGroup;
+			children = (
+				98CE02B62A64A8BF0032DFCC /* Level1.sks */,
+				98CE02BA2A64A92A0032DFCC /* Level1.swift */,
+			);
+			path = Level1;
+			sourceTree = "<group>";
+		};
 		AB07DB312A5F888600721221 = {
 			isa = PBXGroup;
 			children = (
@@ -63,7 +119,7 @@
 		AB07DB3B2A5F888600721221 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AB07DB3A2A5F888600721221 /* MiniChallenge-01.app */,
+				AB07DB3A2A5F888600721221 /* MiniChallenge.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,12 +127,16 @@
 		AB07DB3C2A5F888600721221 /* MiniChallenge-01 */ = {
 			isa = PBXGroup;
 			children = (
+				984AEF082A64BBF800792A84 /* Entities */,
+				98CE02B42A64A8A40032DFCC /* Levels */,
 				AB07DB5E2A5F9C0300721221 /* SwiftUIView.swift */,
 				AB07DB452A5F888600721221 /* GameViewController.swift */,
 				AB07DB4A2A5F888800721221 /* Assets.xcassets */,
 				AB07DB572A5F90D600721221 /* APP */,
 				AB07DB592A5F921500721221 /* components */,
+				98CE02A92A64A0660032DFCC /* Prólogo */,
 				AB07DB582A5F911B00721221 /* Prologue */,
+				984AEF062A64B92400792A84 /* Door.swift */,
 			);
 			path = "MiniChallenge-01";
 			sourceTree = "<group>";
@@ -94,8 +154,6 @@
 		AB07DB582A5F911B00721221 /* Prologue */ = {
 			isa = PBXGroup;
 			children = (
-				AB07DB542A5F8F0F00721221 /* PlataformGameScene.swift */,
-				989968B22A607BCB0093C110 /* PlatformGameScene.sks */,
 			);
 			name = Prologue;
 			path = "Prólogo";
@@ -110,6 +168,10 @@
 				AB07DB622A60317800721221 /* VirtualController.swift */,
 				AB07DB642A60394100721221 /* Ground.swift */,
 				AB07DB672A60400000721221 /* Camera.swift */,
+				98CE02C02A64B1DC0032DFCC /* Trigger.swift */,
+				984AEF0B2A64BCD300792A84 /* DoorComponent.swift */,
+				984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */,
+				984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -117,9 +179,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AB07DB392A5F888600721221 /* MiniChallenge-01 */ = {
+		AB07DB392A5F888600721221 /* MiniChallenge */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AB07DB512A5F888800721221 /* Build configuration list for PBXNativeTarget "MiniChallenge-01" */;
+			buildConfigurationList = AB07DB512A5F888800721221 /* Build configuration list for PBXNativeTarget "MiniChallenge" */;
 			buildPhases = (
 				AB07DB362A5F888600721221 /* Sources */,
 				AB07DB372A5F888600721221 /* Frameworks */,
@@ -129,9 +191,9 @@
 			);
 			dependencies = (
 			);
-			name = "MiniChallenge-01";
+			name = MiniChallenge;
 			productName = "MiniChallenge-01";
-			productReference = AB07DB3A2A5F888600721221 /* MiniChallenge-01.app */;
+			productReference = AB07DB3A2A5F888600721221 /* MiniChallenge.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -149,7 +211,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AB07DB352A5F888600721221 /* Build configuration list for PBXProject "MiniChallenge-01" */;
+			buildConfigurationList = AB07DB352A5F888600721221 /* Build configuration list for PBXProject "MiniChallenge" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -162,7 +224,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AB07DB392A5F888600721221 /* MiniChallenge-01 */,
+				AB07DB392A5F888600721221 /* MiniChallenge */,
 			);
 		};
 /* End PBXProject section */
@@ -172,10 +234,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				989968B32A607BCB0093C110 /* PlatformGameScene.sks in Resources */,
 				AB07DB492A5F888600721221 /* Main.storyboard in Resources */,
+				98CE02B72A64A8BF0032DFCC /* Level1.sks in Resources */,
+				98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */,
+				98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */,
 				AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */,
 				AB07DB4E2A5F888800721221 /* LaunchScreen.storyboard in Resources */,
+				98CE02B12A64A0660032DFCC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,15 +251,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB07DB552A5F8F0F00721221 /* PlataformGameScene.swift in Sources */,
 				AB07DB462A5F888600721221 /* GameViewController.swift in Sources */,
 				AB07DB5F2A5F9C0300721221 /* SwiftUIView.swift in Sources */,
 				AB07DB3E2A5F888600721221 /* AppDelegate.swift in Sources */,
+				9865AC4E2A65B74F003BDA66 /* DoorEntity.swift in Sources */,
 				AB07DB5D2A5F938F00721221 /* Player.swift in Sources */,
+				984AEF0E2A64C42B00792A84 /* TriggerComponent.swift in Sources */,
+				984AEF0C2A64BCD300792A84 /* DoorComponent.swift in Sources */,
+				98CE02C12A64B1DC0032DFCC /* Trigger.swift in Sources */,
 				AB07DB632A60317800721221 /* VirtualController.swift in Sources */,
+				98CE02B02A64A0660032DFCC /* BaseLevelScene.swift in Sources */,
+				98CE02BB2A64A92A0032DFCC /* Level1.swift in Sources */,
 				AB07DB682A60400000721221 /* Camera.swift in Sources */,
+				984AEF072A64B92400792A84 /* Door.swift in Sources */,
 				AB07DB652A60394100721221 /* Ground.swift in Sources */,
 				AB07DB5B2A5F934600721221 /* Math.swift in Sources */,
+				984AEF102A64C70A00792A84 /* SpriteComponent.swift in Sources */,
 				AB07DB612A602D8C00721221 /* PhysicsCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,7 +466,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AB07DB352A5F888600721221 /* Build configuration list for PBXProject "MiniChallenge-01" */ = {
+		AB07DB352A5F888600721221 /* Build configuration list for PBXProject "MiniChallenge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AB07DB4F2A5F888800721221 /* Debug */,
@@ -403,7 +475,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AB07DB512A5F888800721221 /* Build configuration list for PBXNativeTarget "MiniChallenge-01" */ = {
+		AB07DB512A5F888800721221 /* Build configuration list for PBXNativeTarget "MiniChallenge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AB07DB522A5F888800721221 /* Debug */,

@@ -6,64 +6,187 @@
 //
 
 import SpriteKit
+import GameplayKit
 
-class ControllerJoystick: SKNode{
+
+class VirtualController{
     
-    let virtualControllerB: SKSpriteNode!
-    let virtualControllerF: SKSpriteNode!
+    let virtualJoystickB: SKSpriteNode!
+    let virtualJoystickF: SKSpriteNode!
+    let jumpButton: SKSpriteNode!
+    let dashButton: SKSpriteNode!
     
-    override init(){
+    var camera: SKCameraNode!
+    var joystickInUse: Bool = false
+    var joystickTouch: UITouch?
+    var jumpTouch: UITouch?
+    var dashTouch: UITouch?
+    var direction: CGPoint!
+    var joystickAngle: CGFloat = 0
+    var distanceX: CGFloat = 0
+    var distanceY: CGFloat = 0
+//    var gameScene = PlataformGameScene()
+    var hud = SKNode()
+    private let player = Player()
+    
+    init(camera: SKCameraNode){
         
+        self.camera = camera
+        
+        // JOYSTICK
         let textureControllerB = SKTexture(imageNamed: "virtualControllerB")
         let textureControllerF = SKTexture(imageNamed: "virtualControllerF")
         
-        virtualControllerB = SKSpriteNode(texture: textureControllerB, color: .white, size: textureControllerB.size())
-        virtualControllerB.name = "controllerBack"
-        virtualControllerB.zPosition = 5
+        virtualJoystickB = SKSpriteNode(texture: textureControllerB, color: .white, size: textureControllerB.size())
+       
+        virtualJoystickB.name = "controllerBack"
+        virtualJoystickB.zPosition = 5
         
-        virtualControllerF = SKSpriteNode(texture: textureControllerF, color: .white, size: textureControllerF.size())
-        virtualControllerF.name = "controllerFront"
-        virtualControllerF.zPosition = 6
+        virtualJoystickF = SKSpriteNode(texture: textureControllerF, color: .white, size: textureControllerF.size())
+     
+        virtualJoystickF.name = "controllerFront"
+        virtualJoystickF.zPosition = 6
         
-        super.init()
+        // JUMP
+        let textureJump = SKTexture(imageNamed: "jump")
+        
+        jumpButton = SKSpriteNode(texture: textureJump, color: .white, size: textureJump.size())
+     
+        jumpButton.name = "jump"
+        jumpButton.zPosition = 6
+        
+        // DASH
+        let textureDash = SKTexture(imageNamed: "dash")
+        
+        dashButton = SKSpriteNode(texture: textureDash, color: .white, size: textureDash.size())
+       
+        dashButton.name = "dash"
+        dashButton.zPosition = 6
+        
+
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    // JOYSTICK
+    
+    func firstTouch(location: CGPoint, touch: UITouch ){
+        
+        if virtualJoystickF.frame.contains(location) && location.x < 0{
+            
+            joystickInUse = true
+            joystickTouch = touch
+        }
     }
+    
+    func drag(location: CGPoint, player: SKSpriteNode) {
+        
+        if joystickInUse{
+            
+            let point = CGPoint(x: location.x - virtualJoystickB.position.x, y: location.y - virtualJoystickB.position.y).normalize()
+            
+            joystickAngle = atan2(point.y, point.x)
+            
+            direction = CGPoint(x: point.x * 40 , y: point.y * 40)
+            
+            
+            let distanceFromCenter = CGFloat(virtualJoystickB.frame.size.width / 2) // limita o botao pequeno
+            
+            distanceX = CGFloat(sin(joystickAngle - CGFloat.pi / 2) * distanceFromCenter) * -1
+            distanceY = CGFloat(cos(joystickAngle - CGFloat.pi / 2) * -distanceFromCenter) * -1
+            
+            let xDirection: CGFloat = distanceX < 0 ? -1 : 1
+            player.xScale = xDirection
+            // raiz de 2 - 1
+            
+            //                    let radiusB = controllerJoystick.virtualControllerB.size.width / 2
+            
+            if virtualJoystickB.frame.contains(location){
+                //                        -location.x / 4 > radiusB && -location.x / 5.8 < radiusB  &&  -location.y * 0.9 > radiusB  && -location.y / 2.9 < radiusB {
+                // 0.8 é o meio até o lado para o x
+                
+                virtualJoystickF.position = location
+                // -267
+                
+            }else{
+                
+                virtualJoystickB.position = CGPoint(x: virtualJoystickF.position.x - distanceX, y: virtualJoystickF.position.y - distanceY)
+                
+                virtualJoystickF.position = location
+            }
+        }
+    }
+    
+    func movementReset(size: CGSize){
+        
+        let moveback = SKAction.move(to: CGPoint(x: size.width / -3 + size.width / 50, y: size.height  / -3.7), duration: 0.1)
+        moveback.timingMode = .linear
+        virtualJoystickF.run(moveback)
+        virtualJoystickB.run(moveback)
+        joystickInUse = false
+        
+        player.stateMachine?.enter(PlayerIdle.self)
+    }
+    
+    
+    func addController(){
+ 
+        hud.addChild(virtualJoystickB)
+        hud.addChild(virtualJoystickF)
+    
+    }
+    
+    func applyMovement(){
+        
+        
+        player.stateMachine?.enter(PlayerRun.self)
+        
+    }
+
+    
+    // JUMP
+
+    func addJump(){
+        
+       
+        hud.addChild(jumpButton)
+        
+    }
+    
+    func applyJump(location: CGPoint, touch: UITouch ){
+        
+        if jumpButton.frame.contains(location) && location.x < 0{
+            
+            jumpTouch = touch
+            player.stateMachine?.enter(PlayerIdle.self)
+        }
+    }
+    
+//    func jumpReset(size: CGSize){
+//
+//        player.stateMachine?.enter(PlayerIdle.self)
+//    }
+    
+
+    // DASH
+     
+    func addDash(){
+        
+        
+        hud.addChild(dashButton)
+        
+    }
+    
+    func applyDash(location: CGPoint, touch: UITouch ){
+        
+        if dashButton.frame.contains(location) && location.x < 0{
+            
+            dashTouch = touch
+            player.stateMachine?.enter(PlayerDash.self)
+        }
+    }
+
 }
 
-class JumpButton: SKSpriteNode{
-    
-    init(){
-        
-        let texture = SKTexture(imageNamed: "jump")
-        
-        super.init(texture: texture, color: .red, size: texture.size())
-        
-        name = "jump"
-        zPosition = 6
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
 
-class DashButton: SKSpriteNode{
-    init(){
-        
-        let texture = SKTexture(imageNamed: "dash")
-        
-        super.init(texture: texture, color: .red, size: texture.size())
-        
-        name = "dash"
-        zPosition = 6
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
+
+ 
+

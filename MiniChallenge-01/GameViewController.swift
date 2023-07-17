@@ -17,20 +17,25 @@ class GameViewController: UIViewController {
         
         let skView = SKView(frame: view.frame)
         view = skView
+        
         //teste
         if let view = self.view as! SKView? {
             
-            let scene = PlataformGameScene(size: view.frame.size)
+            if let scene = SKScene(fileNamed: "PlataformGameScene") {
+                scene.scaleMode = .aspectFill
+                
+                // Present the scene
+                view.presentScene(scene)
+            }
+        
             // Set the scale mode to scale to fit the window
-            scene.scaleMode = .aspectFill
-            
-            // Present the scene
-            view.presentScene(scene)
+           
            
             view.ignoresSiblingOrder = false
             
             view.showsFPS = true
             view.showsNodeCount = true
+            view.showsPhysics = true
         }
     }
     
