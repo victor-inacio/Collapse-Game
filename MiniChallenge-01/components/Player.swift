@@ -8,30 +8,31 @@
 import SpriteKit
 import GameplayKit
 
-class Player{
+class Player: VirtualControllerTarget{
     
-    var player: SKSpriteNode!
+    var playerNode: SKSpriteNode!
     var stateMachine: GKStateMachine?
+    
     
     init(){
         
         let texture = SKTexture(imageNamed: "player")
         
-        player = SKSpriteNode(texture: texture, color: .red, size: texture.size())
+        playerNode = SKSpriteNode(texture: texture, color: .red, size: texture.size())
         
-        player.zPosition = 1
+        playerNode.zPosition = 1
         
-        name = "Player"
+        playerNode.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
+        playerNode.physicsBody?.collisionBitMask = PhysicsCategory.player.rawValue
+        playerNode.physicsBody?.allowsRotation = false
+        playerNode.physicsBody?.isDynamic = true
         
-        self.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        physicsBody?.categoryBitMask = PhysicsCategory.player.rawValue
-        physicsBody?.allowsRotation = false
-        physicsBody?.isDynamic = true
+        
         
     }
     
     func applyMachine(){
-        
+                
         stateMachine = GKStateMachine(states: [
             PlayerIdle(), PlayerRun(), PlayerJump(), PlayerDash()
         ])
@@ -39,46 +40,80 @@ class Player{
         stateMachine?.enter(PlayerIdle.self)
     }
     
+    func onJoystickChange(direction: CGVector) {
+     
+        applyMovement(distanceX: direction.dx)
+    }
+    
+    func applyMovement(distanceX: CGFloat){
+          
+        //        print("movendo")
+        playerNode.physicsBody!.velocity.dx = distanceX  * 4
+        
+        
+        stateMachine?.enter(distanceX == 0 ? PlayerIdle.self :  PlayerRun.self)
+    
+        
+        //        print("\(distanceX)")
+    }
+    
+    func jump(){
+
+        print("tentei ")
+        playerNode.physicsBody?.applyImpulse(CGVector(dx: playerNode.size.height * 2 , dy: playerNode.size.width * 0.5))
+
+    }
+//
+    func Dash(direction: CGPoint){
+
+       playerNode.physicsBody?.applyImpulse(CGVector(dx:direction.x , dy: direction.y  ))
+        
+        print(direction)
+    }
 }
 
-class PlayerIdle: GKState{
+class PlayerIdle: GKState {
     
     var player = Player()
-    var virtualController: VirtualController!
+
     
     override func didEnter(from previousState: GKState?) {
         
-//        virtualController.distanceX = 0
-        print("Idle")
+        print("estou em Idle")
+        
+    }
+    
+    func move() {
+        
     }
 }
 
 class PlayerRun: GKState{
     
-    var player = Player()
-    var virtualController: VirtualController!
+//    var gameScene = PlataformGameScene()
+    var isRunning = false
     
     override func didEnter(from previousState: GKState?) {
         
-        player.player.physicsBody!.velocity.dx = virtualController.distanceX * 4
-        print("entrou")
+        print("Estou correndo")
+        
+        isRunning = true
 
     }
 }
 
-
 class PlayerJump: GKState{
     
     var player = Player()
-    //    var virtualController: VirtualController!
-    
+
     override func didEnter(from previousState: GKState?) {
         
-        player.player.physicsBody?.applyImpulse(CGVector(dx: 3, dy: 3 * 0.5))
+        
+        
+        player.playerNode.physicsBody?.applyImpulse(CGVector(dx: 3, dy: 3 * 0.5))
         print("pulou")
         
     }
-    
 }
 
 class PlayerDash: GKState{
@@ -86,15 +121,4 @@ class PlayerDash: GKState{
     var player = Player()
     var virtualController: VirtualController!
     
-    override func didEnter(from previousState: GKState?) {
-        
-        
-        player.player.physicsBody?.applyImpulse(CGVector(dx: virtualController.direction.x, dy: virtualController.direction.y ))
-        
-    }
 }
-
-
-
-
-
