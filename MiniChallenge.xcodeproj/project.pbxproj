@@ -35,7 +35,7 @@
 
 /* Begin PBXFileReference section */
 		984AEF062A64B92400792A84 /* Door.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
-		984AEF0B2A64BCD300792A84 /* DoorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoorComponent.swift; path = ../../../../../Downloads/DoorComponent.swift; sourceTree = "<group>"; };
+		984AEF0B2A64BCD300792A84 /* DoorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorComponent.swift; sourceTree = "<group>"; };
 		984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggerComponent.swift; sourceTree = "<group>"; };
 		984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		9865AC4D2A65B74F003BDA66 /* DoorEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoorEntity.swift; sourceTree = "<group>"; };
