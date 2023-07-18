@@ -105,20 +105,16 @@ class PlayerIdle: GKState {
    
     }
     
-    func move() {
-        
-    }
+
 }
 
 class PlayerRun: GKState{
     
-    //    var gameScene = PlataformGameScene()
     var isRunning = false
     
     override func didEnter(from previousState: GKState?) {
         
-//        print("Estou correndo")
-        
+
         isRunning = true
         
     }
@@ -127,12 +123,11 @@ class PlayerRun: GKState{
 class PlayerJump: GKState{
     
     var player = Player()
-    var onAir = false
+   
     
     override func didEnter(from previousState: GKState?) {
         
-        print("pulou")
-        onAir = true
+
     }
 }
 
