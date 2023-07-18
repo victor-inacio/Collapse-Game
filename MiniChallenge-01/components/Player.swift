@@ -37,18 +37,13 @@ class Player: VirtualControllerTarget{
         stateMachine?.enter(PlayerIdle.self)
     }
     
-    func onJoystickChange(direction: CGVector) {
+    func onJoystickChange(direction: CGPoint, angle: CGFloat) {
     
-        applyMovement(distanceX: direction.dx)
-        
-        let xDirection: CGFloat = direction.dx < 0 ? -1 : 1
-        playerNode.xScale = xDirection
+        applyMovement(distanceX: direction.x, angle: angle)
+    
         
     }
-    
-  
-    
-
+ 
     func onJoystickJumpBtnTouch() {
         jump()
     }
@@ -57,10 +52,12 @@ class Player: VirtualControllerTarget{
         dash(direction: direction)
     }
     
-    func applyMovement(distanceX: CGFloat){
-        
+    func applyMovement(distanceX: CGFloat, angle: CGFloat){
         
         playerNode.physicsBody!.velocity.dx = distanceX  * 4
+        
+        let Xscale = angle <= 1 ? 1.0 : -1.0
+        playerNode.xScale = Xscale
         
         if distanceX != 0{
             
@@ -69,7 +66,6 @@ class Player: VirtualControllerTarget{
     }
     
     func jump(){
-        
         
         playerNode.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: playerNode.size.height / 2))
         
@@ -82,7 +78,7 @@ class Player: VirtualControllerTarget{
         
         stateMachine?.enter(PlayerDash.self)
         
-        print(direction)
+//        print(direction)
     }
     
 }

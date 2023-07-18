@@ -10,7 +10,7 @@ import GameplayKit
 
 protocol VirtualControllerTarget {
     
-    func onJoystickChange(direction: CGVector) -> Void
+    func onJoystickChange(direction: CGPoint, angle: CGFloat) -> Void
     func onJoystickJumpBtnTouch() -> Void
     func onJoystickDashBtnTouch(direction: CGVector) -> Void
 }
@@ -30,13 +30,12 @@ class VirtualController: SKNode{
     var joystickAngle: CGFloat = 0
     var distanceX: CGFloat = 0 {
         didSet {
-            
-            self.target.onJoystickChange(direction: .init(dx: self.distanceX, dy: self.distanceY))
+            self.target.onJoystickChange(direction: .init(x: self.distanceX, y: self.distanceY), angle: joystickAngle)
         }
     }
     var distanceY: CGFloat = 0 {
         didSet {
-            self.target.onJoystickChange(direction: .init(dx: self.distanceX, dy: self.distanceY))
+            self.target.onJoystickChange(direction: .init(x: self.distanceX, y: self.distanceY), angle: joystickAngle)
         }
     }
     var gameScene = BaseLevelScene()
@@ -142,10 +141,10 @@ class VirtualController: SKNode{
             
             joystickInUse = true
             joystickTouch = touch
-            
+            print(joystickInUse)
         }
     }
-    
+        
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         for t in touches{
@@ -160,7 +159,7 @@ class VirtualController: SKNode{
     func drag(location: CGPoint) {
         
         if joystickInUse{
-            
+//            print("in use")
             let point = CGPoint(x: location.x - virtualJoystickB!.position.x, y: location.y - virtualJoystickB!.position.y).normalize()
             
             joystickAngle = atan2(point.y, point.x)
@@ -173,10 +172,8 @@ class VirtualController: SKNode{
             distanceX = CGFloat(sin(joystickAngle - CGFloat.pi / 2) * distanceFromCenter) * -1
             distanceY = CGFloat(cos(joystickAngle - CGFloat.pi / 2) * -distanceFromCenter) * -1
             
-            let xDirection: CGFloat = distanceX < 0 ? -1 : 1
-            // raiz de 2 - 1
-            
-            //                    let radiusB = controllerJoystick.virtualControllerB.size.width / 2
+
+            //let radiusB = controllerJoystick.virtualControllerB.size.width / 2
             
             if virtualJoystickB!.frame.contains(location){
                 //                        -location.x / 4 > radiusB && -location.x / 5.8 < radiusB  &&  -location.y * 0.9 > radiusB  && -location.y / 2.9 < radiusB {
@@ -187,7 +184,7 @@ class VirtualController: SKNode{
                 
             }else{
                 
-                virtualJoystickB!.position = CGPoint(x: virtualJoystickF!.position.x - distanceX , y: virtualJoystickF!.position.y - distanceY )
+                virtualJoystickB!.position = CGPoint(x: virtualJoystickF!.position.x - distanceX , y: virtualJoystickF!.position.y - distanceY)
                 
                 virtualJoystickF!.position = location
             }
@@ -213,11 +210,6 @@ class VirtualController: SKNode{
         addChild(virtualJoystickB!)
         addChild(virtualJoystickF!)
         
-    }
-    
-    func stop(){
-        
-        distanceX = 0
     }
     
     // JUMP
