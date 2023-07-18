@@ -56,8 +56,21 @@ class Player: VirtualControllerTarget{
         
         playerNode.physicsBody!.velocity.dx = distanceX  * 4
         
-        let Xscale = angle <= 1 ? 1.0 : -1.0
-        playerNode.xScale = Xscale
+        
+        print(angle)
+//        && angle < -1.51
+        if angle > 1.51 || angle < -1.51{
+
+            playerNode.xScale = -1
+
+        } else{
+            
+            playerNode.xScale = 1
+            
+        }
+        
+        
+        print(angle)
         
         if distanceX != 0{
             
