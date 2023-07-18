@@ -22,6 +22,7 @@ class FallenBlocksComponent: GKComponent {
                 
         let triggerComponent = TriggerComponent { otherNode in
             
+            
             if (self.canBeDestoyed ) {
                 
                 if (otherNode?.name != "player") {
@@ -31,21 +32,24 @@ class FallenBlocksComponent: GKComponent {
                 
                 return
             } else {
-                nodeClone.alpha = 1
-                
-                
-                
-                nodeClone.run(.sequence([
-                    .shake(initialPosition: node.position, duration: 0.5),
-                    SKAction.run {
-                        node.physicsBody?.isDynamic = true
-                        node.physicsBody?.affectedByGravity = true
-                        nodeClone.removeFromParent()
-                        node.alpha = 1
-                        
+                if let otherNode = otherNode {
+                    let topPositionOfBlock = node.position.y + node.size.height / 2
+                    let bottomPositionOfOtherNode = otherNode.position.y - otherNode.size.height / 2
+                    
+                    if (otherNode.name == "player" && otherNode.position.y >= topPositionOfBlock) {
+                        nodeClone.run(.sequence([
+                            .shake(initialPosition: node.position, duration: 0.5),
+                            SKAction.run {
+                                node.physicsBody?.isDynamic = true
+                                node.physicsBody?.affectedByGravity = true
+                                nodeClone.removeFromParent()
+                                node.alpha = 1
+                                
+                            }
+                        ]))
+                        self.canBeDestoyed = true
                     }
-                ]))
-                self.canBeDestoyed = true
+                }
             }
             
             
