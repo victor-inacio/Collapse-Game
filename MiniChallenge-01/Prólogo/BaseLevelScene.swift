@@ -51,7 +51,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         addGround()
         addPlataform()
        
-     
         
         addChild(camera2)
         camera2.addChild(virtualController)

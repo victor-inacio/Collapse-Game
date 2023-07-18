@@ -13,6 +13,7 @@ protocol VirtualControllerTarget {
     func onJoystickChange(direction: CGPoint, angle: CGFloat) -> Void
     func onJoystickJumpBtnTouch() -> Void
     func onJoystickDashBtnTouch(direction: CGVector) -> Void
+    
 }
 
 class VirtualController: SKNode{
@@ -141,7 +142,7 @@ class VirtualController: SKNode{
             
             joystickInUse = true
             joystickTouch = touch
-            print(joystickInUse)
+          
             
         }
     }
