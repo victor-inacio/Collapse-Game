@@ -13,6 +13,7 @@ class Player: VirtualControllerTarget{
     var playerNode: SKSpriteNode!
     var stateMachine: GKStateMachine?
     var velocityX: CGFloat = 0
+    var angle: CGFloat = 0
     
     init(){
         let texture = SKTexture(imageNamed: "player")
@@ -40,9 +41,10 @@ class Player: VirtualControllerTarget{
     
         applyMovement(distanceX: direction.x, angle: angle)
     
-        velocityX = direction.dx
+        velocityX = direction.x
+        self.angle = angle
         
-        let xDirection: CGFloat = direction.dx < 0 ? -1 : 1
+        let xDirection: CGFloat = direction.x < 0 ? -1 : 1
         playerNode.xScale = xDirection
         
     }
@@ -59,8 +61,7 @@ class Player: VirtualControllerTarget{
         
         playerNode.physicsBody!.velocity.dx = distanceX  * 4
         
-        print(angle)
-        
+            
         if angle > 1.51 || angle < -1.51{
 
             playerNode.xScale = -1
@@ -81,7 +82,7 @@ class Player: VirtualControllerTarget{
     }
     
     func update() {
-        applyMovement(distanceX: velocityX)
+        applyMovement(distanceX: velocityX, angle: angle)
     }
     
     func jump(){
