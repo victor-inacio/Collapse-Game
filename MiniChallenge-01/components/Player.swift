@@ -20,6 +20,8 @@ class Player: VirtualControllerTarget{
         
         playerNode = SKSpriteNode(texture: texture, color: .red, size: texture.size())
         
+        playerNode.name = "player"
+        
         playerNode.zPosition = 1
         
         playerNode.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
@@ -72,8 +74,6 @@ class Player: VirtualControllerTarget{
             
         }
         
-        
-        print(angle)
         
         if distanceX != 0{
             
@@ -138,8 +138,7 @@ class PlayerJump: GKState{
     var onAir = false
     
     override func didEnter(from previousState: GKState?) {
-        
-        print("pulou")
+
         onAir = true
     }
 }

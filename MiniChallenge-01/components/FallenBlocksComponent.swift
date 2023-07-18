@@ -6,34 +6,59 @@ class FallenBlocksComponent: GKComponent {
     var canBeDestoyed = false
     
     override func didAddToEntity() {
+        
         let node = self.entity!.component(ofType: SpriteComponent.self)!.node!
+        let scene = node.scene!
         
         
-        let triggerComponent = TriggerComponent {
-            if (self.canBeDestoyed) {
-                self.entity?.removeComponent(ofType: FallenBlocksComponent.self)
-                node.removeFromParent()
+        var nodeClone = node.copy() as! SKSpriteNode
+        nodeClone.physicsBody = nil
+        node.alpha = 0
+        nodeClone.alpha = 1
+        scene.addChild(nodeClone)
+        
+       
+        
+                
+        let triggerComponent = TriggerComponent { otherNode in
+            
+            if (self.canBeDestoyed ) {
+                
+                if (otherNode?.name != "player") {
+                    self.entity?.removeComponent(ofType: FallenBlocksComponent.self)
+                    node.removeFromParent()
+                }
+                
                 return
+            } else {
+                nodeClone.alpha = 1
+                
+                
+                
+                nodeClone.run(.sequence([
+                    .shake(initialPosition: node.position, duration: 0.5),
+                    SKAction.run {
+                        node.physicsBody?.isDynamic = true
+                        node.physicsBody?.affectedByGravity = true
+                        nodeClone.removeFromParent()
+                        node.alpha = 1
+                        
+                    }
+                ]))
+                self.canBeDestoyed = true
             }
             
-            node.run(.sequence([
-                .shake(initialPosition: node.position, duration: 0.5),
-                SKAction.run {
-                    node.physicsBody?.isDynamic = true
-                    node.physicsBody?.affectedByGravity = true
-                    self.canBeDestoyed = true
-                }
-            ]))
+            
         }
         self.entity?.addComponent(triggerComponent)
-        node.physicsBody?.categoryBitMask = PhysicsCategory.player.rawValue
+        node.physicsBody?.categoryBitMask = PhysicsCategory.fallen.rawValue
         node.physicsBody?.collisionBitMask = PhysicsCategory.player.rawValue
     }
     
 }
 
 extension SKAction {
-    class func shake(initialPosition:CGPoint, duration:Float, amplitudeX:Int = 12, amplitudeY:Int = 3) -> SKAction {
+    class func shake(initialPosition:CGPoint, duration:Float, amplitudeX:Int = 10, amplitudeY:Int = 0) -> SKAction {
         let startingX = initialPosition.x
         let startingY = initialPosition.y
         let numberOfShakes = duration / 0.015
@@ -43,7 +68,7 @@ extension SKAction {
             let newYPos = startingY + CGFloat(arc4random_uniform(UInt32(amplitudeY))) - CGFloat(amplitudeY / 2)
             actionsArray.append(SKAction.move(to: CGPointMake(newXPos, newYPos), duration: 0.015))
         }
-        actionsArray.append(SKAction.move(to: initialPosition, duration: 0.015))
+        actionsArray.append(SKAction.move(to: initialPosition, duration: 0))
         return SKAction.sequence(actionsArray)
     }
 }

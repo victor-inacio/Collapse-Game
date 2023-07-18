@@ -4,9 +4,9 @@ import GameplayKit
 
 class TriggerComponent: GKComponent {
     
-    var callback: () -> Void
+    var callback: (_ otherNode: SKSpriteNode?) -> Void
     
-    init(callback: @escaping () -> Void) {
+    init(callback: @escaping (_ otherNode: SKSpriteNode?) -> Void) {
         self.callback = callback
         super.init()
     }
@@ -14,17 +14,22 @@ class TriggerComponent: GKComponent {
     override func didAddToEntity() {
         if let node = entity?.component(ofType: SpriteComponent.self)?.node {
             print(node.position)
-    
-            node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
             
-            node.physicsBody?.isDynamic = false
-            node.physicsBody?.affectedByGravity = false
-            node.physicsBody?.allowsRotation = false
+            var physicsBody = node.physicsBody
             
-            node.physicsBody?.categoryBitMask = 0
-            node.physicsBody?.contactTestBitMask = PhysicsCategory.player.rawValue
-            node.physicsBody?.collisionBitMask = 0
+            if ((physicsBody == nil)) {
+                physicsBody = SKPhysicsBody(rectangleOf: node.size)
+                
+                physicsBody?.isDynamic = false
+                physicsBody?.affectedByGravity = false
+                physicsBody?.allowsRotation = false
+            }
+            
+            physicsBody?.categoryBitMask = 0
+            physicsBody?.contactTestBitMask = PhysicsCategory.player.rawValue
+            physicsBody?.collisionBitMask = 0
            
+            node.physicsBody = physicsBody
     
         }
     }

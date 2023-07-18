@@ -75,18 +75,10 @@ extension BaseLevelScene{
 //                    Physics Body
                     if  canCreatePhysicsBody{
                         tileNode.anchorPoint = CGPoint(x: 0.5 - ((sizeOfThePhysicsBody[row] - 1) * 0.5), y: 0.5)
-                        
-                        let entity = GKEntity()
-                        
-                        
+                        self.addChild(tileNode)
+                 
                         
                         tileNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (tileTexture.size().width/proportion) * (sizeOfThePhysicsBody[row]), height: (tileTexture.size().height/proportion)))
-                        
-                        entity.addComponent(SpriteComponent(node: tileNode))
-                        entity.addComponent(FallenBlocksComponent())
-                        
-                        triggersManager.addComponent(foundIn: entity)
-                        self.entities.append(entity)
                         
                         tileNode.physicsBody?.affectedByGravity = false
                         tileNode.physicsBody?.allowsRotation = false
@@ -101,11 +93,19 @@ extension BaseLevelScene{
                         
                         tileNode.position = CGPoint(x: (tileNode.position.x + startingLocation.x) - (0.5 * (sizeOfThePhysicsBody[row] - 1) * Double(tileTexture.size().width/proportion)) , y: tileNode.position.y + startingLocation.y)
                         sizeOfThePhysicsBody[row] = 0
-                        self.addChild(tileNode)
+                        
                     } else{
                         self.addChild(tileNode)
                         tileNode.position = CGPoint(x: tileNode.position.x + startingLocation.x , y: tileNode.position.y + startingLocation.y)
                     }
+                    
+                    let entity = GKEntity()
+                
+                    entity.addComponent(SpriteComponent(node: tileNode))
+                    entity.addComponent(FallenBlocksComponent())
+                    
+                    triggersManager.addComponent(foundIn: entity)
+                    self.entities.append(entity)
                 }
             }
         }

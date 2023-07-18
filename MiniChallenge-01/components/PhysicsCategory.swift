@@ -12,4 +12,5 @@ enum PhysicsCategory: UInt32{
     case trigger = 2
     case door = 3
     case wall = 4
+    case fallen = 5
 }

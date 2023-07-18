@@ -97,7 +97,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         let entity = GKEntity()
         
         entity.addComponent(SpriteComponent(node: node))
-        entity.addComponent(TriggerComponent(callback: {
+        entity.addComponent(TriggerComponent(callback: { node in
             callback()
         }))
         triggersManager.addComponent(foundIn: entity)
@@ -110,18 +110,22 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-           let nodeA = contact.bodyA.node
-           let nodeB = contact.bodyB.node
+           let nodeA = contact.bodyA.node as? SKSpriteNode
+           let nodeB = contact.bodyB.node as? SKSpriteNode
            for triggerComponent in triggersManager.components {
    
+               print(contact.bodyA.node, contact.bodyB.node)
+               
                if let triggerNode = triggerComponent.entity?.component(ofType: SpriteComponent.self)?.node {
    
                    if triggerNode == nodeA {
-                       triggerComponent.callback()
+                       print(nodeB)
+                       triggerComponent.callback(nodeB)
                    }
    
                    if triggerNode == nodeB {
-                       triggerComponent.callback()
+                       print(nodeA)
+                       triggerComponent.callback(nodeA)
                    }
                }
    

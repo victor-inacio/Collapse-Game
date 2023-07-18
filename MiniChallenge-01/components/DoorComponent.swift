@@ -4,7 +4,7 @@ import SpriteKit
 class DoorComponent: GKComponent {
     override func didAddToEntity() {
         
-        let triggerComponent = TriggerComponent {
+        let triggerComponent = TriggerComponent { otherNode in
             let node = self.entity!.component(ofType: SpriteComponent.self)!.node!
             
             if let userData = node.userData {
