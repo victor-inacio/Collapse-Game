@@ -6,12 +6,9 @@ class TriggerComponent: GKComponent {
     
     var callback: () -> Void
     
-    
     init(callback: @escaping () -> Void) {
-        
         self.callback = callback
         super.init()
-      
     }
     
     override func didAddToEntity() {

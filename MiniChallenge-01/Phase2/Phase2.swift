@@ -10,6 +10,16 @@ import SpriteKit
 import GameplayKit
 
 
+class Phase2: BaseLevelScene {
+    
+    override func didMove(to view: SKView) {
+        super.didMove(to: view)
+        
+        
+    }
+    
+}
+
 ////IMPORTANTE
 //for node in self.children {
 //    if (node.name == "Floor") || (node.name == "Water"){

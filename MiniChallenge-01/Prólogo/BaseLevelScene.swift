@@ -43,13 +43,9 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         virtualController = VirtualController(target: self.player, scene: self)
         
         
-        let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
+        let boundaries = getBoundaries()
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: boundaries!.frame)
-        
-        
-        addGround()
-        addPlataform()
         
         let spawnPoint = getSpawnPoint()
         player.playerNode.position = spawnPoint
@@ -69,8 +65,21 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                     someTileMap.removeFromParent()
                 }
             }
-        }
+            
+            if (node.name == "Fallen"){
+                    if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
+                        giveTileMapPhysicsBodyFallen(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                        someTileMap.removeFromParent()
+                    }
+                }
+            }
         
+    }
+    
+    func getBoundaries() -> SKSpriteNode? {
+        let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
+        
+        return boundaries
     }
     
     func getSpawnPoint() -> CGPoint {

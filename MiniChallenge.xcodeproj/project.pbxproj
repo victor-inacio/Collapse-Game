@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		98155DC62A6722C30067EA24 /* Phase2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98155DC52A6722C30067EA24 /* Phase2.sks */; };
+		98155DC82A672DD30067EA24 /* FallenBlocksComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */; };
 		984AEF0C2A64BCD300792A84 /* DoorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF0B2A64BCD300792A84 /* DoorComponent.swift */; };
 		984AEF0E2A64C42B00792A84 /* TriggerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */; };
 		984AEF102A64C70A00792A84 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */; };
@@ -31,12 +33,13 @@
 		E8E492142A66314900FE6C86 /* Phase1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E492132A66314900FE6C86 /* Phase1.swift */; };
 		E8E492162A6633F800FE6C86 /* Phase1.sks in Resources */ = {isa = PBXBuildFile; fileRef = E8E492152A6633F800FE6C86 /* Phase1.sks */; };
 		E8E492192A66359B00FE6C86 /* Phase2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E492182A66359B00FE6C86 /* Phase2.swift */; };
-		E8E4921B2A663CD100FE6C86 /* Phase2.sks in Resources */ = {isa = PBXBuildFile; fileRef = E8E4921A2A663CD100FE6C86 /* Phase2.sks */; };
 		E8E4921E2A66476B00FE6C86 /* Phase3.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E4921D2A66476B00FE6C86 /* Phase3.swift */; };
 		E8E492202A66477500FE6C86 /* Phase3.sks in Resources */ = {isa = PBXBuildFile; fileRef = E8E4921F2A66477500FE6C86 /* Phase3.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		98155DC52A6722C30067EA24 /* Phase2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Phase2.sks; sourceTree = "<group>"; };
+		98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallenBlocksComponent.swift; sourceTree = "<group>"; };
 		984AEF0B2A64BCD300792A84 /* DoorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorComponent.swift; sourceTree = "<group>"; };
 		984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggerComponent.swift; sourceTree = "<group>"; };
 		984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
@@ -62,7 +65,6 @@
 		E8E492132A66314900FE6C86 /* Phase1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase1.swift; sourceTree = "<group>"; };
 		E8E492152A6633F800FE6C86 /* Phase1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Phase1.sks; sourceTree = "<group>"; };
 		E8E492182A66359B00FE6C86 /* Phase2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase2.swift; sourceTree = "<group>"; };
-		E8E4921A2A663CD100FE6C86 /* Phase2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Phase2.sks; sourceTree = "<group>"; };
 		E8E4921D2A66476B00FE6C86 /* Phase3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase3.swift; sourceTree = "<group>"; };
 		E8E4921F2A66477500FE6C86 /* Phase3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Phase3.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,6 +155,7 @@
 				984AEF0B2A64BCD300792A84 /* DoorComponent.swift */,
 				984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */,
 				984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */,
+				98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -170,7 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				E8E492182A66359B00FE6C86 /* Phase2.swift */,
-				E8E4921A2A663CD100FE6C86 /* Phase2.sks */,
+				98155DC52A6722C30067EA24 /* Phase2.sks */,
 			);
 			path = Phase2;
 			sourceTree = "<group>";
@@ -242,11 +245,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98155DC62A6722C30067EA24 /* Phase2.sks in Resources */,
 				AB07DB492A5F888600721221 /* Main.storyboard in Resources */,
 				98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */,
 				98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */,
 				AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */,
-				E8E4921B2A663CD100FE6C86 /* Phase2.sks in Resources */,
 				E8E492202A66477500FE6C86 /* Phase3.sks in Resources */,
 				AB07DB4E2A5F888800721221 /* LaunchScreen.storyboard in Resources */,
 				E8E492162A6633F800FE6C86 /* Phase1.sks in Resources */,
@@ -265,6 +268,7 @@
 				AB07DB5F2A5F9C0300721221 /* SwiftUIView.swift in Sources */,
 				E8E492192A66359B00FE6C86 /* Phase2.swift in Sources */,
 				E8E492142A66314900FE6C86 /* Phase1.swift in Sources */,
+				98155DC82A672DD30067EA24 /* FallenBlocksComponent.swift in Sources */,
 				AB07DB3E2A5F888600721221 /* AppDelegate.swift in Sources */,
 				E80B5B372A65D5BE00E719E4 /* SKScene.swift in Sources */,
 				9865AC4E2A65B74F003BDA66 /* DoorEntity.swift in Sources */,
