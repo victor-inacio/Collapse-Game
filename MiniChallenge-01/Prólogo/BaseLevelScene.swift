@@ -35,23 +35,25 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         self.view?.isMultipleTouchEnabled = true
         
         self.camera = camera2
-
+        
         player = Player()
         addPlayer()
         player.applyMachine()
         
         virtualController = VirtualController(target: self.player, scene: self)
-
-     
+        
+        
         let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: boundaries!.frame)
-
-
+        
+        
         addGround()
         addPlataform()
-       
-     
+        
+        let spawnPoint = getSpawnPoint()
+        player.playerNode.position = spawnPoint
+        
         
         addChild(camera2)
         camera2.addChild(virtualController)
@@ -68,7 +70,18 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                 }
             }
         }
-
+        
+    }
+    
+    func getSpawnPoint() -> CGPoint {
+        
+        let spawnPointNode = childNode(withName: "SpawnPoint")
+        
+        
+        let position = spawnPointNode?.position ?? CGPoint(x: 0, y: 0)
+        
+        
+        return position
     }
     
     func addTriggerToNode(node: SKSpriteNode, callback: @escaping () -> Void) {
