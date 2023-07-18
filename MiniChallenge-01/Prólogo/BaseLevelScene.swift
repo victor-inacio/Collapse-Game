@@ -41,11 +41,12 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         player.applyMachine()
         
         virtualController = VirtualController(target: self.player, scene: self)
-        
 
-
-        cameraController = CameraController(camera: self.camera!, target: player.playerNode, boundaries: nil)
      
+        let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
+        
+        physicsBody = SKPhysicsBody(edgeLoopFrom: boundaries!.frame)
+
 
         addGround()
         addPlataform()
@@ -55,8 +56,19 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         addChild(camera2)
         camera2.addChild(virtualController)
         
+        cameraController = CameraController(camera: self.camera!, target: player.playerNode, boundaries: boundaries)
+        
         setupDoors()
         
+        for node in self.children {
+            if (node.name == "Floor"){
+                if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
+                    giveTileMapPhysicsBodyFloor(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                    someTileMap.removeFromParent()
+                }
+            }
+        }
+
     }
     
     func addTriggerToNode(node: SKSpriteNode, callback: @escaping () -> Void) {
