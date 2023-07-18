@@ -71,6 +71,10 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         self.entities.append(entity)
     }
     
+    override func update(_ currentTime: TimeInterval) {
+        player.update()
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
            let nodeA = contact.bodyA.node
            let nodeB = contact.bodyB.node
