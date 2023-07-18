@@ -73,12 +73,12 @@ class Phase2: SKScene, SKPhysicsContactDelegate{
         
         //IMPORTANTE
         for node in self.children {
-            if (node.name == "Floor"){
+            if (node.name == "Floor") || (node.name == "Water"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
                     giveTileMapPhysicsBodyFloor(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
                     someTileMap.removeFromParent()
                 }
-            } else if (node.name == "Wall") || (node.name == "Water"){
+            } else if (node.name == "Wall"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
                     giveTileMapPhysicsBodyWall(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
                     someTileMap.removeFromParent()
