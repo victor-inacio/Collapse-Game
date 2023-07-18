@@ -12,9 +12,9 @@ class Player: VirtualControllerTarget{
     
     var playerNode: SKSpriteNode!
     var stateMachine: GKStateMachine?
+    var velocityX: CGFloat = 0
     
     init(){
-        
         let texture = SKTexture(imageNamed: "player")
         
         playerNode = SKSpriteNode(texture: texture, color: .red, size: texture.size())
@@ -25,7 +25,6 @@ class Player: VirtualControllerTarget{
         playerNode.physicsBody?.collisionBitMask = PhysicsCategory.player.rawValue
         playerNode.physicsBody?.allowsRotation = false
         playerNode.physicsBody?.isDynamic = true
-        
     }
     
     func applyMachine(){
@@ -41,9 +40,13 @@ class Player: VirtualControllerTarget{
     
         applyMovement(distanceX: direction.x, angle: angle)
     
+        velocityX = direction.dx
+        
+        let xDirection: CGFloat = direction.dx < 0 ? -1 : 1
+        playerNode.xScale = xDirection
         
     }
- 
+
     func onJoystickJumpBtnTouch() {
         jump()
     }
@@ -75,6 +78,10 @@ class Player: VirtualControllerTarget{
             
             stateMachine?.enter(PlayerRun.self)
         }
+    }
+    
+    func update() {
+        applyMovement(distanceX: velocityX)
     }
     
     func jump(){
