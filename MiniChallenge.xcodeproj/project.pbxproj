@@ -11,7 +11,6 @@
 		984AEF0E2A64C42B00792A84 /* TriggerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */; };
 		984AEF102A64C70A00792A84 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */; };
 		9865AC4E2A65B74F003BDA66 /* DoorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865AC4D2A65B74F003BDA66 /* DoorEntity.swift */; };
-		9865AC522A65BC3B003BDA66 /* asd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865AC512A65BC3B003BDA66 /* asd.swift */; };
 		98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */; };
 		98CE02B02A64A0660032DFCC /* BaseLevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */; };
 		98CE02B12A64A0660032DFCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98CE02AC2A64A0660032DFCC /* Assets.xcassets */; };
@@ -28,6 +27,10 @@
 		AB07DB632A60317800721221 /* VirtualController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB622A60317800721221 /* VirtualController.swift */; };
 		AB07DB652A60394100721221 /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB642A60394100721221 /* Ground.swift */; };
 		AB07DB682A60400000721221 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB672A60400000721221 /* Camera.swift */; };
+		E80B5B372A65D5BE00E719E4 /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80B5B362A65D5BE00E719E4 /* SKScene.swift */; };
+		E8E492142A66314900FE6C86 /* Phase1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E492132A66314900FE6C86 /* Phase1.swift */; };
+		E8E492162A6633F800FE6C86 /* Phase1.sks in Resources */ = {isa = PBXBuildFile; fileRef = E8E492152A6633F800FE6C86 /* Phase1.sks */; };
+		E8E492192A66359B00FE6C86 /* Phase2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E492182A66359B00FE6C86 /* Phase2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +38,6 @@
 		984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggerComponent.swift; sourceTree = "<group>"; };
 		984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		9865AC4D2A65B74F003BDA66 /* DoorEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoorEntity.swift; sourceTree = "<group>"; };
-		9865AC512A65BC3B003BDA66 /* asd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = asd.swift; path = ../../../../../Documents/asd.swift; sourceTree = "<group>"; };
 		98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSetAsset.sks; sourceTree = "<group>"; };
 		98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseLevelScene.swift; sourceTree = "<group>"; };
 		98CE02AC2A64A0660032DFCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +55,10 @@
 		AB07DB622A60317800721221 /* VirtualController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualController.swift; sourceTree = "<group>"; };
 		AB07DB642A60394100721221 /* Ground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
 		AB07DB672A60400000721221 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		E80B5B362A65D5BE00E719E4 /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
+		E8E492132A66314900FE6C86 /* Phase1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase1.swift; sourceTree = "<group>"; };
+		E8E492152A6633F800FE6C86 /* Phase1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Phase1.sks; sourceTree = "<group>"; };
+		E8E492182A66359B00FE6C86 /* Phase2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +85,6 @@
 			children = (
 				98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */,
 				98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */,
-				9865AC512A65BC3B003BDA66 /* asd.swift */,
 				98CE02AC2A64A0660032DFCC /* Assets.xcassets */,
 				98CE02BE2A64AAE50032DFCC /* PlataformGameScene.sks */,
 			);
@@ -105,6 +110,8 @@
 		AB07DB3C2A5F888600721221 /* MiniChallenge-01 */ = {
 			isa = PBXGroup;
 			children = (
+				E8E492172A66350800FE6C86 /* Phase2 */,
+				E8E4920B2A662F7800FE6C86 /* Phase1 */,
 				984AEF082A64BBF800792A84 /* Entities */,
 				AB07DB5E2A5F9C0300721221 /* SwiftUIView.swift */,
 				AB07DB452A5F888600721221 /* GameViewController.swift */,
@@ -112,7 +119,7 @@
 				AB07DB572A5F90D600721221 /* APP */,
 				AB07DB592A5F921500721221 /* components */,
 				98CE02A92A64A0660032DFCC /* Prólogo */,
-				AB07DB582A5F911B00721221 /* Prologue */,
+				E80B5B362A65D5BE00E719E4 /* SKScene.swift */,
 			);
 			path = "MiniChallenge-01";
 			sourceTree = "<group>";
@@ -125,14 +132,6 @@
 				AB07DB3D2A5F888600721221 /* AppDelegate.swift */,
 			);
 			path = APP;
-			sourceTree = "<group>";
-		};
-		AB07DB582A5F911B00721221 /* Prologue */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Prologue;
-			path = "Prólogo";
 			sourceTree = "<group>";
 		};
 		AB07DB592A5F921500721221 /* components */ = {
@@ -149,6 +148,23 @@
 				984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */,
 			);
 			path = components;
+			sourceTree = "<group>";
+		};
+		E8E4920B2A662F7800FE6C86 /* Phase1 */ = {
+			isa = PBXGroup;
+			children = (
+				E8E492132A66314900FE6C86 /* Phase1.swift */,
+				E8E492152A6633F800FE6C86 /* Phase1.sks */,
+			);
+			path = Phase1;
+			sourceTree = "<group>";
+		};
+		E8E492172A66350800FE6C86 /* Phase2 */ = {
+			isa = PBXGroup;
+			children = (
+				E8E492182A66359B00FE6C86 /* Phase2.swift */,
+			);
+			path = Phase2;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +230,7 @@
 				98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */,
 				AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */,
 				AB07DB4E2A5F888800721221 /* LaunchScreen.storyboard in Resources */,
+				E8E492162A6633F800FE6C86 /* Phase1.sks in Resources */,
 				98CE02B12A64A0660032DFCC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,7 +244,10 @@
 			files = (
 				AB07DB462A5F888600721221 /* GameViewController.swift in Sources */,
 				AB07DB5F2A5F9C0300721221 /* SwiftUIView.swift in Sources */,
+				E8E492192A66359B00FE6C86 /* Phase2.swift in Sources */,
+				E8E492142A66314900FE6C86 /* Phase1.swift in Sources */,
 				AB07DB3E2A5F888600721221 /* AppDelegate.swift in Sources */,
+				E80B5B372A65D5BE00E719E4 /* SKScene.swift in Sources */,
 				9865AC4E2A65B74F003BDA66 /* DoorEntity.swift in Sources */,
 				AB07DB5D2A5F938F00721221 /* Player.swift in Sources */,
 				984AEF0E2A64C42B00792A84 /* TriggerComponent.swift in Sources */,
@@ -235,7 +255,6 @@
 				AB07DB632A60317800721221 /* VirtualController.swift in Sources */,
 				98CE02B02A64A0660032DFCC /* BaseLevelScene.swift in Sources */,
 				AB07DB682A60400000721221 /* Camera.swift in Sources */,
-				9865AC522A65BC3B003BDA66 /* asd.swift in Sources */,
 				AB07DB652A60394100721221 /* Ground.swift in Sources */,
 				AB07DB5B2A5F934600721221 /* Math.swift in Sources */,
 				984AEF102A64C70A00792A84 /* SpriteComponent.swift in Sources */,
@@ -386,7 +405,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = M67J2XKW43;
+				DEVELOPMENT_TEAM = PCTRQS8Z4G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -414,7 +433,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = M67J2XKW43;
+				DEVELOPMENT_TEAM = PCTRQS8Z4G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

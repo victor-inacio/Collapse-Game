@@ -52,8 +52,11 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         
         virtualController.jumpButton?.position = CGPoint(x:  size.width / 5 + size.width / 20  , y:  size.height  / -3.7)
         virtualController.dashButton?.position = CGPoint(x: size.width / 3 - size.width / 200, y: size.height / -9 )
-
-        cameraController = CameraController(camera: self.camera!, target: player.playerNode, boundaries: nil)
+        
+        let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
+        
+        physicsBody = SKPhysicsBody(edgeLoopFrom: boundaries!.frame)
+       
         virtualController.addController()
 
         addGround()
@@ -67,7 +70,18 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         addChild(camera2)
         camera2.addChild(virtualController.hud)
         
+        cameraController = CameraController(camera: self.camera!, target: player.playerNode, boundaries: boundaries)
+        
         setupDoors()
+        
+        for node in self.children {
+            if (node.name == "Floor"){
+                if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
+                    giveTileMapPhysicsBodyFloor(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                    someTileMap.removeFromParent()
+                }
+            }
+        }
 
     }
     
