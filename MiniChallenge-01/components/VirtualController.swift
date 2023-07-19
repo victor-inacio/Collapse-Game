@@ -141,7 +141,6 @@ class VirtualController: SKNode{
             
             joystickInUse = true
             joystickTouch = touch
-            print(joystickInUse)
             
         }
     }

@@ -22,7 +22,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var cameraController: CameraController!
     let camera2 = SKCameraNode()
     var triggersManager: GKComponentSystem<TriggerComponent>!
-    
+    var testNode: SKSpriteNode = SKSpriteNode()
     var entities: [GKEntity] = []
     
     override func didMove(to view: SKView) {
@@ -48,15 +48,19 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         physicsBody = SKPhysicsBody(edgeLoopFrom: boundaries!.frame)
         
         let spawnPoint = getSpawnPoint()
-        player.playerNode.position = spawnPoint
+        player.node.position = spawnPoint
         
         
         addChild(camera2)
         camera2.addChild(virtualController)
         
-        cameraController = CameraController(camera: self.camera!, target: player.playerNode, boundaries: boundaries)
+        cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         
         setupDoors()
+        
+        
+        
+        
         
         for node in self.children {
             if (node.name == "Floor"){
@@ -74,7 +78,11 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                 }
             }
         
+        testNode = childNode(withName: "test") as! SKSpriteNode
+        
     }
+    
+    
     
     func getBoundaries() -> SKSpriteNode? {
         let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
@@ -106,6 +114,29 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
+        if let camera = self.camera {
+            
+        
+            
+            let parteDireitaDoParallax = testNode.position.x + testNode.size.width / 2
+            
+            let parteDireitaDaCamera = camera.position.x + self.frame.size.width / 2
+            
+            
+            if (parteDireitaDoParallax < parteDireitaDaCamera) {
+                let clone = testNode.copy() as! SKSpriteNode
+                
+                clone.position.x = parteDireitaDoParallax + clone.size.width / 2
+                clone.anchorPoint = .init(x: 0, y: 0.5)
+                clone.color = .blue
+                clone.alpha = 0.2
+                
+                self.addChild(clone)
+            }
+            
+        }
+        
         player.update()
     }
     
@@ -167,8 +198,8 @@ func addPlataform(){
 
 func addPlayer(){
     
-    player.playerNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-    self.addChild(player.playerNode)
+    player.node.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+    self.addChild(player.node)
     
 }
 

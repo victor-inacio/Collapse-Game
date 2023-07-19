@@ -5,27 +5,33 @@
 //  Created by Gabriel Eirado on 12/07/23.
 //
 
+
 import SpriteKit
 import GameplayKit
 
-class Player: VirtualControllerTarget{
-    
-    var playerNode: SKSpriteNode!
+class Player: NodeEntity ,VirtualControllerTarget{
     var stateMachine: GKStateMachine?
     var velocityX: CGFloat = 0
     var angle: CGFloat = 0
     
     init(){
+        
         let texture = SKTexture(imageNamed: "player")
         
-        playerNode = SKSpriteNode(texture: texture, color: .red, size: texture.size())
+        let node = SKSpriteNode(texture: texture, color: .red, size: texture.size())
         
-        playerNode.zPosition = 1
+        node.zPosition = 1
         
-        playerNode.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        playerNode.physicsBody?.collisionBitMask = PhysicsCategory.player.rawValue
-        playerNode.physicsBody?.allowsRotation = false
-        playerNode.physicsBody?.isDynamic = true
+        node.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
+        node.physicsBody?.collisionBitMask = PhysicsCategory.player.rawValue
+        node.physicsBody?.allowsRotation = false
+        node.physicsBody?.isDynamic = true
+        
+        super.init(node: node)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("Error")
     }
     
     func applyMachine(){
@@ -45,7 +51,7 @@ class Player: VirtualControllerTarget{
         self.angle = angle
         
         let xDirection: CGFloat = direction.x < 0 ? -1 : 1
-        playerNode.xScale = xDirection
+        node.xScale = xDirection
         
     }
 
@@ -59,21 +65,20 @@ class Player: VirtualControllerTarget{
     
     func applyMovement(distanceX: CGFloat, angle: CGFloat){
         
-        playerNode.physicsBody!.velocity.dx = distanceX  * 4
+        node.physicsBody!.velocity.dx = distanceX  * 4
         
             
         if angle > 1.51 || angle < -1.51{
 
-            playerNode.xScale = -1
+            node.xScale = -1
 
         } else{
             
-            playerNode.xScale = 1
+            node.xScale = 1
             
         }
         
         
-        print(angle)
         
         if distanceX != 0{
             
@@ -87,14 +92,14 @@ class Player: VirtualControllerTarget{
     
     func jump(){
         
-        playerNode.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: playerNode.size.height / 2))
+        node.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: node.size.height / 2))
         
         stateMachine?.enter(PlayerJump.self)
     }
     //
     func dash(direction: CGVector){
         
-        playerNode.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 50 , dy: direction.dy * 50 ))
+        node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 50 , dy: direction.dy * 50 ))
         
         stateMachine?.enter(PlayerDash.self)
         
@@ -139,7 +144,7 @@ class PlayerJump: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
-        print("pulou")
+
         onAir = true
     }
 }
