@@ -14,6 +14,7 @@ class Player: VirtualControllerTarget{
     var stateMachine: GKStateMachine!
     var velocityX: CGFloat = 0
     var angle: CGFloat = 0
+    var onGround = false
     
     init(){
         
@@ -29,13 +30,14 @@ class Player: VirtualControllerTarget{
         playerNode.physicsBody?.categoryBitMask = PhysicsCategory.player.rawValue
         playerNode.physicsBody?.allowsRotation = false
         playerNode.physicsBody?.isDynamic = true
+        playerNode.physicsBody?.restitution = 0
         
     }
     
     func applyMachine(){
         
         stateMachine = GKStateMachine(states: [
-            PlayerIdle(), PlayerRun(), PlayerJump(), PlayerDash()
+            PlayerIdle(), PlayerRun(), PlayerJump(), PlayerDash(), PlayerGrounded(), PlayerDead()
         ])
         
         stateMachine?.enter(PlayerIdle.self)
@@ -53,17 +55,11 @@ class Player: VirtualControllerTarget{
             stateMachine?.enter(PlayerRun.self)
         }
         
+        //        print("x: \(direction.x) y: \(direction.y)")x
+        //        print(angle)
     }
     
-    func onJoystickJumpBtnTouch() {
-        
-        stateMachine?.enter(PlayerJump.self)
-        
-        if stateMachine.currentState is PlayerDash == false{
-            jump()
-        }
-        
-    }
+    
     
     func applyMovement(distanceX: CGFloat, angle: CGFloat){
         
@@ -79,21 +75,42 @@ class Player: VirtualControllerTarget{
     }
     
     func update() {
+        
         if stateMachine.currentState is PlayerDash == false{
             applyMovement(distanceX: velocityX, angle: angle)
+        }
+        
+        print(playerNode.physicsBody!.velocity.dy)
+        
+        if playerNode.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
+           
+            stateMachine.enter(PlayerGrounded.self)        }
+    }
+    
+    func onJoystickJumpBtnTouch() {
+     
+            
+        if stateMachine.currentState is PlayerDash == false{
+            jump()
         }
     }
     
     func jump(){
         
-        if stateMachine.currentState is PlayerDash == false{
+        if stateMachine.currentState is PlayerGrounded {
+            
             playerNode.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: playerNode.size.height / 2))
+            
+            stateMachine?.enter(PlayerJump.self)
+            
         }
     }
     
     func onJoystickDashBtnTouch(direction: CGVector) {
         
         dash(direction: direction)
+        
+        print(direction)
         
         stateMachine?.enter(PlayerDash.self)
         
@@ -102,24 +119,22 @@ class Player: VirtualControllerTarget{
     func dash(direction: CGVector){
         
         if stateMachine.currentState is PlayerDash == false{
+            
             playerNode.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 35 , dy: direction.dy * 35 ))
+            
         }
- 
+        
         self.playerNode.run(.sequence([.wait(forDuration: 0.5), .run{
             self.stateMachine?.enter(PlayerIdle.self)
         }]))
     }
-    
 }
 
 class PlayerIdle: GKState {
     
-    var player = Player()
-    
-    
     override func didEnter(from previousState: GKState?) {
         
-        print("idle")
+        //        print("idle")
     }
 }
 
@@ -131,7 +146,7 @@ class PlayerRun: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
-        print("run")
+//                print("run")
         isRunning = true
         
     }
@@ -145,13 +160,9 @@ class PlayerRun: GKState{
 
 class PlayerJump: GKState{
     
-    var player = Player()
-    
-    
-    
     override func didEnter(from previousState: GKState?) {
         
-        print("jump")
+                print("jump")
         
     }
 }
@@ -170,6 +181,10 @@ class PlayerDash: GKState{
             
             return false
             
+        case is PlayerGrounded:
+            
+            return false
+            
         default:
             
             return true
@@ -179,4 +194,24 @@ class PlayerDash: GKState{
     override func willExit(to nextState: GKState) {
         
     }
+}
+
+class PlayerGrounded: GKState{
+    
+    override func didEnter(from previousState: GKState?) {
+        
+//        print("onGround")
+        
+    }
+}
+
+
+class PlayerDead: GKState {
+    
+    override func didEnter(from previousState: GKState?) {
+        
+//        print("onGround")
+        
+    }
+    
 }
