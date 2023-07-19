@@ -17,6 +17,7 @@ class NodeEntity: GKEntity {
         super.init()
         let spriteComponent = SpriteComponent(node: node)
         addComponent(spriteComponent)
+        spriteComponent.node.entity = self
     }
     
     

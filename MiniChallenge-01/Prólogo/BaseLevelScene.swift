@@ -166,19 +166,26 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
            
         let nodeA = contact.bodyA.node
            let nodeB = contact.bodyB.node
+        
+        if (nodeA?.entity is Player) {
+            print(nodeA?.entity)
+        }
+        
+        if (nodeB?.entity is Player) {
+            print(nodeB?.entity)
+        }
+        
            for triggerComponent in triggersManager.components {
-   
-               print(contact.bodyA.node, contact.bodyB.node)
                
                if let triggerNode = triggerComponent.entity?.component(ofType: SpriteComponent.self)?.node {
    
                    if triggerNode == nodeA {
-                       print(nodeB)
+                 
 //                       triggerComponent.callback(nodeB)
                    }
    
                    if triggerNode == nodeB {
-                       print(nodeA)
+                
 //                       triggerComponent.callback(nodeA)
                    }
                }

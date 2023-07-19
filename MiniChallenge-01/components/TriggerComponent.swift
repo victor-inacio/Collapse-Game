@@ -14,7 +14,6 @@ class TriggerComponent: GKComponent {
     override func didAddToEntity() {
         
         if let node = entity?.component(ofType: SpriteComponent.self)?.node {
-            print(node.position)
     
             node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
             

@@ -93,7 +93,7 @@ extension BaseLevelScene{
                         
                         
                         
-                        print("\(sizeOfThePhysicsBody[row])")
+                        
                         
                         tileNode.position = CGPoint(x: (tileNode.position.x + startingLocation.x) - (0.5 * (sizeOfThePhysicsBody[row] - 1) * Double(tileTexture.size().width/proportion)) , y: tileNode.position.y + startingLocation.y)
                         sizeOfThePhysicsBody[row] = 0
@@ -121,6 +121,8 @@ extension BaseLevelScene{
             
             
             
+            self.addChild(node)
+            
             let entity = GKEntity()
             node.entity = entity
             entity.addComponent(SpriteComponent(node: node))
@@ -129,7 +131,6 @@ extension BaseLevelScene{
             triggersManager.addComponent(foundIn: entity)
             self.entities.append(entity)
             
-            self.addChild(node)
             
         }
     }
