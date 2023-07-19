@@ -22,7 +22,8 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var cameraController: CameraController!
     let camera2 = SKCameraNode()
     var triggersManager: GKComponentSystem<TriggerComponent>!
-    
+    var timeVariance: Int = 0
+    var canCreatePhysicsBody: Bool = true
     var entities: [GKEntity] = []
     
     override func didMove(to view: SKView) {
@@ -50,6 +51,8 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         let spawnPoint = getSpawnPoint()
         player.playerNode.position = spawnPoint
         
+
+     
         
         addChild(camera2)
         camera2.addChild(virtualController)
@@ -59,9 +62,19 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         setupDoors()
         
         for node in self.children {
-            if (node.name == "Floor"){
+            if (node.name == "Water") || (node.name == "Floor"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
                     giveTileMapPhysicsBodyFloor(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                    someTileMap.removeFromParent()
+                }
+            } else if (node.name == "Wall"){
+                if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
+                    giveTileMapPhysicsBodyWall(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                    someTileMap.removeFromParent()
+                }
+            } else if (node.name == "Fallen2") {
+                if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
+                    giveTileMapPhysicsBodyFallenBlocks(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
                     someTileMap.removeFromParent()
                 }
             }
@@ -93,6 +106,9 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         return position
     }
     
+    
+    
+    
     func addTriggerToNode(node: SKSpriteNode, callback: @escaping () -> Void) {
         let entity = GKEntity()
         
@@ -106,6 +122,36 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
     
     override func update(_ currentTime: TimeInterval) {
+        if canCreatePhysicsBody{
+            for node in self.children {
+                if (node.name == "FallenCreating"){
+                    if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
+                        self.giveTileMapPhysicsBodyFallenBlocks(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                        self.canCreatePhysicsBody = false
+                    }
+
+                    var waiting = SKAction.wait(forDuration: 0.485)
+                    
+                    if timeVariance == 0{
+                        waiting = SKAction.wait(forDuration: 0.40)
+                        timeVariance += 1
+                    }else if timeVariance < 4{
+                        waiting = SKAction.wait(forDuration: 0.485)
+                        timeVariance += 1
+                    } else{
+                        waiting = SKAction.wait(forDuration: 0.505 * 3)
+                        timeVariance = 1
+                    }
+                    
+                    let runAction = SKAction.run{
+                        self.canCreatePhysicsBody = true
+                        
+                    }
+                    let sequence = SKAction.sequence([waiting,runAction])
+                    run(sequence)
+                }
+            }
+        }
         player.update()
     }
     
@@ -171,7 +217,12 @@ func addPlataform(){
 
 func addPlayer(){
     
-    player.playerNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+    if let playerT = childNode(withName: "PlayerNode") as? SKSpriteNode{
+        player.playerNode.position = CGPoint(x: playerT.position.x, y: playerT.position.y)
+    } else{
+        player.playerNode.position = CGPoint(x: size.width/2 , y: size.height/2)
+    }
+
     self.addChild(player.playerNode)
     
 }
