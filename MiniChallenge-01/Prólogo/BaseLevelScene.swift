@@ -46,10 +46,11 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         let boundaries = getBoundaries()
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: boundaries!.frame)
-        
-        let spawnPoint = getSpawnPoint()
-        player.playerNode.position = spawnPoint
-        
+
+
+        addGround()
+        addPlataform()
+       
         
         addChild(camera2)
         camera2.addChild(virtualController)
@@ -110,8 +111,9 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-           let nodeA = contact.bodyA.node as? SKSpriteNode
-           let nodeB = contact.bodyB.node as? SKSpriteNode
+           
+        let nodeA = contact.bodyA.node
+           let nodeB = contact.bodyB.node
            for triggerComponent in triggersManager.components {
    
                print(contact.bodyA.node, contact.bodyB.node)

@@ -132,9 +132,9 @@ extension BaseLevelScene{
             for row in 0..<tileMap.numberOfRows {
                 if tileMap.tileDefinition(atColumn: col, row: row) != nil{
                     array[col][row] = true
-//                    print("\(col), \(row) = true")
+                    //                    print("\(col), \(row) = true")
                 } else{
-//                    print("\(col), \(row) = false")
+                    //                    print("\(col), \(row) = false")
                 }
             }
         }
@@ -173,7 +173,10 @@ extension BaseLevelScene{
                     }
                     
                     
-//                    Physics Body
+                    
+                    
+                    
+                    //                    Physics Body
                     if  canCreatePhysicsBody{
                         tileNode.anchorPoint = CGPoint(x: 0.5 - ((sizeOfThePhysicsBody[row] - 1) * 0.5), y: 0.5)
                         
@@ -182,8 +185,9 @@ extension BaseLevelScene{
                         tileNode.physicsBody?.allowsRotation = false
                         tileNode.physicsBody?.isDynamic = false
                         tileNode.physicsBody?.friction = 0
-                        tileNode.physicsBody?.linearDamping = 0
-                        tileNode.physicsBody?.collisionBitMask = PhysicsCategory.player.rawValue
+                        tileNode.physicsBody?.linearDamping = 100
+                        tileNode.physicsBody?.restitution = 0
+                        tileNode.physicsBody?.contactTestBitMask = PhysicsCategory.player.rawValue
                         print("\(sizeOfThePhysicsBody[row])")
                         
                         tileNode.position = CGPoint(x: (tileNode.position.x + startingLocation.x) - (0.5 * (sizeOfThePhysicsBody[row] - 1) * Double(tileTexture.size().width/proportion)) , y: tileNode.position.y + startingLocation.y)
@@ -198,7 +202,7 @@ extension BaseLevelScene{
         }
     }
     
-
+    
     
     
     func giveTileMapPhysicsBodyWall(map: SKTileMapNode, textureWidth: Double, tileMapProportion: Double){
@@ -274,7 +278,7 @@ extension BaseLevelScene{
                     
                     
                     
-//                    Physics Body
+                    //                    Physics Body
                     if  canCreatePhysicsBody{
                         tileNode.anchorPoint = CGPoint(x: 0.5 , y: 0.5 - ((sizeOfThePhysicsBody[col] - 1) * 0.5))
                         tileNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (tileTexture.size().width/proportion), height: (tileTexture.size().height/proportion) * sizeOfThePhysicsBody[col]  ))
