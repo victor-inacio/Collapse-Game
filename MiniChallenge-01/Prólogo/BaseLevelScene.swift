@@ -49,7 +49,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         physicsBody = SKPhysicsBody(edgeLoopFrom: boundaries!.frame)
         
         let spawnPoint = getSpawnPoint()
-        player.playerNode.position = spawnPoint
+        player.node.position = spawnPoint
         
 
      
@@ -57,9 +57,13 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         addChild(camera2)
         camera2.addChild(virtualController)
         
-        cameraController = CameraController(camera: self.camera!, target: player.playerNode, boundaries: boundaries)
+        cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         
         setupDoors()
+        
+        
+        
+        
         
         for node in self.children {
             if (node.name == "Water") || (node.name == "Floor"){
@@ -87,7 +91,11 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                 }
             }
         
+        testNode = childNode(withName: "test") as! SKSpriteNode
+        
     }
+    
+    
     
     func getBoundaries() -> SKSpriteNode? {
         let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode

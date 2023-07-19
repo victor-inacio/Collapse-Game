@@ -34,9 +34,8 @@ class DoorComponent: GKComponent {
         let nodeScene = node.scene! as! BaseLevelScene
         
         if let sceneBoundaries = nodeScene.getBoundaries() {
-            
-            print(node.position.x, sceneBoundaries.position.x)
-            
+        
+    
             if (node.position.x < sceneBoundaries.position.x) {
                 transition = .right
             }

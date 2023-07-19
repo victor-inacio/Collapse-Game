@@ -5,13 +5,12 @@
 //  Created by Gabriel Eirado on 12/07/23.
 //
 
+
 import SpriteKit
 import GameplayKit
 
-class Player: VirtualControllerTarget{
-    
-    var playerNode: SKSpriteNode!
-    var stateMachine: GKStateMachine!
+class Player: NodeEntity, VirtualControllerTarget{
+    var stateMachine: GKStateMachine?
     var velocityX: CGFloat = 0
     var angle: CGFloat = 0
     var onGround = false
@@ -20,9 +19,9 @@ class Player: VirtualControllerTarget{
         
         let texture = SKTexture(imageNamed: "player")
         
-        playerNode = SKSpriteNode(texture: texture, color: .red, size: texture.size())
+        let node = SKSpriteNode(texture: texture, color: .red, size: texture.size())
         
-        playerNode.zPosition = 1
+        node.zPosition = 1
         
         playerNode.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
         playerNode.physicsBody?.contactTestBitMask = PhysicsCategory.floor.rawValue
