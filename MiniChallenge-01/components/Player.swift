@@ -87,7 +87,16 @@ class Player: VirtualControllerTarget{
     
     func jump(){
         
+<<<<<<< Updated upstream
         playerNode.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: playerNode.size.height / 2))
+=======
+       
+    playerNode.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: playerNode.size.height / 2))
+        
+    }
+    
+    func onJoystickDashBtnTouch(direction: CGVector) {
+>>>>>>> Stashed changes
         
         stateMachine?.enter(PlayerJump.self)
     }
@@ -98,15 +107,25 @@ class Player: VirtualControllerTarget{
         
         stateMachine?.enter(PlayerDash.self)
         
+<<<<<<< Updated upstream
 //        print(direction)
+=======
     }
     
+    func dash(direction: CGVector){
+        
+        if stateMachine.currentState is PlayerDash == false{
+            playerNode.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 30 , dy: direction.dy * 30 ))
+        }
+ 
+        self.playerNode.run(.sequence([.wait(forDuration: 0.5), .run{
+            self.stateMachine?.enter(PlayerIdle.self)
+        }]))
+>>>>>>> Stashed changes
+    }
 }
 
 class PlayerIdle: GKState {
-    
-    var player = Player()
-    
     
     override func didEnter(from previousState: GKState?) {
         
@@ -120,6 +139,7 @@ class PlayerIdle: GKState {
 
 class PlayerRun: GKState{
     
+<<<<<<< Updated upstream
     //    var gameScene = PlataformGameScene()
     var isRunning = false
     
@@ -128,15 +148,28 @@ class PlayerRun: GKState{
 //        print("Estou correndo")
         
         isRunning = true
+=======
+
+    var player = Player()
+    
+    
+    override func didEnter(from previousState: GKState?) {
+        
+        print("run")
+
+>>>>>>> Stashed changes
         
     }
 }
 
 class PlayerJump: GKState{
     
+<<<<<<< Updated upstream
     var player = Player()
     var onAir = false
     
+=======
+>>>>>>> Stashed changes
     override func didEnter(from previousState: GKState?) {
 
         onAir = true
