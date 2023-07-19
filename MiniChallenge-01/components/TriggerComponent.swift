@@ -15,6 +15,7 @@ class TriggerComponent: GKComponent {
     }
     
     override func didAddToEntity() {
+        
         if let node = entity?.component(ofType: SpriteComponent.self)?.node {
             print(node.position)
     

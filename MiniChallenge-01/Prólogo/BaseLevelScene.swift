@@ -87,7 +87,8 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-           let nodeA = contact.bodyA.node
+           
+        let nodeA = contact.bodyA.node
            let nodeB = contact.bodyB.node
            for triggerComponent in triggersManager.components {
    

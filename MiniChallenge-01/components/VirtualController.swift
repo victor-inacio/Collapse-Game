@@ -28,15 +28,15 @@ class VirtualController: SKNode{
     var jumpTouch: UITouch?
     var dashTouch: UITouch?
     var direction: CGVector = CGVector(dx: 0, dy: 0)
-    var joystickAngle: CGFloat = 0
+    var joystickAngleRounded: CGFloat = 0
     var distanceX: CGFloat = 0 {
         didSet {
-            self.target.onJoystickChange(direction: .init(x: self.distanceX, y: self.distanceY), angle: joystickAngle)
+            self.target.onJoystickChange(direction: .init(x: self.distanceX, y: self.distanceY), angle: joystickAngleRounded)
         }
     }
     var distanceY: CGFloat = 0 {
         didSet {
-            self.target.onJoystickChange(direction: .init(x: self.distanceX, y: self.distanceY), angle: joystickAngle)
+            self.target.onJoystickChange(direction: .init(x: self.distanceX, y: self.distanceY), angle: joystickAngleRounded)
         }
     }
     var gameScene = BaseLevelScene()
@@ -164,15 +164,17 @@ class VirtualController: SKNode{
 //            print("in use")
             let point = CGPoint(x: location.x - virtualJoystickB!.position.x, y: location.y - virtualJoystickB!.position.y).normalize()
             
-            joystickAngle = atan2(point.y, point.x)
+            let angle = atan2(point.y, point.x)
+            
+            joystickAngleRounded = atan2(point.y, point.x).rounded() * (CGFloat.pi / 4)
             
             direction = CGVector(dx: point.x, dy: point.y)
             
             
             let distanceFromCenter = CGFloat(virtualJoystickB!.frame.size.width / 2) // limita o botao pequeno
             
-            distanceX = CGFloat(sin(joystickAngle - CGFloat.pi / 2) * distanceFromCenter) * -1
-            distanceY = CGFloat(cos(joystickAngle - CGFloat.pi / 2) * -distanceFromCenter) * -1
+            distanceX = CGFloat(sin(angle - CGFloat.pi / 2) * distanceFromCenter) * -1
+            distanceY = CGFloat(cos(angle - CGFloat.pi / 2) * -distanceFromCenter) * -1
             
 
             //let radiusB = controllerJoystick.virtualControllerB.size.width / 2
