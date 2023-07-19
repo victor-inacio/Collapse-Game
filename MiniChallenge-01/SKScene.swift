@@ -90,7 +90,6 @@ extension SKScene{
                         tileNode.physicsBody?.isDynamic = false
                         tileNode.physicsBody?.friction = 0
                         tileNode.physicsBody?.linearDamping = 100
-                        print("\(sizeOfThePhysicsBody[row])")
                         
                         tileNode.position = CGPoint(x: (tileNode.position.x + startingLocation.x) - (0.5 * (sizeOfThePhysicsBody[row] - 1) * Double(tileTexture.size().width/proportion)) , y: tileNode.position.y + startingLocation.y)
                         sizeOfThePhysicsBody[row] = 0
@@ -129,9 +128,9 @@ extension SKScene{
             for row in 0..<tileMap.numberOfRows {
                 if let tileDefinition = tileMap.tileDefinition(atColumn: col, row: row){
                     array[col][row] = true
-                    print("\(col), \(row) = true")
+//                    print("\(col), \(row) = true")
                 } else{
-                    print("\(col), \(row) = false")
+//                    print("\(col), \(row) = false")
                 }
             }
         }
@@ -189,7 +188,6 @@ extension SKScene{
                         tileNode.physicsBody?.isDynamic = false
                         tileNode.physicsBody?.friction = 0
                         tileNode.physicsBody?.linearDamping = 100
-                        print("\(sizeOfThePhysicsBody[col])")
                         
                         tileNode.position = CGPoint(x: (tileNode.position.x + startingLocation.x) , y: tileNode.position.y + startingLocation.y - (0.5 * (sizeOfThePhysicsBody[col] - 1) * Double(tileTexture.size().height/proportion)))
                         sizeOfThePhysicsBody[col] = 0
@@ -203,6 +201,5 @@ extension SKScene{
             }
         }
     }
-    
     
 }

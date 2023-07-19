@@ -11,4 +11,7 @@ enum PhysicsCategory: UInt32{
     case player = 1
     case trigger = 2
     case door = 3
+    case floor = 5
+    case fallenBlocks = 6
+    case limit = 7
 }

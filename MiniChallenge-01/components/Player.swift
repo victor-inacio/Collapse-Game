@@ -23,7 +23,9 @@ class Player: VirtualControllerTarget{
         playerNode.zPosition = 1
         
         playerNode.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        playerNode.physicsBody?.collisionBitMask = PhysicsCategory.player.rawValue
+        playerNode.physicsBody?.contactTestBitMask = PhysicsCategory.floor.rawValue
+        playerNode.physicsBody?.collisionBitMask = PhysicsCategory.floor.rawValue
+        playerNode.physicsBody?.categoryBitMask = PhysicsCategory.player.rawValue
         playerNode.physicsBody?.allowsRotation = false
         playerNode.physicsBody?.isDynamic = true
     }
@@ -73,7 +75,7 @@ class Player: VirtualControllerTarget{
         }
         
         
-        print(angle)
+//        print(angle)
         
         if distanceX != 0{
             
@@ -139,7 +141,7 @@ class PlayerJump: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
-        print("pulou")
+//        print("pulou")
         onAir = true
     }
 }

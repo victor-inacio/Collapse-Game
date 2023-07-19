@@ -28,6 +28,7 @@
 		AB07DB652A60394100721221 /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB642A60394100721221 /* Ground.swift */; };
 		AB07DB682A60400000721221 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB672A60400000721221 /* Camera.swift */; };
 		E80B5B372A65D5BE00E719E4 /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80B5B362A65D5BE00E719E4 /* SKScene.swift */; };
+		E85633462A671E7400FCB1FF /* FallenIceBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85633452A671E7400FCB1FF /* FallenIceBlock.swift */; };
 		E8E492142A66314900FE6C86 /* Phase1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E492132A66314900FE6C86 /* Phase1.swift */; };
 		E8E492162A6633F800FE6C86 /* Phase1.sks in Resources */ = {isa = PBXBuildFile; fileRef = E8E492152A6633F800FE6C86 /* Phase1.sks */; };
 		E8E492192A66359B00FE6C86 /* Phase2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E492182A66359B00FE6C86 /* Phase2.swift */; };
@@ -59,6 +60,7 @@
 		AB07DB642A60394100721221 /* Ground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
 		AB07DB672A60400000721221 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		E80B5B362A65D5BE00E719E4 /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
+		E85633452A671E7400FCB1FF /* FallenIceBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallenIceBlock.swift; sourceTree = "<group>"; };
 		E8E492132A66314900FE6C86 /* Phase1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase1.swift; sourceTree = "<group>"; };
 		E8E492152A6633F800FE6C86 /* Phase1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Phase1.sks; sourceTree = "<group>"; };
 		E8E492182A66359B00FE6C86 /* Phase2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase2.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				984AEF0B2A64BCD300792A84 /* DoorComponent.swift */,
 				984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */,
 				984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */,
+				E85633452A671E7400FCB1FF /* FallenIceBlock.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			files = (
 				AB07DB462A5F888600721221 /* GameViewController.swift in Sources */,
 				AB07DB5F2A5F9C0300721221 /* SwiftUIView.swift in Sources */,
+				E85633462A671E7400FCB1FF /* FallenIceBlock.swift in Sources */,
 				E8E492192A66359B00FE6C86 /* Phase2.swift in Sources */,
 				E8E492142A66314900FE6C86 /* Phase1.swift in Sources */,
 				AB07DB3E2A5F888600721221 /* AppDelegate.swift in Sources */,
