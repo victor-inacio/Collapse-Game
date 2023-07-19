@@ -16,7 +16,6 @@ class NodeEntity: GKEntity {
     init(node: SKSpriteNode) {
         super.init()
         let spriteComponent = SpriteComponent(node: node)
-        node.entity = self
         addComponent(spriteComponent)
     }
     

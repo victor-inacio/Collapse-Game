@@ -10,7 +10,7 @@ import SpriteKit
 import GameplayKit
 
 class Player: NodeEntity, VirtualControllerTarget{
-    var stateMachine: GKStateMachine?
+    var stateMachine: GKStateMachine!
     var velocityX: CGFloat = 0
     var angle: CGFloat = 0
     var onGround = false
@@ -18,19 +18,26 @@ class Player: NodeEntity, VirtualControllerTarget{
     init(){
         
         let texture = SKTexture(imageNamed: "player")
-        
+
         let node = SKSpriteNode(texture: texture, color: .red, size: texture.size())
         
         node.zPosition = 1
         
-        playerNode.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        playerNode.physicsBody?.contactTestBitMask = PhysicsCategory.floor.rawValue
-        playerNode.physicsBody?.collisionBitMask = PhysicsCategory.floor.rawValue
-        playerNode.physicsBody?.categoryBitMask = PhysicsCategory.player.rawValue
-        playerNode.physicsBody?.allowsRotation = false
-        playerNode.physicsBody?.isDynamic = true
-        playerNode.physicsBody?.restitution = 0
+        node.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
+        node.physicsBody?.contactTestBitMask = PhysicsCategory.floor.rawValue
+        node.physicsBody?.collisionBitMask = PhysicsCategory.floor.rawValue
+        node.physicsBody?.categoryBitMask = PhysicsCategory.player.rawValue
+        node.physicsBody?.allowsRotation = false
+        node.physicsBody?.isDynamic = true
+        node.physicsBody?.restitution = 0
         
+        super.init(node: node)
+        
+        applyMachine()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("Error")
     }
     
     func applyMachine(){
@@ -63,13 +70,13 @@ class Player: NodeEntity, VirtualControllerTarget{
     func applyMovement(distanceX: CGFloat, angle: CGFloat){
         
         if stateMachine.currentState is PlayerDash == false{
-            playerNode.physicsBody!.velocity.dx = distanceX  * 4
+            node.physicsBody!.velocity.dx = distanceX  * 4
         }
         
         if angle > 1.51 || angle < -1.51{
-            playerNode.xScale = -1
+            node.xScale = -1
         } else{
-            playerNode.xScale = 1
+            node.xScale = 1
         }
     }
     
@@ -79,9 +86,8 @@ class Player: NodeEntity, VirtualControllerTarget{
             applyMovement(distanceX: velocityX, angle: angle)
         }
         
-        print(playerNode.physicsBody!.velocity.dy)
-        
-        if playerNode.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
+
+        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
            
             stateMachine.enter(PlayerGrounded.self)        }
     }
@@ -98,7 +104,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerGrounded {
             
-            playerNode.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: playerNode.size.height / 2))
+            node.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: node.size.height / 2))
             
             stateMachine?.enter(PlayerJump.self)
             
@@ -119,11 +125,11 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerDash == false{
             
-            playerNode.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 35 , dy: direction.dy * 35 ))
+            node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 35 , dy: direction.dy * 35 ))
             
         }
         
-        self.playerNode.run(.sequence([.wait(forDuration: 0.5), .run{
+        self.node.run(.sequence([.wait(forDuration: 0.5), .run{
             self.stateMachine?.enter(PlayerIdle.self)
         }]))
     }
@@ -139,14 +145,11 @@ class PlayerIdle: GKState {
 
 class PlayerRun: GKState{
     
-    var isRunning = false
-    var player = Player()
     
     
     override func didEnter(from previousState: GKState?) {
         
 //                print("run")
-        isRunning = true
         
     }
     
@@ -161,7 +164,7 @@ class PlayerJump: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
-                print("jump")
+    
         
     }
 }
@@ -169,7 +172,7 @@ class PlayerJump: GKState{
 class PlayerDash: GKState{
     
     override func didEnter(from previousState: GKState?) {
-        print("dash")
+    
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -209,7 +212,7 @@ class PlayerDead: GKState {
     
     override func didEnter(from previousState: GKState?) {
         
-//        print("onGround")
+//
         
     }
     

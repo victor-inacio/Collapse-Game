@@ -17,7 +17,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     private var selectedNodes: [UITouch:SKSpriteNode] = [:]
     
     var controls: [String: ()] = [:]
-    var player = Player()
+    var player: Player!
     var virtualController: VirtualController!
     var cameraController: CameraController!
     let camera2 = SKCameraNode()
@@ -91,7 +91,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                 }
             }
         
-        testNode = childNode(withName: "test") as! SKSpriteNode
         
     }
     
@@ -227,12 +226,12 @@ func addPlataform(){
 func addPlayer(){
     
     if let playerT = childNode(withName: "PlayerNode") as? SKSpriteNode{
-        player.playerNode.position = CGPoint(x: playerT.position.x, y: playerT.position.y)
+        player.node.position = CGPoint(x: playerT.position.x, y: playerT.position.y)
     } else{
-        player.playerNode.position = CGPoint(x: size.width/2 , y: size.height/2)
+        player.node.position = CGPoint(x: size.width/2 , y: size.height/2)
     }
 
-    self.addChild(player.playerNode)
+    self.addChild(player.node)
     
 }
 
