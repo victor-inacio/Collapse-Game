@@ -122,12 +122,12 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
    
                    if triggerNode == nodeA {
                        print(nodeB)
-                       triggerComponent.callback(nodeB)
+//                       triggerComponent.callback(nodeB)
                    }
    
                    if triggerNode == nodeB {
                        print(nodeA)
-                       triggerComponent.callback(nodeA)
+//                       triggerComponent.callback(nodeA)
                    }
                }
    
