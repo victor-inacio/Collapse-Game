@@ -82,12 +82,7 @@ extension BaseLevelScene{
                         tileNode.physicsBody?.isDynamic = false
                         tileNode.physicsBody?.friction = 0
                         tileNode.physicsBody?.linearDamping = 0
-                        
-                        
-                        
-                        
-                        
-                        
+
                         tileNode.position = CGPoint(x: (tileNode.position.x + startingLocation.x) - (0.5 * (sizeOfThePhysicsBody[row] - 1) * Double(tileTexture.size().width/proportion)) , y: tileNode.position.y + startingLocation.y)
                         sizeOfThePhysicsBody[row] = 0
                         
@@ -98,14 +93,7 @@ extension BaseLevelScene{
                         tileNode.position = CGPoint(x: tileNode.position.x + startingLocation.x , y: tileNode.position.y + startingLocation.y)
                     }
                     
-                    let entity = GKEntity()
-                    
-                   
-                    
-                    entity.addComponent(SpriteComponent(node: tileNode))
-                    entity.addComponent(FallenBlocksComponent())
-                                       
-                    tileNode.entity = entity
+                    let entity = Fallen1Entity(node: tileNode)
                     
                     triggersManager.addComponent(foundIn: entity)
                     self.entities.append(entity)
