@@ -25,7 +25,7 @@ class CameraController {
     
     func onFinishUpdate() {
         if let target = target{
-            self.camera.run(.move(to: CGPoint(x: target.position.x, y: target.position.y + 180), duration: 0.3))
+            self.camera.run(.move(to: CGPoint(x: target.position.x, y: target.position.y + 150), duration: 0.3))
         }
     }
     

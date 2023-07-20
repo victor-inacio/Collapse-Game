@@ -87,7 +87,7 @@ extension BaseLevelScene{
                         tileNode.physicsBody?.affectedByGravity = false
                         tileNode.physicsBody?.allowsRotation = false
                         tileNode.physicsBody?.isDynamic = false
-                        tileNode.physicsBody?.friction = 0
+                        tileNode.physicsBody?.friction = 1
                         tileNode.physicsBody?.linearDamping = 0
                         
                         

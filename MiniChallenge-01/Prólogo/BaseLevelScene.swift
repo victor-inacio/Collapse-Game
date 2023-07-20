@@ -25,9 +25,15 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var timeVariance: Int = 0
     var canCreatePhysicsBody: Bool = true
     var entities: [GKEntity] = []
+    var pauseButton: SKSpriteNode?
+    var skull: SKSpriteNode?
+    var killCount: SKLabelNode?
     
     override func didMove(to view: SKView) {
-        
+        killCount = SKLabelNode(text: "1")
+        killCount?.fontName = "Futura Bold"
+        pauseButton = SKSpriteNode(imageNamed: "PauseButton")
+        skull = SKSpriteNode(imageNamed: "Skull")
         triggersManager = GKComponentSystem(componentClass: TriggerComponent.self)
         
         physicsWorld.contactDelegate = self
@@ -56,6 +62,12 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         
         addChild(camera2)
         camera2.addChild(virtualController)
+        camera2.addChild(pauseButton!)
+        camera2.addChild(skull!)
+        camera2.addChild(killCount!)
+        pauseButton?.position = CGPoint(x: -550, y: 240)
+        skull?.position = CGPoint(x: 550, y: 240)
+        killCount?.position = CGPoint(x: 480, y: 225)
         
         cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         

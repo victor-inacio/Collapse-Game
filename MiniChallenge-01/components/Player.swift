@@ -17,7 +17,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     init(){
         
-        let texture = SKTexture(imageNamed: "player")
+        let texture = SKTexture(imageNamed: "Frame 1 Personagem")
 
         let node = SKSpriteNode(texture: texture, color: .red, size: texture.size())
         
@@ -104,7 +104,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerGrounded {
             
-            node.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: node.size.height / 2))
+            node.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: node.size.height * 1))
             
             stateMachine?.enter(PlayerJump.self)
             
@@ -125,7 +125,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerDash == false{
             
-            node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 35 , dy: direction.dy * 35 ))
+            node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 60 , dy: direction.dy * 100 ))
             
         }
         
