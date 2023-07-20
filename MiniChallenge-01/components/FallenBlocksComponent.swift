@@ -20,7 +20,7 @@ class FallenBlocksComponent: GKComponent {
         
         let triggerComponent = TriggerComponent { otherNode in
             
-            if (self.canBeDestoyed ) {
+            if (self.canBeDestoyed) {
                 
                 if (!(otherNode?.entity is Player)) {
                     self.entity?.removeComponent(ofType: FallenBlocksComponent.self)

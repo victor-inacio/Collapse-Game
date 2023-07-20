@@ -11,6 +11,8 @@
 		9806B5CB2A69A719003CDE88 /* KillierCollisionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */; };
 		9806B5CD2A69BE02003CDE88 /* SKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */; };
 		9806B5CF2A69C32B003CDE88 /* Fallen1Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CE2A69C32B003CDE88 /* Fallen1Entity.swift */; };
+		9806B5D12A69DD6B003CDE88 /* ParallaxItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5D02A69DD6B003CDE88 /* ParallaxItemEntity.swift */; };
+		9806B5D32A69F7E6003CDE88 /* ParallaxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5D22A69F7E6003CDE88 /* ParallaxItem.swift */; };
 		980FE3652A6871F900681175 /* NodeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980FE3642A6871F900681175 /* NodeEntity.swift */; };
 		98155DC62A6722C30067EA24 /* Phase2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98155DC52A6722C30067EA24 /* Phase2.sks */; };
 		98155DC82A672DD30067EA24 /* FallenBlocksComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */; };
@@ -48,6 +50,8 @@
 		9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillierCollisionComponent.swift; sourceTree = "<group>"; };
 		9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsBody.swift; sourceTree = "<group>"; };
 		9806B5CE2A69C32B003CDE88 /* Fallen1Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fallen1Entity.swift; sourceTree = "<group>"; };
+		9806B5D02A69DD6B003CDE88 /* ParallaxItemEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxItemEntity.swift; sourceTree = "<group>"; };
+		9806B5D22A69F7E6003CDE88 /* ParallaxItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxItem.swift; sourceTree = "<group>"; };
 		980FE3642A6871F900681175 /* NodeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeEntity.swift; sourceTree = "<group>"; };
 		98155DC52A6722C30067EA24 /* Phase2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Phase2.sks; sourceTree = "<group>"; };
 		98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallenBlocksComponent.swift; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 				980FE3642A6871F900681175 /* NodeEntity.swift */,
 				9806B5C82A69A65E003CDE88 /* WaterEntity.swift */,
 				9806B5CE2A69C32B003CDE88 /* Fallen1Entity.swift */,
+				9806B5D02A69DD6B003CDE88 /* ParallaxItemEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -174,6 +179,7 @@
 				98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */,
 				E85633452A671E7400FCB1FF /* FallenIceBlock.swift */,
 				9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */,
+				9806B5D22A69F7E6003CDE88 /* ParallaxItem.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -284,6 +290,7 @@
 			files = (
 				AB07DB462A5F888600721221 /* GameViewController.swift in Sources */,
 				AB07DB5F2A5F9C0300721221 /* SwiftUIView.swift in Sources */,
+				9806B5D32A69F7E6003CDE88 /* ParallaxItem.swift in Sources */,
 				E85633462A671E7400FCB1FF /* FallenIceBlock.swift in Sources */,
 				E8E492192A66359B00FE6C86 /* Phase2.swift in Sources */,
 				E8E492142A66314900FE6C86 /* Phase1.swift in Sources */,
@@ -306,6 +313,7 @@
 				9806B5CF2A69C32B003CDE88 /* Fallen1Entity.swift in Sources */,
 				984AEF102A64C70A00792A84 /* SpriteComponent.swift in Sources */,
 				980FE3652A6871F900681175 /* NodeEntity.swift in Sources */,
+				9806B5D12A69DD6B003CDE88 /* ParallaxItemEntity.swift in Sources */,
 				AB07DB612A602D8C00721221 /* PhysicsCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,7 +461,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6FXWX5Z987;
+				DEVELOPMENT_TEAM = M67J2XKW43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -481,7 +489,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6FXWX5Z987;
+				DEVELOPMENT_TEAM = M67J2XKW43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

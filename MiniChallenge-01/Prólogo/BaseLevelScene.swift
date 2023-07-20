@@ -25,6 +25,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var timeVariance: Int = 0
     var canCreatePhysicsBody: Bool = true
     var entities: [GKEntity] = []
+    var parallaxNodes: [SKSpriteNode] = []
     
     override func didMove(to view: SKView) {
         
@@ -44,6 +45,13 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         virtualController = VirtualController(target: self.player, scene: self)
         
         
+        if let parallaxNode = childNode(withName: "parallax") as? SKSpriteNode {
+            
+            parallaxNodes.append(parallaxNode)
+        }
+        
+        
+
         let boundaries = getBoundaries()
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: boundaries!.frame)
@@ -57,6 +65,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         
         setupDoors()
+        mountParallax()
 
         for node in self.children {
             if (node.name == "Floor"){
@@ -94,6 +103,58 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     
     
     
+    func updateParallax() {
+        var indexToRemove: [Int] = []
+        
+        for index in 0..<parallaxNodes.count {
+            
+            let node = parallaxNodes[index]
+            
+            if let camera = self.camera {
+                
+                let rightOfCamera = camera.position.x + frame.size.width / 2
+                let rightOfNode = node.position.x + node.size.width / 2
+                
+                let leftOfCamera = camera.position.x - frame.size.width / 2
+                let leftOfNode = node.position.x - node.size.width / 2
+                
+                let isVisible = !(rightOfNode > rightOfCamera && leftOfNode > rightOfCamera) && !(leftOfNode < leftOfCamera && rightOfNode < leftOfCamera)
+                
+                if (index == parallaxNodes.count - 1) {
+                    
+                    if (rightOfNode < rightOfCamera) {
+                        let otherNode = node.copy() as! SKSpriteNode
+                        otherNode.position.x = node.position.x + node.size.width
+                        addChild(otherNode)
+                        
+                        parallaxNodes.append(otherNode)
+                    }
+                   
+                }
+
+                if (index == 0 && leftOfNode > leftOfCamera) {
+
+                    let otherNode = node.copy() as! SKSpriteNode
+                    otherNode.position.x = node.position.x - node.size.width
+                    addChild(otherNode)
+
+                    parallaxNodes.insert(otherNode, at: 0)
+                }
+                
+                if (!isVisible) {
+                    node.removeFromParent()
+                    indexToRemove.append(index)
+                }
+            }
+        }
+        
+        for index in indexToRemove {
+            parallaxNodes.remove(at: index)
+        }
+        
+        indexToRemove = []
+    }
+        
     func getBoundaries() -> SKSpriteNode? {
         let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
         
@@ -112,8 +173,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
     
     
-    
-    
     func addTriggerToNode(node: SKSpriteNode, callback: @escaping () -> Void) {
         let entity = GKEntity()
         
@@ -127,6 +186,9 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
+        updateParallax()
+        
         if canCreatePhysicsBody{
             for node in self.children {
                 if (node.name == "FallenCreating"){
@@ -205,11 +267,6 @@ override func didFinishUpdate() {
     self.cameraController.onFinishUpdate()
     
 }
-    
-    func asd() {
-        player.node.position = getSpawnPoint()
-    }
-
 
 func addPlataform(){
     
