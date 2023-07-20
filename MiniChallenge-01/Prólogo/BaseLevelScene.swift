@@ -164,16 +164,8 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     
     func didBegin(_ contact: SKPhysicsContact) {
            
-        let nodeA = contact.bodyA.node
-           let nodeB = contact.bodyB.node
-        
-        if (nodeA?.entity is Player) {
-            print(nodeA?.entity)
-        }
-        
-        if (nodeB?.entity is Player) {
-            print(nodeB?.entity)
-        }
+        let nodeA = contact.bodyA.node as? SKSpriteNode
+           let nodeB = contact.bodyB.node as? SKSpriteNode
         
            for triggerComponent in triggersManager.components {
                
@@ -181,12 +173,12 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
    
                    if triggerNode == nodeA {
                  
-//                       triggerComponent.callback(nodeB)
+                       triggerComponent.callback(nodeB)
                    }
    
                    if triggerNode == nodeB {
                 
-//                       triggerComponent.callback(nodeA)
+                       triggerComponent.callback(nodeA)
                    }
                }
    

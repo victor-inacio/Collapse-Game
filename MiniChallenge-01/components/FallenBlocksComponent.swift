@@ -8,8 +8,9 @@ class FallenBlocksComponent: GKComponent {
     override func didAddToEntity() {
         
         let node = self.entity!.component(ofType: SpriteComponent.self)!.node!
-        let scene = node.scene!
         
+        
+        let scene = node.scene!
         
         var nodeClone = node.copy() as! SKSpriteNode
         nodeClone.physicsBody = nil
@@ -17,15 +18,11 @@ class FallenBlocksComponent: GKComponent {
         nodeClone.alpha = 1
         scene.addChild(nodeClone)
         
-       
-        
-                
         let triggerComponent = TriggerComponent { otherNode in
-            
             
             if (self.canBeDestoyed ) {
                 
-                if (otherNode?.name != "player") {
+                if (!(otherNode?.entity is Player)) {
                     self.entity?.removeComponent(ofType: FallenBlocksComponent.self)
                     node.removeFromParent()
                 }
@@ -35,8 +32,9 @@ class FallenBlocksComponent: GKComponent {
                 if let otherNode = otherNode {
                     let topPositionOfBlock = node.position.y + node.size.height / 2
                     let bottomPositionOfOtherNode = otherNode.position.y - otherNode.size.height / 2
+
                     
-                    if (otherNode.name == "player" && otherNode.position.y >= topPositionOfBlock) {
+                    if (otherNode.entity is Player && otherNode.position.y >= topPositionOfBlock) {
                         nodeClone.run(.sequence([
                             .shake(initialPosition: node.position, duration: 0.5),
                             SKAction.run {
@@ -52,11 +50,15 @@ class FallenBlocksComponent: GKComponent {
                 }
             }
             
+          
+            
             
         }
+        
         self.entity?.addComponent(triggerComponent)
         node.physicsBody?.categoryBitMask = PhysicsCategory.fallen.rawValue
         node.physicsBody?.collisionBitMask = PhysicsCategory.player.rawValue
+       
     }
     
 }

@@ -115,7 +115,6 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         dash(direction: direction)
         
-        print(direction)
         
         stateMachine?.enter(PlayerDash.self)
         
@@ -202,6 +201,7 @@ class PlayerGrounded: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
+//        print("onGround")
 //        print("onGround")
         
     }

@@ -15,8 +15,6 @@ class TriggerComponent: GKComponent {
         
         if let node = entity?.component(ofType: SpriteComponent.self)?.node {
     
-            node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
-            
             var physicsBody = node.physicsBody
             
             if ((physicsBody == nil)) {
