@@ -14,6 +14,9 @@ class Player: NodeEntity, VirtualControllerTarget{
     var velocityX: CGFloat = 0
     var angle: CGFloat = 0
     var onGround = false
+    var jumpVelocityFallOff: CGFloat = 35
+    var pressingJump: Bool = false
+
     
     init(){
         
@@ -43,21 +46,39 @@ class Player: NodeEntity, VirtualControllerTarget{
     func applyMachine(){
         
         stateMachine = GKStateMachine(states: [
-            PlayerIdle(), PlayerRun(), PlayerJump(), PlayerDash(), PlayerGrounded(), PlayerDead()
+            PlayerIdle(playerNode: playerNode), PlayerRun(playerNode: playerNode), PlayerJump(), PlayerDash(), PlayerGrounded(), PlayerDead()
         ])
         
         stateMachine?.enter(PlayerIdle.self)
     }
+    
+    func update() {
+        
+        if stateMachine.currentState is PlayerDash == false {
+            applyMovement(distanceX: velocityX, angle: angle)
+        }
+        
+        if playerNode.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
+            stateMachine.enter(PlayerGrounded.self)
+        }
+        
+        if (playerNode.physicsBody?.velocity.dy ?? 0 < 50 || playerNode.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
+            playerNode.physicsBody?.velocity.dy -= jumpVelocityFallOff
+        }
+        //teste
+    }
+    
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
         
         if stateMachine.currentState is PlayerDash == false{
             applyMovement(distanceX: direction.x, angle: angle)
         }
+        
         velocityX = direction.x
         self.angle = angle
         
-        if direction.x != 0 && stateMachine.currentState is PlayerDash == false{
+        if stateMachine.currentState is PlayerDash == false{
             stateMachine?.enter(PlayerRun.self)
         }
         
@@ -70,7 +91,9 @@ class Player: NodeEntity, VirtualControllerTarget{
     func applyMovement(distanceX: CGFloat, angle: CGFloat){
         
         if stateMachine.currentState is PlayerDash == false{
-            node.physicsBody!.velocity.dx = distanceX  * 4
+            
+            
+            playerNode.physicsBody!.velocity.dx = distanceX * 7
         }
         
         if angle > 1.51 || angle < -1.51{
@@ -80,31 +103,22 @@ class Player: NodeEntity, VirtualControllerTarget{
         }
     }
     
-    func update() {
-        
-        if stateMachine.currentState is PlayerDash == false{
-            applyMovement(distanceX: velocityX, angle: angle)
-        }
-        
-
-        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
-           
-            stateMachine.enter(PlayerGrounded.self)        }
-    }
     
-    func onJoystickJumpBtnTouch() {
-     
-            
-        if stateMachine.currentState is PlayerDash == false{
+    func onJoystickJumpBtnTouch(pressingJump: Bool) {
+        
+        self.pressingJump = pressingJump
+        
+        if stateMachine.currentState is PlayerDash == false && pressingJump{
             jump()
         }
+        
     }
     
     func jump(){
         
-        if stateMachine.currentState is PlayerGrounded {
+        if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && playerNode.physicsBody?.velocity.dy == 0{
             
-            node.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: node.size.height / 2))
+            playerNode.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: playerNode.size.height + playerNode.size.height / 4))
             
             stateMachine?.enter(PlayerJump.self)
             
@@ -115,46 +129,74 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         dash(direction: direction)
         
-        
         stateMachine?.enter(PlayerDash.self)
         
     }
     
     func dash(direction: CGVector){
         
-        if stateMachine.currentState is PlayerDash == false{
-            
-            node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 35 , dy: direction.dy * 35 ))
-            
-        }
         
-        self.node.run(.sequence([.wait(forDuration: 0.5), .run{
-            self.stateMachine?.enter(PlayerIdle.self)
-        }]))
+            
+            self.playerNode.physicsBody?.affectedByGravity = false
+            
+            playerNode.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 100 ))
+            
+        
+        if  stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && playerNode.physicsBody?.velocity.dy == 0 {
+            
+            self.playerNode.run(.sequence([.wait(forDuration: 0.2), .run{
+                self.stateMachine?.enter(PlayerIdle.self)
+                self.playerNode.physicsBody?.affectedByGravity = true
+                
+            }]))
+        } else {
+            
+            self.playerNode.run(.sequence([.wait(forDuration: 0.25), .run{
+                self.stateMachine?.enter(PlayerIdle.self)
+                self.playerNode.physicsBody?.affectedByGravity = true
+            }]))
+            
+            if playerNode.physicsBody?.velocity.dy == 0{
+                playerNode.removeAllActions()
+            }
+        }
     }
+    
 }
 
 class PlayerIdle: GKState {
     
+    public var playerNode: SKSpriteNode
+    
+    init (playerNode: SKSpriteNode){
+        self.playerNode = playerNode
+        super.init()
+    }
+    
     override func didEnter(from previousState: GKState?) {
         
         //        print("idle")
+        
+        //        playerNode.run(.repeatForever(.repeatForever(.animate(with: .init(format: "idle frame %@", frameCount: 1...4), timePerFrame: 0.4))))
     }
+    
 }
 
 class PlayerRun: GKState{
     
     
     
-    override func didEnter(from previousState: GKState?) {
-        
-//                print("run")
-        
+    public var playerNode: SKSpriteNode
+    
+    init (playerNode: SKSpriteNode){
+        self.playerNode = playerNode
+        super.init()
     }
     
-    override func update(deltaTime seconds: TimeInterval) {
+    override func didEnter(from previousState: GKState?) {
         
-        
+        //                print("run")
+        isRunning = true
         
     }
 }
@@ -163,7 +205,7 @@ class PlayerJump: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
-    
+        //        print("jump")
         
     }
 }
@@ -171,7 +213,7 @@ class PlayerJump: GKState{
 class PlayerDash: GKState{
     
     override func didEnter(from previousState: GKState?) {
-    
+        //        print("dash")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -201,8 +243,7 @@ class PlayerGrounded: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
-//        print("onGround")
-//        print("onGround")
+        //        print("onGround")
         
     }
 }
@@ -212,7 +253,7 @@ class PlayerDead: GKState {
     
     override func didEnter(from previousState: GKState?) {
         
-//
+        //        print("onGround")
         
     }
     
