@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import SpriteKit
 
 extension CGPoint{
     
@@ -31,4 +31,14 @@ func signNum(num: CGFloat) -> Int {
     if (num > 0) {return 1}
         
     return 0
+}
+
+
+extension Array where Element == SKTexture {
+    init(format: String, frameCount: ClosedRange<Int>){
+        self = frameCount.map({ (index) in
+            let imageName = String(format: format, "\(index)")
+            return SKTexture(imageNamed: imageName)
+        })
+    }
 }

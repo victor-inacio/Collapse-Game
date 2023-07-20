@@ -11,7 +11,7 @@ import GameplayKit
 protocol VirtualControllerTarget {
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) -> Void
-    func onJoystickJumpBtnTouch() -> Void
+    func onJoystickJumpBtnTouch(pressingJump: Bool) -> Void
     func onJoystickDashBtnTouch(direction: CGVector) -> Void
     
 }
@@ -22,8 +22,6 @@ class VirtualController: SKNode{
     var virtualJoystickF: SKSpriteNode?
     var jumpButton: SKSpriteNode?
     var dashButton: SKSpriteNode?
-    
-    var joystickInUse: Bool = false
     var joystickTouch: UITouch?
     var jumpTouch: UITouch?
     var dashTouch: UITouch?
@@ -39,6 +37,16 @@ class VirtualController: SKNode{
             self.target.onJoystickChange(direction: .init(x: self.distanceX, y: self.distanceY), angle: joystickAngleRounded)
         }
     }
+    
+    var joystickInUse: Bool = false
+    
+    var pressingJump: Bool = false {
+        didSet {
+            self.target.onJoystickJumpBtnTouch(pressingJump: self.pressingJump)
+        }
+    }
+    
+    
     var gameScene = BaseLevelScene()
     var target: VirtualControllerTarget!
     
@@ -106,8 +114,10 @@ class VirtualController: SKNode{
             if jumpButton!.frame.contains(location){
 
                 jumpTouch = t
+                
+                pressingJump = true
 
-                target.onJoystickJumpBtnTouch()
+                target.onJoystickJumpBtnTouch(pressingJump: pressingJump)
             }
 
             if dashButton!.frame.contains(location){
@@ -130,7 +140,10 @@ class VirtualController: SKNode{
                 if t == joystickTouch {
                     
                     movementReset(size: scene!.size)
-                   
+                }
+                
+                if t == jumpTouch {
+                    pressingJump = false
                 }
             }
         }
@@ -151,10 +164,15 @@ class VirtualController: SKNode{
         
         for t in touches{
             if touches.first == t{
-                let location = t.location(in: parent!)
-                
-                drag(location: location)
+                if t == joystickTouch{
+                    
+                    let location = t.location(in: parent!)
+                    
+                    drag(location: location)
+                    
+                }
             }
+            
         }
     }
     
@@ -162,6 +180,8 @@ class VirtualController: SKNode{
         
         if joystickInUse{
 //            print("in use")
+           
+            
             let point = CGPoint(x: location.x - virtualJoystickB!.position.x, y: location.y - virtualJoystickB!.position.y).normalize()
             
             let angle = atan2(point.y, point.x)

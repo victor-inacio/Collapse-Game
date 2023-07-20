@@ -46,10 +46,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: boundaries!.frame)
-
-
-        addGround()
-        addPlataform()
        
         
         addChild(camera2)
