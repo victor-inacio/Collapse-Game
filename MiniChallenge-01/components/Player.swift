@@ -59,7 +59,7 @@ class Player: VirtualControllerTarget{
         if (playerNode.physicsBody?.velocity.dy ?? 0 < 50 || playerNode.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
             playerNode.physicsBody?.velocity.dy -= jumpVelocityFallOff
         }
-        
+        //teste
     }
     
     
