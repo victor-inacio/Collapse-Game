@@ -24,8 +24,8 @@ class Player: NodeEntity, VirtualControllerTarget{
         node.zPosition = 1
         
         node.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        node.physicsBody?.contactTestBitMask = PhysicsCategory.floor.rawValue
-        node.physicsBody?.collisionBitMask = PhysicsCategory.floor.rawValue
+        node.physicsBody?.contactTestBitMask = PhysicsCategory.floor.rawValue | PhysicsCategory.fallenBlocks.rawValue
+        node.physicsBody?.collisionBitMask = PhysicsCategory.floor.rawValue | PhysicsCategory.fallenBlocks.rawValue
         node.physicsBody?.categoryBitMask = PhysicsCategory.player.rawValue
         node.physicsBody?.allowsRotation = false
         node.physicsBody?.isDynamic = true
@@ -125,7 +125,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerDash == false{
             
-            node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 60 , dy: direction.dy * 100 ))
+            node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 100 ))
             
         }
         

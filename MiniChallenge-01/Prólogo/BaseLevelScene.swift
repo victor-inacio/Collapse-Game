@@ -80,27 +80,27 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         for node in self.children {
             if (node.name == "Water") || (node.name == "Floor"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                    giveTileMapPhysicsBodyFloor(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                    giveTileMapPhysicsBodyFloor(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
                     someTileMap.removeFromParent()
                 }
             } else if (node.name == "Wall"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                    giveTileMapPhysicsBodyWall(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                    giveTileMapPhysicsBodyWall(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
                     someTileMap.removeFromParent()
                 }
             } else if (node.name == "Fallen2") {
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                    giveTileMapPhysicsBodyFallenBlocks(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                    giveTileMapPhysicsBodyFallenBlocks(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
                     someTileMap.removeFromParent()
                 }
             }
             
-            if (node.name == "Fallen"){
-                    if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                        giveTileMapPhysicsBodyFallen(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
-                        someTileMap.removeFromParent()
-                    }
-                }
+//            if (node.name == "Fallen"){
+//                    if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
+//                        giveTileMapPhysicsBodyFallen(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
+//                        someTileMap.removeFromParent()
+//                    }
+//                }
             }
         
         
@@ -145,20 +145,20 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             for node in self.children {
                 if (node.name == "FallenCreating"){
                     if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                        self.giveTileMapPhysicsBodyFallenBlocks(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                        self.giveTileMapPhysicsBodyFallenBlocks(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
                         self.canCreatePhysicsBody = false
                     }
 
                     var waiting = SKAction.wait(forDuration: 0.485)
                     
                     if timeVariance == 0{
-                        waiting = SKAction.wait(forDuration: 0.40)
+                        waiting = SKAction.wait(forDuration: 0.600)
                         timeVariance += 1
                     }else if timeVariance < 4{
-                        waiting = SKAction.wait(forDuration: 0.485)
+                        waiting = SKAction.wait(forDuration: 0.600)
                         timeVariance += 1
                     } else{
-                        waiting = SKAction.wait(forDuration: 0.505 * 3)
+                        waiting = SKAction.wait(forDuration: 0.505 * 6.5)
                         timeVariance = 1
                     }
                     
@@ -177,7 +177,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     func didBegin(_ contact: SKPhysicsContact) {
            
         let nodeA = contact.bodyA.node
-           let nodeB = contact.bodyB.node
+        let nodeB = contact.bodyB.node
         
         if (nodeA?.entity is Player) {
             print(nodeA?.entity)

@@ -56,6 +56,7 @@ extension BaseLevelScene{
                     let tileNode = SKSpriteNode(texture: tileTexture)
                     tileNode.scale(to: CGSize(width: tileTexture.size().width/proportion, height: tileTexture.size().height/proportion))
                     tileNode.position = CGPoint(x: x, y: y)
+                    tileNode.zPosition = 0
                     
                     //Detectar quando precisa fazer um node maior
                     if col < tileMap.numberOfColumns - 1{
@@ -143,8 +144,6 @@ extension BaseLevelScene{
             addChild(node)
         }
     }
-    
-    
     
     
     func giveTileMapPhysicsBodyWall(map: SKTileMapNode, textureWidth: Double, tileMapProportion: Double){
