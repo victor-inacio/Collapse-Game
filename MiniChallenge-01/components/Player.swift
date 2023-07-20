@@ -46,7 +46,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     func applyMachine(){
         
         stateMachine = GKStateMachine(states: [
-            PlayerIdle(playerNode: playerNode), PlayerRun(playerNode: playerNode), PlayerJump(), PlayerDash(), PlayerGrounded(), PlayerDead()
+            PlayerIdle(playerNode: node), PlayerRun(playerNode: node), PlayerJump(), PlayerDash(), PlayerGrounded(), PlayerDead()
         ])
         
         stateMachine?.enter(PlayerIdle.self)
@@ -58,12 +58,12 @@ class Player: NodeEntity, VirtualControllerTarget{
             applyMovement(distanceX: velocityX, angle: angle)
         }
         
-        if playerNode.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
+        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
             stateMachine.enter(PlayerGrounded.self)
         }
         
-        if (playerNode.physicsBody?.velocity.dy ?? 0 < 50 || playerNode.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
-            playerNode.physicsBody?.velocity.dy -= jumpVelocityFallOff
+        if (node.physicsBody?.velocity.dy ?? 0 < 50 || node.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
+            node.physicsBody?.velocity.dy -= jumpVelocityFallOff
         }
         //teste
     }
@@ -93,7 +93,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         if stateMachine.currentState is PlayerDash == false{
             
             
-            playerNode.physicsBody!.velocity.dx = distanceX * 7
+            node.physicsBody!.velocity.dx = distanceX * 7
         }
         
         if angle > 1.51 || angle < -1.51{
@@ -116,9 +116,9 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func jump(){
         
-        if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && playerNode.physicsBody?.velocity.dy == 0{
+        if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0{
             
-            playerNode.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: playerNode.size.height + playerNode.size.height / 4))
+            node.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: node.size.height + node.size.height / 4))
             
             stateMachine?.enter(PlayerJump.self)
             
@@ -137,27 +137,27 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         
             
-            self.playerNode.physicsBody?.affectedByGravity = false
+            self.node.physicsBody?.affectedByGravity = false
             
-            playerNode.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 100 ))
+        node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 100 ))
             
         
-        if  stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && playerNode.physicsBody?.velocity.dy == 0 {
+        if  stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0 {
             
-            self.playerNode.run(.sequence([.wait(forDuration: 0.2), .run{
+            self.node.run(.sequence([.wait(forDuration: 0.2), .run{
                 self.stateMachine?.enter(PlayerIdle.self)
-                self.playerNode.physicsBody?.affectedByGravity = true
+                self.node.physicsBody?.affectedByGravity = true
                 
             }]))
         } else {
             
-            self.playerNode.run(.sequence([.wait(forDuration: 0.25), .run{
+            self.node.run(.sequence([.wait(forDuration: 0.25), .run{
                 self.stateMachine?.enter(PlayerIdle.self)
-                self.playerNode.physicsBody?.affectedByGravity = true
+                self.node.physicsBody?.affectedByGravity = true
             }]))
             
-            if playerNode.physicsBody?.velocity.dy == 0{
-                playerNode.removeAllActions()
+            if node.physicsBody?.velocity.dy == 0{
+                node.removeAllActions()
             }
         }
     }
@@ -196,7 +196,7 @@ class PlayerRun: GKState{
     override func didEnter(from previousState: GKState?) {
         
         //                print("run")
-        isRunning = true
+    
         
     }
 }
