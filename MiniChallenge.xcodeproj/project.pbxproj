@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9806B5C92A69A65E003CDE88 /* WaterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5C82A69A65E003CDE88 /* WaterEntity.swift */; };
+		9806B5CB2A69A719003CDE88 /* KillierCollisionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */; };
+		9806B5CD2A69BE02003CDE88 /* SKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */; };
 		980FE3652A6871F900681175 /* NodeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980FE3642A6871F900681175 /* NodeEntity.swift */; };
 		98155DC62A6722C30067EA24 /* Phase2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98155DC52A6722C30067EA24 /* Phase2.sks */; };
 		98155DC82A672DD30067EA24 /* FallenBlocksComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */; };
@@ -40,6 +43,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9806B5C82A69A65E003CDE88 /* WaterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterEntity.swift; sourceTree = "<group>"; };
+		9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillierCollisionComponent.swift; sourceTree = "<group>"; };
+		9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsBody.swift; sourceTree = "<group>"; };
 		980FE3642A6871F900681175 /* NodeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeEntity.swift; sourceTree = "<group>"; };
 		98155DC52A6722C30067EA24 /* Phase2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Phase2.sks; sourceTree = "<group>"; };
 		98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallenBlocksComponent.swift; sourceTree = "<group>"; };
@@ -89,6 +95,7 @@
 			children = (
 				9865AC4D2A65B74F003BDA66 /* DoorEntity.swift */,
 				980FE3642A6871F900681175 /* NodeEntity.swift */,
+				9806B5C82A69A65E003CDE88 /* WaterEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -134,6 +141,7 @@
 				AB07DB592A5F921500721221 /* components */,
 				98CE02A92A64A0660032DFCC /* Prólogo */,
 				E80B5B362A65D5BE00E719E4 /* SKScene.swift */,
+				9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */,
 			);
 			path = "MiniChallenge-01";
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 				984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */,
 				98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */,
 				E85633452A671E7400FCB1FF /* FallenIceBlock.swift */,
+				9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -275,11 +284,14 @@
 				E85633462A671E7400FCB1FF /* FallenIceBlock.swift in Sources */,
 				E8E492192A66359B00FE6C86 /* Phase2.swift in Sources */,
 				E8E492142A66314900FE6C86 /* Phase1.swift in Sources */,
+				9806B5CD2A69BE02003CDE88 /* SKPhysicsBody.swift in Sources */,
 				98155DC82A672DD30067EA24 /* FallenBlocksComponent.swift in Sources */,
 				AB07DB3E2A5F888600721221 /* AppDelegate.swift in Sources */,
+				9806B5CB2A69A719003CDE88 /* KillierCollisionComponent.swift in Sources */,
 				E80B5B372A65D5BE00E719E4 /* SKScene.swift in Sources */,
 				9865AC4E2A65B74F003BDA66 /* DoorEntity.swift in Sources */,
 				AB07DB5D2A5F938F00721221 /* Player.swift in Sources */,
+				9806B5C92A69A65E003CDE88 /* WaterEntity.swift in Sources */,
 				984AEF0E2A64C42B00792A84 /* TriggerComponent.swift in Sources */,
 				E8E4921E2A66476B00FE6C86 /* Phase3.swift in Sources */,
 				984AEF0C2A64BCD300792A84 /* DoorComponent.swift in Sources */,

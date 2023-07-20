@@ -16,4 +16,5 @@ enum PhysicsCategory: UInt32{
     case floor = 6
     case fallenBlocks = 7
     case limit = 8
+    case water = 9
 }

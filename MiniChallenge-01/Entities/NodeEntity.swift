@@ -15,13 +15,15 @@ class NodeEntity: GKEntity {
     
     init(node: SKSpriteNode) {
         super.init()
+        
         let spriteComponent = SpriteComponent(node: node)
         addComponent(spriteComponent)
+        
         spriteComponent.node.entity = self
     }
     
     
     required init?(coder: NSCoder) {
-        fatalError("Erorr")
+        fatalError("Error")
     }
 }

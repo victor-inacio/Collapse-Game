@@ -51,22 +51,15 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         let spawnPoint = getSpawnPoint()
         player.node.position = spawnPoint
         
-
-     
-        
         addChild(camera2)
         camera2.addChild(virtualController)
         
         cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         
         setupDoors()
-        
-        
-        
-        
-        
+
         for node in self.children {
-            if (node.name == "Water") || (node.name == "Floor"){
+            if (node.name == "Floor"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
                     giveTileMapPhysicsBodyFloor(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
                     someTileMap.removeFromParent()
@@ -89,9 +82,14 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                         someTileMap.removeFromParent()
                     }
                 }
+            
+            if (node.name == "Water"){
+                if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
+                    giveTileMapPhysicsBodyWater(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                    someTileMap.removeFromParent()
+                }
             }
-        
-        
+        }
     }
     
     
@@ -207,6 +205,10 @@ override func didFinishUpdate() {
     self.cameraController.onFinishUpdate()
     
 }
+    
+    func asd() {
+        player.node.position = getSpawnPoint()
+    }
 
 
 func addPlataform(){
@@ -223,15 +225,7 @@ func addPlataform(){
 }
 
 func addPlayer(){
-    
-    if let playerT = childNode(withName: "PlayerNode") as? SKSpriteNode{
-        player.node.position = CGPoint(x: playerT.position.x, y: playerT.position.y)
-    } else{
-        player.node.position = CGPoint(x: size.width/2 , y: size.height/2)
-    }
-
     self.addChild(player.node)
-    
 }
 
 func addGround(){

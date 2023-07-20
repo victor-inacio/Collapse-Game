@@ -18,7 +18,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     init(){
         
         let texture = SKTexture(imageNamed: "player")
-
+        
         let node = SKSpriteNode(texture: texture, color: .red, size: texture.size())
         
         node.zPosition = 1
@@ -40,6 +40,29 @@ class Player: NodeEntity, VirtualControllerTarget{
         fatalError("Error")
     }
     
+    func die() {
+        
+        if (stateMachine.currentState is PlayerDead) {
+            return
+        }
+        
+        if let scene = node.scene as? BaseLevelScene {
+            let spawnPoint = scene.getSpawnPoint()
+            let move = SKAction.move(to: spawnPoint, duration: 0)
+            move.timingMode = .easeInEaseOut
+            
+            stateMachine.enter(PlayerDead.self)
+            node.run(.sequence([
+                move,
+                .run {
+                    self.node.physicsBody?.velocity.dx = 0
+                    self.node.physicsBody?.velocity.dy = 0
+                }
+                
+            ]))
+        }
+    }
+    
     func applyMachine(){
         
         stateMachine = GKStateMachine(states: [
@@ -50,6 +73,10 @@ class Player: NodeEntity, VirtualControllerTarget{
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
+        
+        if (stateMachine.currentState is PlayerDead) {
+            return
+        }
         
         if stateMachine.currentState is PlayerDash == false{
             applyMovement(distanceX: direction.x, angle: angle)
@@ -68,6 +95,9 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     
     func applyMovement(distanceX: CGFloat, angle: CGFloat){
+        if (stateMachine.currentState is PlayerDead) {
+            return
+        }
         
         if stateMachine.currentState is PlayerDash == false{
             node.physicsBody!.velocity.dx = distanceX  * 4
@@ -82,14 +112,18 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func update() {
         
-        if stateMachine.currentState is PlayerDash == false{
+        print(stateMachine.currentState)
+        
+        if stateMachine.currentState is PlayerDash == false {
             applyMovement(distanceX: velocityX, angle: angle)
         }
         
 
         if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
            
-            stateMachine.enter(PlayerGrounded.self)        }
+            stateMachine.enter(PlayerGrounded.self)
+            
+        }
     }
     
     func onJoystickJumpBtnTouch() {
