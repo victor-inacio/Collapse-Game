@@ -26,7 +26,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         node.zPosition = 1
         
-        node.physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
+        node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: texture.size().width, height: texture.size().height))
         node.physicsBody?.contactTestBitMask = PhysicsCategory.floor.rawValue
         node.physicsBody?.collisionBitMask = PhysicsCategory.floor.rawValue
         node.physicsBody?.categoryBitMask = PhysicsCategory.player.rawValue
@@ -133,20 +133,20 @@ class Player: NodeEntity, VirtualControllerTarget{
         }
     }
     
-    func update() {
-    
-        
-        if stateMachine.currentState is PlayerDash == false {
-            applyMovement(distanceX: velocityX, angle: angle)
-        }
-        
-
-        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
-           
-            stateMachine.enter(PlayerGrounded.self)
-            
-        }
-    }
+//    func update() {
+//
+//
+//        if stateMachine.currentState is PlayerDash == false {
+//            applyMovement(distanceX: velocityX, angle: angle)
+//        }
+//
+//
+//        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
+//
+//            stateMachine.enter(PlayerGrounded.self)
+//
+//        }
+//    }
     
     func onJoystickJumpBtnTouch(pressingJump: Bool) {
         

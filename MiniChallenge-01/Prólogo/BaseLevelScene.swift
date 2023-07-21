@@ -25,15 +25,8 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var timeVariance: Int = 0
     var canCreatePhysicsBody: Bool = true
     var entities: [GKEntity] = []
-    var pauseButton: SKSpriteNode?
-    var skull: SKSpriteNode?
-    var killCount: SKLabelNode?
     
     override func didMove(to view: SKView) {
-        killCount = SKLabelNode(text: "1")
-        killCount?.fontName = "Futura Bold"
-        pauseButton = SKSpriteNode(imageNamed: "PauseButton")
-        skull = SKSpriteNode(imageNamed: "Skull")
         triggersManager = GKComponentSystem(componentClass: TriggerComponent.self)
         
         physicsWorld.contactDelegate = self
@@ -59,12 +52,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         
         addChild(camera2)
         camera2.addChild(virtualController)
-        camera2.addChild(pauseButton!)
-        camera2.addChild(skull!)
-        camera2.addChild(killCount!)
-        pauseButton?.position = CGPoint(x: -550, y: 240)
-        skull?.position = CGPoint(x: 550, y: 240)
-        killCount?.position = CGPoint(x: 480, y: 225)
         
         cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         
@@ -73,12 +60,12 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         for node in self.children {
             if (node.name == "Floor"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                    giveTileMapPhysicsBodyFloor(map: someTileMap, textureWidth: (SKScene(fileNamed: "PlataformGameScene") != nil) ? 64 : 50 , tileMapProportion: 64)
+                    giveTileMapPhysicsBodyFloor(map: someTileMap, textureWidth: 64, tileMapProportion: 64)
                     someTileMap.removeFromParent()
                 }
             } else if (node.name == "Wall"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                    giveTileMapPhysicsBodyWall(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
+                    giveTileMapPhysicsBodyWall(map: someTileMap, textureWidth: 64, tileMapProportion: 64)
                     someTileMap.removeFromParent()
                 }
             } else if (node.name == "Fallen2") {
@@ -90,14 +77,14 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             
             if (node.name == "Fallen"){
                     if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                        giveTileMapPhysicsBodyFallen(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                        giveTileMapPhysicsBodyFallen(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
                         someTileMap.removeFromParent()
                     }
                 }
             
             if (node.name == "Water"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                    giveTileMapPhysicsBodyWater(map: someTileMap, textureWidth: 50, tileMapProportion: 50)
+                    giveTileMapPhysicsBodyWater(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
                     someTileMap.removeFromParent()
                 }
             }
@@ -153,7 +140,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                         waiting = SKAction.wait(forDuration: 0.600)
                         timeVariance += 1
                     }else if timeVariance < 4{
-                        waiting = SKAction.wait(forDuration: 0.600)
+                        waiting = SKAction.wait(forDuration: 0.645)
                         timeVariance += 1
                     } else{
                         waiting = SKAction.wait(forDuration: 0.505 * 6.5)
