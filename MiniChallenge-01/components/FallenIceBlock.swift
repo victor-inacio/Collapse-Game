@@ -50,7 +50,7 @@ extension SKScene{
                     tileNode.position = CGPoint(x: (tileNode.position.x + startingLocation.x) , y: tileNode.position.y + startingLocation.y)
                     
                     
-                    let action = SKAction.wait(forDuration: 12)
+                    let action = SKAction.wait(forDuration: 16)
                     self.addChild(tileNode)
                     let removeAction = SKAction.run {
                         tileNode.removeFromParent()

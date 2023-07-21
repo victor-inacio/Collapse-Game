@@ -327,6 +327,7 @@ extension BaseLevelScene{
                     let tileNode = SKSpriteNode(texture: tileTexture)
                     tileNode.scale(to: CGSize(width: tileTexture.size().width/proportion, height: tileTexture.size().height/proportion))
                     tileNode.position = CGPoint(x: x, y: y)
+                    tileNode.zPosition = 0
                     
                     //Detectar quando precisa fazer um node maior
                     if col < tileMap.numberOfColumns - 1{
@@ -354,7 +355,7 @@ extension BaseLevelScene{
                         tileNode.physicsBody?.affectedByGravity = false
                         tileNode.physicsBody?.allowsRotation = false
                         tileNode.physicsBody?.isDynamic = false
-                        tileNode.physicsBody?.friction = 0
+                        tileNode.physicsBody?.friction = 1
                         tileNode.physicsBody?.linearDamping = 0
                         tileNode.physicsBody?.collisionBitMask = 0
                         tileNode.physicsBody?.categoryBitMask = PhysicsCategory.water.rawValue

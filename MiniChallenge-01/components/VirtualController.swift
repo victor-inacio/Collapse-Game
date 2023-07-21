@@ -62,13 +62,16 @@ class VirtualController: SKNode{
         
         virtualJoystickB = SKSpriteNode(texture: textureControllerB, color: .white, size: textureControllerB.size())
         
+        virtualJoystickB?.scale(to: CGSize(width: 200, height: 200))
         virtualJoystickB?.name = "controllerBack"
         virtualJoystickB?.zPosition = 5
+        virtualJoystickB?.alpha = 0.6
         
         virtualJoystickF = SKSpriteNode(texture: textureControllerF, color: .white, size: textureControllerF.size())
         
         virtualJoystickF?.name = "controllerFront"
         virtualJoystickF?.zPosition = 6
+        virtualJoystickF?.alpha = 0.8
         
         // JUMP
         let textureJump = SKTexture(imageNamed: "jump")
@@ -77,6 +80,7 @@ class VirtualController: SKNode{
         
         jumpButton?.name = "jump"
         jumpButton?.zPosition = 6
+        jumpButton?.alpha = 0.5
         
         // DASH
         let textureDash = SKTexture(imageNamed: "dash")
@@ -85,12 +89,13 @@ class VirtualController: SKNode{
         
         dashButton?.name = "dash"
         dashButton?.zPosition = 6
+        dashButton?.alpha = 0.5
         
-        virtualJoystickB?.position = CGPoint(x: scene.size.width / -3 + scene.size.width / 50 , y: scene.size.height  / -3.7)
-        virtualJoystickF?.position = CGPoint(x: scene.size.width / -3 + scene.size.width / 50, y: scene.size.height / -3.7)
+        virtualJoystickB?.position = CGPoint(x: scene.size.width / -3 + scene.size.width / 50 , y: scene.size.height  / -5.3)
+        virtualJoystickF?.position = CGPoint(x: scene.size.width / -3 + scene.size.width / 50, y: scene.size.height / -5.3)
         
-        jumpButton?.position = CGPoint(x:  scene.size.width / 5 + scene.size.width / 20  , y:  scene.size.height  / -3.7)
-        dashButton?.position = CGPoint(x: scene.size.width / 3 - scene.size.width / 200, y: scene.size.height / -9 )
+        jumpButton?.position = CGPoint(x:  scene.size.width / 5 + scene.size.width / 9  , y:  scene.size.height  / -4)
+        dashButton?.position = CGPoint(x: scene.size.width / 2.6 - scene.size.width / 200, y: scene.size.height / -14 )
         
         addJump()
         addDash()
@@ -112,7 +117,13 @@ class VirtualController: SKNode{
             let location = t.location(in: parent!)
 
             if jumpButton!.frame.contains(location){
-
+                
+                jumpButton?.alpha = 0.8
+                let action = SKAction.wait(forDuration: 0.4)
+                let reverse = SKAction.run {
+                    self.jumpButton?.alpha = 0.5
+                }
+                run(SKAction.sequence([action, reverse]))
                 jumpTouch = t
                 
                 pressingJump = true
@@ -122,6 +133,13 @@ class VirtualController: SKNode{
 
             if dashButton!.frame.contains(location){
 
+                dashButton?.alpha = 0.8
+                let action = SKAction.wait(forDuration: 0.4)
+                let reverse = SKAction.run {
+                    self.dashButton?.alpha = 0.5
+                }
+                run(SKAction.sequence([action, reverse]))
+                
                 dashTouch = t
 
                 target.onJoystickDashBtnTouch(direction: direction)
@@ -134,7 +152,6 @@ class VirtualController: SKNode{
 }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         if touches.first != nil{
             for t in touches{
                 if t == joystickTouch {
@@ -217,7 +234,7 @@ class VirtualController: SKNode{
     
     func movementReset(size: CGSize){
         
-        let moveback = SKAction.move(to: CGPoint(x: size.width / -3 + size.width / 50, y: size.height  / -3.7), duration: 0.1)
+        let moveback = SKAction.move(to: CGPoint(x: size.width / -3 + size.width / 50, y: size.height  / -5.3), duration: 0.1)
         moveback.timingMode = .linear
         virtualJoystickF?.run(moveback)
         virtualJoystickB?.run(moveback)
