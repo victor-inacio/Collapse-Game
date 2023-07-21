@@ -16,6 +16,7 @@
 		980FE3652A6871F900681175 /* NodeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980FE3642A6871F900681175 /* NodeEntity.swift */; };
 		98155DC62A6722C30067EA24 /* Phase2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98155DC52A6722C30067EA24 /* Phase2.sks */; };
 		98155DC82A672DD30067EA24 /* FallenBlocksComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */; };
+		9827851F2A6B280D00BCA8F1 /* Parallax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9827851E2A6B280D00BCA8F1 /* Parallax.swift */; };
 		984AEF0C2A64BCD300792A84 /* DoorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF0B2A64BCD300792A84 /* DoorComponent.swift */; };
 		984AEF0E2A64C42B00792A84 /* TriggerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */; };
 		984AEF102A64C70A00792A84 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */; };
@@ -55,6 +56,7 @@
 		980FE3642A6871F900681175 /* NodeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeEntity.swift; sourceTree = "<group>"; };
 		98155DC52A6722C30067EA24 /* Phase2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Phase2.sks; sourceTree = "<group>"; };
 		98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallenBlocksComponent.swift; sourceTree = "<group>"; };
+		9827851E2A6B280D00BCA8F1 /* Parallax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parallax.swift; sourceTree = "<group>"; };
 		984AEF0B2A64BCD300792A84 /* DoorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorComponent.swift; sourceTree = "<group>"; };
 		984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggerComponent.swift; sourceTree = "<group>"; };
 		984AEF0F2A64C70A00792A84 /* SpriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				E85633452A671E7400FCB1FF /* FallenIceBlock.swift */,
 				9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */,
 				9806B5D22A69F7E6003CDE88 /* ParallaxItem.swift */,
+				9827851E2A6B280D00BCA8F1 /* Parallax.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				E8E4921E2A66476B00FE6C86 /* Phase3.swift in Sources */,
 				984AEF0C2A64BCD300792A84 /* DoorComponent.swift in Sources */,
 				AB07DB632A60317800721221 /* VirtualController.swift in Sources */,
+				9827851F2A6B280D00BCA8F1 /* Parallax.swift in Sources */,
 				98CE02B02A64A0660032DFCC /* BaseLevelScene.swift in Sources */,
 				AB07DB682A60400000721221 /* Camera.swift in Sources */,
 				AB07DB652A60394100721221 /* Ground.swift in Sources */,

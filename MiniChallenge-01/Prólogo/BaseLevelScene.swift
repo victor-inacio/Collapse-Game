@@ -25,7 +25,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var timeVariance: Int = 0
     var canCreatePhysicsBody: Bool = true
     var entities: [GKEntity] = []
-    var parallaxNodes: [SKSpriteNode] = []
+    var parallax: Parallax!
     
     override func didMove(to view: SKView) {
         
@@ -46,11 +46,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
 
  
         
-        if let parallaxNode = childNode(withName: "parallax") as? SKSpriteNode {
-            
-            parallaxNodes.append(parallaxNode)
-        }
-        
         
 
         let boundaries = getBoundaries()
@@ -67,26 +62,10 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         
         setupDoors()
         
-        let nuvensTexture = SKTexture(imageNamed: "Nuvens2")
-        let nuvensNode = SKSpriteNode(texture: nuvensTexture)
+        parallax = Parallax(scene: self, items: [
+            .init(fileName: "Nuvens2", depth: 2),
+        ])
         
-        nuvensNode.position = camera!.position
-        
-        parallaxNodes.append(nuvensNode)
-        
-        addChild(nuvensNode)
-    
-        for node in parallaxNodes {
-            
-            node.physicsBody = SKPhysicsBody(edgeLoopFrom: node.frame)
-            node.physicsBody?.affectedByGravity = false
-            node.physicsBody?.allowsRotation = false
-            node.physicsBody?.isDynamic = true
-            node.physicsBody?.collisionBitMask = 0
-            node.physicsBody?.contactTestBitMask = 0
-            node.physicsBody?.categoryBitMask = 0
-            
-        }
         
 
         for node in self.children {
@@ -124,65 +103,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
 
     
-    func updateParallax() {
-       
-        applyOffset()
-        fillParallax()
-    }
-    
-    func fillParallax() {
-        
-        var indexToRemove: [Int] = [ ]
-        
-        for index in 0..<parallaxNodes.count {
-            
-            let node = parallaxNodes[index]
-            
-            if let camera = self.camera {
-                
-                let rightOfCamera = camera.position.x + frame.size.width / 2
-                let rightOfNode = node.position.x + node.size.width / 2
-                
-                let leftOfCamera = camera.position.x - frame.size.width / 2
-                let leftOfNode = node.position.x - node.size.width / 2
-                
-                let isVisible = !(rightOfNode > rightOfCamera && leftOfNode > rightOfCamera) && !(leftOfNode < leftOfCamera && rightOfNode < leftOfCamera)
-                
-                if (index == parallaxNodes.count - 1) {
-                    
-                    if (rightOfNode < rightOfCamera) {
-                        let otherNode = node.copy() as! SKSpriteNode
-                        otherNode.position.x = node.position.x + node.size.width
-                        addChild(otherNode)
-                        
-                        parallaxNodes.append(otherNode)
-                    }
-                    
-                }
-                
-                if (index == 0 && leftOfNode > leftOfCamera) {
-                    
-                    let otherNode = node.copy() as! SKSpriteNode
-                    otherNode.position.x = node.position.x - node.size.width
-                    addChild(otherNode)
-                    
-                    parallaxNodes.insert(otherNode, at: 0)
-                }
-                
-                if (!isVisible) {
-                    node.removeFromParent()
-                    indexToRemove.append(index)
-                }
-            }
-        }
-        
-    }
-    
-    func applyOffset() {
-        for node in parallaxNodes {
-            node.physicsBody?.velocity.dx = -cameraController.cameraVelocity.dx
-        }
-    }
+   
         
     func getBoundaries() -> SKSpriteNode? {
         let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
@@ -212,8 +133,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     
     
     override func update(_ currentTime: TimeInterval) {
-        
-        updateParallax()
+    
         cameraController.update(currentTime)
         
         if canCreatePhysicsBody{
@@ -247,7 +167,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             }
         }
         player.update()
-        
+        parallax.update()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
