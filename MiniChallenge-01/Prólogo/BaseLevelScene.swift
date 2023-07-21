@@ -80,7 +80,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         for node in self.children {
             if (node.name == "Water") || (node.name == "Floor"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                    giveTileMapPhysicsBodyFloor(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
+                    giveTileMapPhysicsBodyFloor(map: someTileMap, textureWidth: (SKScene(fileNamed: "PlataformGameScene") != nil) ? 64 : 50 , tileMapProportion: 64)
                     someTileMap.removeFromParent()
                 }
             } else if (node.name == "Wall"){
@@ -260,5 +260,11 @@ func addGround(){
     self.addChild(ground)
     
 }
+    
+    func removeHud(){
+        self.camera2.removeAllChildren()
+        self.camera2.removeAllActions()
+        
+    }
 
 }

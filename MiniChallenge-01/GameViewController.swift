@@ -21,7 +21,7 @@ class GameViewController: UIViewController {
         //teste
         if let view = self.view as! SKView? {
             
-            if let scene = SKScene(fileNamed: "Phase3") {
+            if let scene = SKScene(fileNamed: "PlataformGameScene") {
                 scene.scaleMode = .aspectFill
                 
                 // Present the scene
@@ -31,10 +31,10 @@ class GameViewController: UIViewController {
             // Set the scale mode to scale to fit the window
            
            
-//            view.ignoresSiblingOrder = false
-//
+            view.ignoresSiblingOrder = false
+
             view.showsFPS = true
-//            view.showsNodeCount = true
+            view.showsNodeCount = true
 //            view.showsPhysics = true
         }
     }
