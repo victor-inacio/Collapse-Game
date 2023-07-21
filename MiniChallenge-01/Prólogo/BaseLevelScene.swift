@@ -43,7 +43,8 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         player.applyMachine()
         
         virtualController = VirtualController(target: self.player, scene: self)
-        
+
+ 
         
         if let parallaxNode = childNode(withName: "parallax") as? SKSpriteNode {
             
@@ -65,7 +66,28 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         
         setupDoors()
-        mountParallax()
+        
+        let nuvensTexture = SKTexture(imageNamed: "Nuvens2")
+        let nuvensNode = SKSpriteNode(texture: nuvensTexture)
+        
+        nuvensNode.position = camera!.position
+        
+        parallaxNodes.append(nuvensNode)
+        
+        addChild(nuvensNode)
+    
+        for node in parallaxNodes {
+            
+            node.physicsBody = SKPhysicsBody(edgeLoopFrom: node.frame)
+            node.physicsBody?.affectedByGravity = false
+            node.physicsBody?.allowsRotation = false
+            node.physicsBody?.isDynamic = true
+            node.physicsBody?.collisionBitMask = 0
+            node.physicsBody?.contactTestBitMask = 0
+            node.physicsBody?.categoryBitMask = 0
+            
+        }
+        
 
         for node in self.children {
             if (node.name == "Floor"){
@@ -100,11 +122,17 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             }
         }
     }
-    
-    
+
     
     func updateParallax() {
-        var indexToRemove: [Int] = []
+       
+        applyOffset()
+        fillParallax()
+    }
+    
+    func fillParallax() {
+        
+        var indexToRemove: [Int] = [ ]
         
         for index in 0..<parallaxNodes.count {
             
@@ -129,15 +157,15 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                         
                         parallaxNodes.append(otherNode)
                     }
-                   
+                    
                 }
-
+                
                 if (index == 0 && leftOfNode > leftOfCamera) {
-
+                    
                     let otherNode = node.copy() as! SKSpriteNode
                     otherNode.position.x = node.position.x - node.size.width
                     addChild(otherNode)
-
+                    
                     parallaxNodes.insert(otherNode, at: 0)
                 }
                 
@@ -148,11 +176,12 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             }
         }
         
-        for index in indexToRemove {
-            parallaxNodes.remove(at: index)
+    }
+    
+    func applyOffset() {
+        for node in parallaxNodes {
+            node.physicsBody?.velocity.dx = -cameraController.cameraVelocity.dx
         }
-        
-        indexToRemove = []
     }
         
     func getBoundaries() -> SKSpriteNode? {
@@ -162,16 +191,12 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
     
     func getSpawnPoint() -> CGPoint {
-        
         let spawnPointNode = childNode(withName: "SpawnPoint")
-        
         
         let position = spawnPointNode?.position ?? CGPoint(x: 0, y: 0)
         
-        
         return position
     }
-    
     
     func addTriggerToNode(node: SKSpriteNode, callback: @escaping () -> Void) {
         let entity = GKEntity()
@@ -185,9 +210,11 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         self.entities.append(entity)
     }
     
+    
     override func update(_ currentTime: TimeInterval) {
         
         updateParallax()
+        cameraController.update(currentTime)
         
         if canCreatePhysicsBody{
             for node in self.children {
@@ -220,6 +247,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             }
         }
         player.update()
+        
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
