@@ -15,7 +15,7 @@ class VisualBug{
         
         node = SKSpriteNode(texture: bugTexture)
         
-        node.run(.repeatForever(.repeatForever(.animate(with: .init(format: "VisualBug %@", frameCount: 1...3), timePerFrame: 0.3))))
+        node.run(.repeatForever(.repeatForever(.animate(with: .init(format: "VisualBug %@", frameCount: 1...3), timePerFrame: 0.2))))
         
     }
     
@@ -25,15 +25,20 @@ extension SKScene{
     func addVisualBug(nameOfTheAsset: String){
         for node in self.children {
             if (node.name == nameOfTheAsset){
+                
                 let bug = VisualBug()
                 bug.node.scale(to: CGSize(width: 64, height: 64))
                 bug.node.position = CGPoint(x: node.position.x, y: node.position.y)
+                
+                if nameOfTheAsset == "Bug 1" || nameOfTheAsset == "Special Bug"{
+                    bug.node.alpha = 0
+                }
+                
                 node.removeFromParent()
                 self.addChild(bug.node)
             }
         }
     }
-    
     
 }
 

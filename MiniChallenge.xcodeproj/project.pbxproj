@@ -35,6 +35,7 @@
 		AB07DB652A60394100721221 /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB642A60394100721221 /* Ground.swift */; };
 		AB07DB682A60400000721221 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB672A60400000721221 /* Camera.swift */; };
 		E80B5B372A65D5BE00E719E4 /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80B5B362A65D5BE00E719E4 /* SKScene.swift */; };
+		E81CD0692A6C614D00715CC2 /* bugs.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E81CD0682A6C614D00715CC2 /* bugs.mp3 */; };
 		E8302BEB2A6B0C6000BC9C06 /* VisualBug.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8302BEA2A6B0C6000BC9C06 /* VisualBug.swift */; };
 		E8302BED2A6B25B100BC9C06 /* Prologue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8302BEC2A6B25B100BC9C06 /* Prologue.swift */; };
 		E85633462A671E7400FCB1FF /* FallenIceBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85633452A671E7400FCB1FF /* FallenIceBlock.swift */; };
@@ -75,6 +76,7 @@
 		AB07DB642A60394100721221 /* Ground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
 		AB07DB672A60400000721221 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		E80B5B362A65D5BE00E719E4 /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
+		E81CD0682A6C614D00715CC2 /* bugs.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bugs.mp3; path = ../../../bugs.mp3; sourceTree = "<group>"; };
 		E8302BEA2A6B0C6000BC9C06 /* VisualBug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualBug.swift; sourceTree = "<group>"; };
 		E8302BEC2A6B25B100BC9C06 /* Prologue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prologue.swift; sourceTree = "<group>"; };
 		E85633452A671E7400FCB1FF /* FallenIceBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallenIceBlock.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				98CE02A92A64A0660032DFCC /* Prólogo */,
 				E80B5B362A65D5BE00E719E4 /* SKScene.swift */,
 				9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */,
+				E81CD0682A6C614D00715CC2 /* bugs.mp3 */,
 			);
 			path = "MiniChallenge-01";
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98155DC62A6722C30067EA24 /* Phase2.sks in Resources */,
+				E81CD0692A6C614D00715CC2 /* bugs.mp3 in Resources */,
 				AB07DB492A5F888600721221 /* Main.storyboard in Resources */,
 				98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */,
 				98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */,

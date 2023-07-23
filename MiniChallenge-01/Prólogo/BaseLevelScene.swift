@@ -25,7 +25,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var timeVariance: Int = 0
     var canCreatePhysicsBody: Bool = true
     var entities: [GKEntity] = []
-    var bug: VisualBug!
+    
     var startAnimation: Bool = false
     var finishAnimation: Bool = false
     
@@ -39,7 +39,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         
         self.camera = camera2
         
-        bug = VisualBug()
+        
         player = Player()
         addPlayer()
         player.applyMachine()
@@ -63,7 +63,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         
         setupDoors()
         
-        addVisualBug(nameOfTheAsset: "Bug")
 
         for node in self.children {
             if (node.name == "Floor"){
@@ -76,7 +75,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                     giveTileMapPhysicsBodyWall(map: someTileMap, textureWidth: 64, tileMapProportion: 64)
                     someTileMap.removeFromParent()
                 }
-            } else if (node.name == "Fallen2") {
+            } else if (node.name == "Fallen2"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
                     giveTileMapPhysicsBodyFallenBlocks(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
                     someTileMap.removeFromParent()
