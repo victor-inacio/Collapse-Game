@@ -3,7 +3,6 @@ import GameplayKit
 
 class ParallaxItem {
     var depth: Int
-    var maxDepth: Int = 10
     var parallaxNodes: [SKSpriteNode] = []
     
     init(fileName: String, depth: Int) {
@@ -12,6 +11,7 @@ class ParallaxItem {
         let texture = SKTexture(imageNamed: fileName)
         let node = SKSpriteNode(texture: texture)
         
+        node.zPosition = CGFloat(-depth)
         node.physicsBody = SKPhysicsBody(edgeLoopFrom: node.frame)
         node.physicsBody?.affectedByGravity = false
         node.physicsBody?.allowsRotation = false
@@ -84,7 +84,8 @@ class ParallaxItem {
         let cameraController = scene.cameraController
         
         for node in parallaxNodes {
-            node.physicsBody?.velocity.dx = -cameraController!.cameraVelocity.dx
+            node.physicsBody?.velocity.dx = -(cameraController!.cameraVelocity.dx - CGFloat(depth))
+            node.physicsBody?.velocity.dy = -(cameraController!.cameraVelocity.dy - CGFloat(depth))
         }
     }
     
