@@ -23,13 +23,19 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var cameraController: CameraController!
     let camera2 = SKCameraNode()
     var triggersManager: GKComponentSystem<TriggerComponent>!
+    var fallenBlocksManager: GKComponentSystem<FallenBlocksComponent>!
     var timeVariance: Int = 0
     var canCreatePhysicsBody: Bool = true
     var entities: [GKEntity] = []
     
+    var pauseButton: SKSpriteNode?
+    var skull: SKSpriteNode?
+    var killCount: SKLabelNode?
+    var parallax: Parallax!
     
     override func didMove(to view: SKView) {
         triggersManager = GKComponentSystem(componentClass: TriggerComponent.self)
+        fallenBlocksManager = GKComponentSystem(componentClass: FallenBlocksComponent.self)
         
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.gray
@@ -44,8 +50,11 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         player.applyMachine()
         
         virtualController = VirtualController(target: self.player, scene: self)
+
+ 
         
         
+
         let boundaries = getBoundaries()
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: boundaries!.frame)
@@ -61,6 +70,11 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         
         setupDoors()
+        
+        parallax = Parallax(scene: self, items: [
+            .init(fileName: "Nuvens2", depth: 2),
+        ])
+        
         
 
         for node in self.children {
@@ -96,28 +110,32 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             }
         }
     }
+
     
-    
-    
+   
+        
     func getBoundaries() -> SKSpriteNode? {
         let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
         
         return boundaries
     }
     
+    func resetLevel() {
+        
+        for comp in fallenBlocksManager.components {
+            comp.reset()
+        }
+        
+    }
+    
     func getSpawnPoint() -> CGPoint {
-        
         let spawnPointNode = childNode(withName: "SpawnPoint")
-        
         
         let position = spawnPointNode?.position ?? CGPoint(x: 0, y: 0)
         
         virtualController.movementReset(size: scene!.size)
         return position
     }
-    
-    
-    
     
     func addTriggerToNode(node: SKSpriteNode, callback: @escaping () -> Void) {
         let entity = GKEntity()
@@ -131,7 +149,10 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         self.entities.append(entity)
     }
     
+    
     override func update(_ currentTime: TimeInterval) {
+    
+        cameraController.update(currentTime)
         
         if canCreatePhysicsBody{
             for node in self.children {
@@ -165,6 +186,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         }
         
         player.update()
+        parallax.update()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {

@@ -4,48 +4,56 @@ import SpriteKit
 class FallenBlocksComponent: GKComponent {
     
     var canBeDestoyed = false
+    var originalNode: SKSpriteNode!
+    var originalNodeClone: SKSpriteNode!
+    var nodeClone: SKSpriteNode!
+    var scene: SKScene!
+    var canReset = false
+    
     
     override func didAddToEntity() {
         
         let node = self.entity!.component(ofType: SpriteComponent.self)!.node!
+        node.alpha = 0
+        originalNode = (node.copy() as! SKSpriteNode)
         
+        scene = node.scene!
         
         let scene = node.scene!
         
-        var nodeClone = node.copy() as! SKSpriteNode
-        nodeClone.physicsBody = nil
-        node.alpha = 0
-        nodeClone.alpha = 1
+        originalNodeClone = node.copy() as! SKSpriteNode
+        originalNodeClone.physicsBody = nil
+        originalNodeClone.alpha = 1
+        
+        nodeClone = originalNodeClone.copy() as! SKSpriteNode
+        
         scene.addChild(nodeClone)
         
         let triggerComponent = TriggerComponent { otherNode in
-            
-            if (self.canBeDestoyed ) {
-                
+            let node = self.entity!.component(ofType: SpriteComponent.self)!.node!
+            if (self.canBeDestoyed) {
                 if (!(otherNode?.entity is Player)) {
-                    self.entity?.removeComponent(ofType: FallenBlocksComponent.self)
                     node.removeFromParent()
+                    
                 }
                 
-                return
             } else {
                 if let otherNode = otherNode {
                     let topPositionOfBlock = node.position.y + node.size.height / 2
                     let bottomPositionOfOtherNode = otherNode.position.y - otherNode.size.height / 2
-
                     
                     if (otherNode.entity is Player && otherNode.position.y >= topPositionOfBlock) {
-                        nodeClone.run(.sequence([
+                        self.nodeClone.run(.sequence([
                             .shake(initialPosition: node.position, duration: 0.5),
                             SKAction.run {
                                 node.physicsBody?.isDynamic = true
                                 node.physicsBody?.affectedByGravity = true
-                                nodeClone.removeFromParent()
+                                self.nodeClone.removeFromParent()
                                 node.alpha = 1
-                                
                             }
                         ]))
                         self.canBeDestoyed = true
+                        self.canReset = true
                     }
                 }
             }
@@ -61,6 +69,23 @@ class FallenBlocksComponent: GKComponent {
        
     }
     
+    func reset() {
+        if (canReset) {
+            self.entity!.component(ofType: SpriteComponent.self)!.node!.removeFromParent()
+            nodeClone.removeFromParent()
+            
+            self.canBeDestoyed = false
+            let copy = originalNode.copy() as! SKSpriteNode
+            self.entity!.component(ofType: SpriteComponent.self)!.node = copy
+            scene.addChild(copy)
+            
+            nodeClone = originalNodeClone.copy() as! SKSpriteNode
+            
+            scene.addChild(nodeClone)
+            canReset = false
+        }
+        
+    }
 }
 
 extension SKAction {

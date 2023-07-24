@@ -21,7 +21,7 @@ class GameViewController: UIViewController {
         //teste
         if let view = self.view as! SKView? {
             
-            if let scene = SKScene(fileNamed: "Phase3") {
+            if let scene = SKScene(fileNamed: "MainMenu") {
                 scene.scaleMode = .aspectFill
                 
                 // Present the scene

@@ -50,6 +50,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         }
         
         if let scene = node.scene as? BaseLevelScene {
+            scene.resetLevel()
             let spawnPoint = scene.getSpawnPoint()
             let move = SKAction.move(to: spawnPoint, duration: 0)
             move.timingMode = .easeInEaseOut
@@ -75,21 +76,21 @@ class Player: NodeEntity, VirtualControllerTarget{
         stateMachine?.enter(PlayerIdle.self)
     }
     
-    func update() {
-        
-        if stateMachine.currentState is PlayerDash == false {
-            applyMovement(distanceX: velocityX, angle: angle)
-        }
-        
-        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
-            stateMachine.enter(PlayerGrounded.self)
-        }
-        
-        if (node.physicsBody?.velocity.dy ?? 0 < 50 || node.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
-            node.physicsBody?.velocity.dy -= jumpVelocityFallOff
-        }
-        //teste
-    }
+//    func update() {
+//        
+//        if stateMachine.currentState is PlayerDash == false {
+//            applyMovement(distanceX: velocityX, angle: angle)
+//        }
+//
+//        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
+//            stateMachine.enter(PlayerGrounded.self)
+//        }
+//
+//        if (node.physicsBody?.velocity.dy ?? 0 < 50 || node.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
+//            node.physicsBody?.velocity.dy -= jumpVelocityFallOff
+//        }
+//        //teste
+//    }
     
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
