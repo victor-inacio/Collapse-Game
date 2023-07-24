@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "jump.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Jumpp.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

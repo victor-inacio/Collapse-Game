@@ -162,7 +162,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0{
             
-            node.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: node.size.height + node.size.height / 4))
+            node.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: node.size.height + node.size.height * 1.2 ))
             
             stateMachine?.enter(PlayerJump.self)
             
@@ -221,7 +221,7 @@ class PlayerIdle: GKState {
         
         //        print("idle")
         
-        //        playerNode.run(.repeatForever(.repeatForever(.animate(with: .init(format: "idle frame %@", frameCount: 1...4), timePerFrame: 0.4))))
+                playerNode.run(.repeatForever(.repeatForever(.animate(with: .init(format: "idle frame %@", frameCount: 1...4), timePerFrame: 0.4))))
     }
     
 }

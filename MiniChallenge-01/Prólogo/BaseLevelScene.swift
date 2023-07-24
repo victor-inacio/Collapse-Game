@@ -10,8 +10,9 @@ import SpriteKit
 import GameplayKit
 
 class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
-    private var ground = Ground()
     
+    private var ground = Ground()
+    var shine = SKShapeNode()
     private var plataform: SKSpriteNode = SKSpriteNode()
     
     private var selectedNodes: [UITouch:SKSpriteNode] = [:]
@@ -26,6 +27,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var canCreatePhysicsBody: Bool = true
     var entities: [GKEntity] = []
     
+    
     override func didMove(to view: SKView) {
         triggersManager = GKComponentSystem(componentClass: TriggerComponent.self)
         
@@ -35,6 +37,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         self.view?.isMultipleTouchEnabled = true
         
         self.camera = camera2
+        
         
         player = Player()
         addPlayer()
@@ -53,9 +56,12 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         addChild(camera2)
         camera2.addChild(virtualController)
         
+    
+        
         cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         
         setupDoors()
+        
 
         for node in self.children {
             if (node.name == "Floor"){
@@ -68,7 +74,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                     giveTileMapPhysicsBodyWall(map: someTileMap, textureWidth: 64, tileMapProportion: 64)
                     someTileMap.removeFromParent()
                 }
-            } else if (node.name == "Fallen2") {
+            } else if (node.name == "Fallen2"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
                     giveTileMapPhysicsBodyFallenBlocks(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
                     someTileMap.removeFromParent()
@@ -106,7 +112,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         
         let position = spawnPointNode?.position ?? CGPoint(x: 0, y: 0)
         
-        
+        virtualController.movementReset(size: scene!.size)
         return position
     }
     
@@ -126,6 +132,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
         if canCreatePhysicsBody{
             for node in self.children {
                 if (node.name == "FallenCreating"){
@@ -140,7 +147,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                         waiting = SKAction.wait(forDuration: 0.600)
                         timeVariance += 1
                     }else if timeVariance < 4{
-                        waiting = SKAction.wait(forDuration: 0.645)
+                        waiting = SKAction.wait(forDuration: 0.600)
                         timeVariance += 1
                     } else{
                         waiting = SKAction.wait(forDuration: 0.505 * 6.5)
@@ -156,6 +163,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                 }
             }
         }
+        
         player.update()
     }
     
@@ -199,45 +207,39 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         
     }
 
-override func didFinishUpdate() {
-    
-    self.cameraController.onFinishUpdate()
-    
-}
+    override func didFinishUpdate() {
+        
+        self.cameraController.onFinishUpdate()
+        
+    }
     
     func asd() {
         player.node.position = getSpawnPoint()
     }
 
 
-func addPlataform(){
-    
-    plataform = SKSpriteNode(imageNamed: "plataform")
-    plataform.position = CGPoint(x: size.width * 0.8 , y: size.height * 0.2 + plataform.size.height)
-    plataform.zPosition = 1
-    plataform.physicsBody = SKPhysicsBody(texture: plataform.texture!, size: plataform.size)
-    plataform.physicsBody?.affectedByGravity = false
-    plataform.physicsBody?.isDynamic = false
-    
-    addChild(plataform)
-    
-}
-
-func addPlayer(){
-    self.addChild(player.node)
-}
-
-func addGround(){
-    
-    ground.position = CGPoint(x: size.width * 0.5 , y: size.height * 0.1 - ground.size.height)
-    self.addChild(ground)
-    
-}
-    
-    func removeHud(){
-        self.camera2.removeAllChildren()
-        self.camera2.removeAllActions()
+    func addPlataform(){
+        
+        plataform = SKSpriteNode(imageNamed: "plataform")
+        plataform.position = CGPoint(x: size.width * 0.8 , y: size.height * 0.2 + plataform.size.height)
+        plataform.zPosition = 1
+        plataform.physicsBody = SKPhysicsBody(texture: plataform.texture!, size: plataform.size)
+        plataform.physicsBody?.affectedByGravity = false
+        plataform.physicsBody?.isDynamic = false
+        
+        addChild(plataform)
         
     }
+
+    func addPlayer(){
+        self.addChild(player.node)
+    }
+
+    func addGround(){
+        ground.position = CGPoint(x: size.width * 0.5 , y: size.height * 0.1 - ground.size.height)
+    self.addChild(ground)
+    
+    }
+
 
 }
