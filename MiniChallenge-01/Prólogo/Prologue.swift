@@ -12,7 +12,7 @@ class Prologue: BaseLevelScene{
     var finishJumpText = false
     var startAnimation: Bool = false
     var finishAnimation: Bool = false
-    var shine = SKShapeNode()
+    
     var bug: VisualBug!
     var scriptMove: SKSpriteNode!
     var pier: SKSpriteNode!

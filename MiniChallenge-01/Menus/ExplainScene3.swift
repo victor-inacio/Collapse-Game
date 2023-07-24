@@ -2,19 +2,17 @@
 //  ExplainScene3.swift
 //  MiniChallenge
 //
-//  Created by Leonardo Mesquita Alves on 23/07/23.
+//  Created by Leonardo Mesquita Alves on 24/07/23.
 //
 
 import SpriteKit
 
-class ExplainScene2: ExplainScene1{
-    
-    
+class ExplainScene3: ExplainScene1{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if canSkip{
-            if let scene = SKScene(fileNamed: "Phase1") {
+            if let scene = SKScene(fileNamed: "MainMenu") {
                 scene.scaleMode = .aspectFill
-                self.view?.presentScene(scene, transition: SKTransition.fade(withDuration: 3))
+                self.view?.presentScene(scene, transition: SKTransition.push(with: SKTransitionDirection.up, duration: 3))
             }
         } else{
             removeAllActions()

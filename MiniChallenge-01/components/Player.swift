@@ -162,7 +162,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0{
             
-            node.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: node.size.height + node.size.height ))
+            node.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: node.size.height + node.size.height * 1.2 ))
             
             stateMachine?.enter(PlayerJump.self)
             

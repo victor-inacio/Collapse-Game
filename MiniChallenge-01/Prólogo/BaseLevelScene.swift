@@ -10,8 +10,9 @@ import SpriteKit
 import GameplayKit
 
 class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
-    private var ground = Ground()
     
+    private var ground = Ground()
+    var shine = SKShapeNode()
     private var plataform: SKSpriteNode = SKSpriteNode()
     
     private var selectedNodes: [UITouch:SKSpriteNode] = [:]

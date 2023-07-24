@@ -10,7 +10,6 @@ import SpriteKit
 import GameplayKit
 
 class Phase1: BaseLevelScene{
-    var shine = SKShapeNode()
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
