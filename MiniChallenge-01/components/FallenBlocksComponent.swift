@@ -71,6 +71,9 @@ class FallenBlocksComponent: GKComponent {
     
     func reset() {
         if (canReset) {
+            self.entity!.component(ofType: SpriteComponent.self)!.node!.removeFromParent()
+            nodeClone.removeFromParent()
+            
             self.canBeDestoyed = false
             let copy = originalNode.copy() as! SKSpriteNode
             self.entity!.component(ofType: SpriteComponent.self)!.node = copy
