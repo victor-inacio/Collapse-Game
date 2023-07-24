@@ -72,7 +72,10 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         setupDoors()
         
         parallax = Parallax(scene: self, items: [
-            .init(fileName: "Nuvens2", depth: 2),
+            .init(fileName: "Nuvens", velocityFactor: 0.06, zIndex: -1),
+            .init(fileName: "Nuvens2", velocityFactor: 0.08, zIndex: -2),
+            .init(fileName: "Lua", velocityFactor: 0, zIndex: -3, type: .Fixed, offset: .init(dx: 200, dy: 150)),
+            .init(fileName: "Noite Estrelada", velocityFactor: 0.05, zIndex: -4, type: .Background)
         ])
         
         

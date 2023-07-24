@@ -41,7 +41,6 @@
 		E80030F32A6DDBF1003F78A4 /* ExplainScene1.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030F22A6DDBF1003F78A4 /* ExplainScene1.sks */; };
 		E80030F52A6DE4D1003F78A4 /* ExplainScene2.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030F42A6DE4D1003F78A4 /* ExplainScene2.sks */; };
 		E80030F72A6DE4DA003F78A4 /* ExplainScene2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030F62A6DE4DA003F78A4 /* ExplainScene2.swift */; };
-		E80030F92A6E0DE4003F78A4 /* FinalBug.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E80030F82A6E0DE4003F78A4 /* FinalBug.mp3 */; };
 		E80030FC2A6E5AE0003F78A4 /* SwinPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030FB2A6E5AE0003F78A4 /* SwinPhase.swift */; };
 		E80030FE2A6E5B2C003F78A4 /* SwinPhase.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030FD2A6E5B2C003F78A4 /* SwinPhase.sks */; };
 		E80031052A6F157D003F78A4 /* ExplainScene3.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80031042A6F157D003F78A4 /* ExplainScene3.swift */; };
@@ -49,7 +48,6 @@
 		E800310A2A6F15C1003F78A4 /* FinalScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80031092A6F15C1003F78A4 /* FinalScene.swift */; };
 		E800310C2A6F15CD003F78A4 /* FinalScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E800310B2A6F15CD003F78A4 /* FinalScene.sks */; };
 		E80B5B372A65D5BE00E719E4 /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80B5B362A65D5BE00E719E4 /* SKScene.swift */; };
-		E81CD0692A6C614D00715CC2 /* bugs.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E81CD0682A6C614D00715CC2 /* bugs.mp3 */; };
 		E8302BEB2A6B0C6000BC9C06 /* VisualBug.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8302BEA2A6B0C6000BC9C06 /* VisualBug.swift */; };
 		E8302BED2A6B25B100BC9C06 /* Prologue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8302BEC2A6B25B100BC9C06 /* Prologue.swift */; };
 		E85633462A671E7400FCB1FF /* FallenIceBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85633452A671E7400FCB1FF /* FallenIceBlock.swift */; };
@@ -96,7 +94,6 @@
 		E80030F22A6DDBF1003F78A4 /* ExplainScene1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplainScene1.sks; sourceTree = "<group>"; };
 		E80030F42A6DE4D1003F78A4 /* ExplainScene2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplainScene2.sks; sourceTree = "<group>"; };
 		E80030F62A6DE4DA003F78A4 /* ExplainScene2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainScene2.swift; sourceTree = "<group>"; };
-		E80030F82A6E0DE4003F78A4 /* FinalBug.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = FinalBug.mp3; path = ../../../FinalBug.mp3; sourceTree = "<group>"; };
 		E80030FB2A6E5AE0003F78A4 /* SwinPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwinPhase.swift; sourceTree = "<group>"; };
 		E80030FD2A6E5B2C003F78A4 /* SwinPhase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SwinPhase.sks; sourceTree = "<group>"; };
 		E80031042A6F157D003F78A4 /* ExplainScene3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainScene3.swift; sourceTree = "<group>"; };
@@ -104,7 +101,6 @@
 		E80031092A6F15C1003F78A4 /* FinalScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalScene.swift; sourceTree = "<group>"; };
 		E800310B2A6F15CD003F78A4 /* FinalScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FinalScene.sks; sourceTree = "<group>"; };
 		E80B5B362A65D5BE00E719E4 /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
-		E81CD0682A6C614D00715CC2 /* bugs.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bugs.mp3; path = ../../../bugs.mp3; sourceTree = "<group>"; };
 		E8302BEA2A6B0C6000BC9C06 /* VisualBug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualBug.swift; sourceTree = "<group>"; };
 		E8302BEC2A6B25B100BC9C06 /* Prologue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prologue.swift; sourceTree = "<group>"; };
 		E85633452A671E7400FCB1FF /* FallenIceBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallenIceBlock.swift; sourceTree = "<group>"; };
@@ -184,8 +180,6 @@
 				98CE02A92A64A0660032DFCC /* Prólogo */,
 				E80B5B362A65D5BE00E719E4 /* SKScene.swift */,
 				9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */,
-				E81CD0682A6C614D00715CC2 /* bugs.mp3 */,
-				E80030F82A6E0DE4003F78A4 /* FinalBug.mp3 */,
 			);
 			path = "MiniChallenge-01";
 			sourceTree = "<group>";
@@ -341,7 +335,6 @@
 				E80030F32A6DDBF1003F78A4 /* ExplainScene1.sks in Resources */,
 				98155DC62A6722C30067EA24 /* Phase2.sks in Resources */,
 				E80031072A6F1588003F78A4 /* ExplainScene3.sks in Resources */,
-				E81CD0692A6C614D00715CC2 /* bugs.mp3 in Resources */,
 				AB07DB492A5F888600721221 /* Main.storyboard in Resources */,
 				E80030ED2A6DCED2003F78A4 /* MainMenu.sks in Resources */,
 				E800310C2A6F15CD003F78A4 /* FinalScene.sks in Resources */,
@@ -349,7 +342,6 @@
 				E80030FE2A6E5B2C003F78A4 /* SwinPhase.sks in Resources */,
 				E80030F52A6DE4D1003F78A4 /* ExplainScene2.sks in Resources */,
 				98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */,
-				E80030F92A6E0DE4003F78A4 /* FinalBug.mp3 in Resources */,
 				AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */,
 				E8E492202A66477500FE6C86 /* Phase3.sks in Resources */,
 				AB07DB4E2A5F888800721221 /* LaunchScreen.storyboard in Resources */,
