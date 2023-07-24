@@ -40,6 +40,7 @@
 		E80030F32A6DDBF1003F78A4 /* ExplainScene1.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030F22A6DDBF1003F78A4 /* ExplainScene1.sks */; };
 		E80030F52A6DE4D1003F78A4 /* ExplainScene2.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030F42A6DE4D1003F78A4 /* ExplainScene2.sks */; };
 		E80030F72A6DE4DA003F78A4 /* ExplainScene2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030F62A6DE4DA003F78A4 /* ExplainScene2.swift */; };
+		E80030F92A6E0DE4003F78A4 /* FinalBug.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E80030F82A6E0DE4003F78A4 /* FinalBug.mp3 */; };
 		E80B5B372A65D5BE00E719E4 /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80B5B362A65D5BE00E719E4 /* SKScene.swift */; };
 		E81CD0692A6C614D00715CC2 /* bugs.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E81CD0682A6C614D00715CC2 /* bugs.mp3 */; };
 		E8302BEB2A6B0C6000BC9C06 /* VisualBug.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8302BEA2A6B0C6000BC9C06 /* VisualBug.swift */; };
@@ -87,6 +88,7 @@
 		E80030F22A6DDBF1003F78A4 /* ExplainScene1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplainScene1.sks; sourceTree = "<group>"; };
 		E80030F42A6DE4D1003F78A4 /* ExplainScene2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplainScene2.sks; sourceTree = "<group>"; };
 		E80030F62A6DE4DA003F78A4 /* ExplainScene2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainScene2.swift; sourceTree = "<group>"; };
+		E80030F82A6E0DE4003F78A4 /* FinalBug.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = FinalBug.mp3; path = ../../../FinalBug.mp3; sourceTree = "<group>"; };
 		E80B5B362A65D5BE00E719E4 /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
 		E81CD0682A6C614D00715CC2 /* bugs.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bugs.mp3; path = ../../../bugs.mp3; sourceTree = "<group>"; };
 		E8302BEA2A6B0C6000BC9C06 /* VisualBug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualBug.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				E80B5B362A65D5BE00E719E4 /* SKScene.swift */,
 				9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */,
 				E81CD0682A6C614D00715CC2 /* bugs.mp3 */,
+				E80030F82A6E0DE4003F78A4 /* FinalBug.mp3 */,
 			);
 			path = "MiniChallenge-01";
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */,
 				E80030F52A6DE4D1003F78A4 /* ExplainScene2.sks in Resources */,
 				98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */,
+				E80030F92A6E0DE4003F78A4 /* FinalBug.mp3 in Resources */,
 				AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */,
 				E8E492202A66477500FE6C86 /* Phase3.sks in Resources */,
 				AB07DB4E2A5F888800721221 /* LaunchScreen.storyboard in Resources */,

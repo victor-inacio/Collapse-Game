@@ -18,7 +18,8 @@ class Phase1: BaseLevelScene{
         let controllerSize = virtualController.dashButton?.size
         let controllerPosition = virtualController.dashButton?.position
         shine = SKShapeNode(ellipseOf: CGSize(width: (controllerSize?.width ?? 60) + 10 , height: (controllerSize?.height ?? 60) + 10))
-        shine.lineWidth = 7
+        shine.lineWidth = 18
+        shine.strokeColor = .blue
         shine.position = controllerPosition!
         shine.zPosition = virtualController.dashButton!.zPosition - 1
         camera2.addChild(shine)

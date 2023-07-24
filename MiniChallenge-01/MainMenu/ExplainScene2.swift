@@ -16,6 +16,12 @@ class ExplainScene2: ExplainScene1{
                 scene.scaleMode = .aspectFill
                 self.view?.presentScene(scene, transition: SKTransition.fade(withDuration: 3))
             }
+        } else{
+            removeAllActions()
+            label1.alpha = 1
+            label2.alpha = 1
+            continueButton.alpha = 1
+            canSkip = true
         }
     }
 }
