@@ -1,18 +1,24 @@
 import SpriteKit
 import GameplayKit
 
+enum ParallaxType {
+    case Default, Background
+}
+
 class ParallaxItem {
-    var depth: Int
+    var velocityFactor: CGFloat
     var parallaxNodes: [SKSpriteNode] = []
+    var type: ParallaxType
     
-    init(fileName: String, depth: Int) {
-        self.depth = depth
+    init(fileName: String, velocityFactor: CGFloat, zIndex: CGFloat, type: ParallaxType = .Default) {
+        self.velocityFactor = velocityFactor
+        self.type = type
         
         let texture = SKTexture(imageNamed: fileName)
         let node = SKSpriteNode(texture: texture)
         
-        node.zPosition = CGFloat(-depth)
-        node.physicsBody = SKPhysicsBody(edgeLoopFrom: node.frame)
+        node.zPosition = CGFloat(zIndex)
+        node.physicsBody = SKPhysicsBody()
         node.physicsBody?.affectedByGravity = false
         node.physicsBody?.allowsRotation = false
         node.physicsBody?.isDynamic = true
@@ -27,65 +33,82 @@ class ParallaxItem {
     func update(scene: BaseLevelScene) {
         
         applyOffset(scene: scene)
-        fillParallax(scene: scene)
+        fillHorizontal(scene: scene)
+        
+        if (type == .Background) {
+            for node in parallaxNodes {
+                node.position.y = scene.camera!.position.y
+                
+            }
+        }
         
     }
     
-    func fillParallax(scene: BaseLevelScene) {
+    func fillHorizontal(scene: BaseLevelScene) {
         
         var indexToRemove: [Int] = [ ]
+        let camera = scene.camera!
         
-        for index in 0..<parallaxNodes.count {
+        while (!isRightSideFilled(camera: camera)) {
             
-            let node = parallaxNodes[index]
+            let lastNode = parallaxNodes.last!
+            let newNode = lastNode.copy() as! SKSpriteNode
+            newNode.position.x = newNode.position.x + newNode.size.width
             
-            let camera = scene.camera!
+            scene.addChild(newNode)
+            parallaxNodes.append(newNode)
             
-                
-            let rightOfCamera = camera.position.x + scene.frame.size.width / 2
-                let rightOfNode = node.position.x + node.size.width / 2
-                
-            let leftOfCamera = camera.position.x - scene.frame.size.width / 2
-                let leftOfNode = node.position.x - node.size.width / 2
-                
-                let isVisible = !(rightOfNode > rightOfCamera && leftOfNode > rightOfCamera) && !(leftOfNode < leftOfCamera && rightOfNode < leftOfCamera)
-                
-                if (index == parallaxNodes.count - 1) {
-                    
-                    if (rightOfNode < rightOfCamera) {
-                        let otherNode = node.copy() as! SKSpriteNode
-                        otherNode.position.x = node.position.x + node.size.width
-                        scene.addChild(otherNode)
-                        
-                        parallaxNodes.append(otherNode)
-                    }
-                    
-                }
-                
-                if (index == 0 && leftOfNode > leftOfCamera) {
-                    
-                    let otherNode = node.copy() as! SKSpriteNode
-                    otherNode.position.x = node.position.x - node.size.width
-                    scene.addChild(otherNode)
-                    
-                    parallaxNodes.insert(otherNode, at: 0)
-                }
-                
-                if (!isVisible) {
-                    node.removeFromParent()
-                    indexToRemove.append(index)
-                }
-        
         }
         
+        while (!isLeftSideFilled(camera: camera)) {
+            
+            let firstNode = parallaxNodes.first!
+            let newNode = firstNode.copy() as! SKSpriteNode
+            newNode.position.x = newNode.position.x - newNode.size.width
+            
+            scene.addChild(newNode)
+            parallaxNodes.insert(newNode, at: 0)
+        }
+        
+        
+        func isLeftSideFilled(camera: SKCameraNode) -> Bool {
+            let firstNodeOfParallax = parallaxNodes.first!
+            
+            return !isLeftCornerInsideCamera(node: firstNodeOfParallax, camera: camera)
+        }
+        
+        func isRightSideFilled(camera: SKCameraNode) -> Bool {
+            
+            let lastNodeOfParallax = parallaxNodes.last!
+            
+            return !isRightCornerInsideCamera(node: lastNodeOfParallax, camera: camera)
+            
+        }
+        
+        func isRightCornerInsideCamera(node: SKSpriteNode, camera: SKCameraNode) -> Bool {
+            
+        
+            let rightOfCamera = camera.position.x + scene.frame.size.width / 2
+            let rightOfNode = node.position.x + node.size.width / 2
+            
+            
+            return rightOfNode < rightOfCamera
+        }
+        
+        func isLeftCornerInsideCamera(node: SKSpriteNode, camera: SKCameraNode) -> Bool {
+            let leftOfCamera = camera.position.x - scene.frame.size.width / 2
+            let leftOfNode = node.position.x - node.size.width / 2
+            
+            
+            return leftOfNode > leftOfCamera
+        }
     }
     
     func applyOffset(scene: BaseLevelScene) {
         let cameraController = scene.cameraController
         
         for node in parallaxNodes {
-            node.physicsBody?.velocity.dx = -(cameraController!.cameraVelocity.dx - CGFloat(depth))
-            node.physicsBody?.velocity.dy = -(cameraController!.cameraVelocity.dy - CGFloat(depth))
+            node.physicsBody?.velocity.dx = -cameraController!.cameraVelocity.dx * velocityFactor
         }
     }
     
@@ -99,7 +122,7 @@ class Parallax {
     var items: [ParallaxItem]
     
     init(scene: BaseLevelScene, items: [ParallaxItem]) {
-        self.scene = scene
+        self.scene = scene 
         self.items = items
         
         setup()
