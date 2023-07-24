@@ -383,12 +383,5 @@ extension BaseLevelScene{
         }
     }
 
-    func freezeScene() {
-        view?.isPaused = true
-    }
-    
-    func continueScene(){
-        view?.isPaused = false
-    }
     
 }

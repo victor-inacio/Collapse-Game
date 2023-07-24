@@ -41,6 +41,8 @@
 		E80030F52A6DE4D1003F78A4 /* ExplainScene2.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030F42A6DE4D1003F78A4 /* ExplainScene2.sks */; };
 		E80030F72A6DE4DA003F78A4 /* ExplainScene2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030F62A6DE4DA003F78A4 /* ExplainScene2.swift */; };
 		E80030F92A6E0DE4003F78A4 /* FinalBug.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E80030F82A6E0DE4003F78A4 /* FinalBug.mp3 */; };
+		E80030FC2A6E5AE0003F78A4 /* SwinPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030FB2A6E5AE0003F78A4 /* SwinPhase.swift */; };
+		E80030FE2A6E5B2C003F78A4 /* SwinPhase.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030FD2A6E5B2C003F78A4 /* SwinPhase.sks */; };
 		E80B5B372A65D5BE00E719E4 /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80B5B362A65D5BE00E719E4 /* SKScene.swift */; };
 		E81CD0692A6C614D00715CC2 /* bugs.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E81CD0682A6C614D00715CC2 /* bugs.mp3 */; };
 		E8302BEB2A6B0C6000BC9C06 /* VisualBug.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8302BEA2A6B0C6000BC9C06 /* VisualBug.swift */; };
@@ -89,6 +91,8 @@
 		E80030F42A6DE4D1003F78A4 /* ExplainScene2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplainScene2.sks; sourceTree = "<group>"; };
 		E80030F62A6DE4DA003F78A4 /* ExplainScene2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainScene2.swift; sourceTree = "<group>"; };
 		E80030F82A6E0DE4003F78A4 /* FinalBug.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = FinalBug.mp3; path = ../../../FinalBug.mp3; sourceTree = "<group>"; };
+		E80030FB2A6E5AE0003F78A4 /* SwinPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwinPhase.swift; sourceTree = "<group>"; };
+		E80030FD2A6E5B2C003F78A4 /* SwinPhase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SwinPhase.sks; sourceTree = "<group>"; };
 		E80B5B362A65D5BE00E719E4 /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
 		E81CD0682A6C614D00715CC2 /* bugs.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bugs.mp3; path = ../../../bugs.mp3; sourceTree = "<group>"; };
 		E8302BEA2A6B0C6000BC9C06 /* VisualBug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualBug.swift; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 		AB07DB3C2A5F888600721221 /* MiniChallenge-01 */ = {
 			isa = PBXGroup;
 			children = (
+				E80030FA2A6E5ACA003F78A4 /* SwinPhase */,
 				E80030E92A6DCE9A003F78A4 /* Menus */,
 				E8E4921C2A66475400FE6C86 /* Phase3 */,
 				E8E492172A66350800FE6C86 /* Phase2 */,
@@ -214,6 +219,15 @@
 				E80030F62A6DE4DA003F78A4 /* ExplainScene2.swift */,
 			);
 			path = Menus;
+			sourceTree = "<group>";
+		};
+		E80030FA2A6E5ACA003F78A4 /* SwinPhase */ = {
+			isa = PBXGroup;
+			children = (
+				E80030FB2A6E5AE0003F78A4 /* SwinPhase.swift */,
+				E80030FD2A6E5B2C003F78A4 /* SwinPhase.sks */,
+			);
+			path = SwinPhase;
 			sourceTree = "<group>";
 		};
 		E8E4920B2A662F7800FE6C86 /* Phase1 */ = {
@@ -307,6 +321,7 @@
 				AB07DB492A5F888600721221 /* Main.storyboard in Resources */,
 				E80030ED2A6DCED2003F78A4 /* MainMenu.sks in Resources */,
 				98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */,
+				E80030FE2A6E5B2C003F78A4 /* SwinPhase.sks in Resources */,
 				E80030F52A6DE4D1003F78A4 /* ExplainScene2.sks in Resources */,
 				98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */,
 				E80030F92A6E0DE4003F78A4 /* FinalBug.mp3 in Resources */,
@@ -343,6 +358,7 @@
 				984AEF0E2A64C42B00792A84 /* TriggerComponent.swift in Sources */,
 				E8E4921E2A66476B00FE6C86 /* Phase3.swift in Sources */,
 				E8302BEB2A6B0C6000BC9C06 /* VisualBug.swift in Sources */,
+				E80030FC2A6E5AE0003F78A4 /* SwinPhase.swift in Sources */,
 				984AEF0C2A64BCD300792A84 /* DoorComponent.swift in Sources */,
 				AB07DB632A60317800721221 /* VirtualController.swift in Sources */,
 				98CE02B02A64A0660032DFCC /* BaseLevelScene.swift in Sources */,

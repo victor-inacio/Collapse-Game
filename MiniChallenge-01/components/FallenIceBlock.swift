@@ -42,8 +42,8 @@ extension SKScene{
                     tileNode.physicsBody?.allowsRotation = false
                     tileNode.physicsBody?.isDynamic = true
                     tileNode.physicsBody?.linearDamping = 15
-                    tileNode.physicsBody?.categoryBitMask = PhysicsCategory.fallenBlocks.rawValue
-                    tileNode.physicsBody?.collisionBitMask = PhysicsCategory.player.rawValue
+                    tileNode.physicsBody?.categoryBitMask =  PhysicsCategory.fallenBlocks.rawValue
+                    tileNode.physicsBody?.collisionBitMask = 0
                     tileNode.physicsBody?.contactTestBitMask = PhysicsCategory.player.rawValue
                 
                     
