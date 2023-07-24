@@ -29,6 +29,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var pauseButton: SKSpriteNode?
     var skull: SKSpriteNode?
     var killCount: SKLabelNode?
+    var parallax: Parallax!
     
     override func didMove(to view: SKView) {
         killCount = SKLabelNode(text: "1")
@@ -51,7 +52,10 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         
         virtualController = VirtualController(target: self.player, scene: self)
 
+ 
         
+        
+
         let boundaries = getBoundaries()
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: boundaries!.frame)
@@ -71,6 +75,12 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         
         setupDoors()
+        
+        parallax = Parallax(scene: self, items: [
+            .init(fileName: "Nuvens2", depth: 2),
+        ])
+        
+        
 
         for node in self.children {
             if (node.name == "Floor"){
@@ -105,9 +115,10 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             }
         }
     }
+
     
-    
-    
+   
+        
     func getBoundaries() -> SKSpriteNode? {
         let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
         
@@ -123,18 +134,12 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
     
     func getSpawnPoint() -> CGPoint {
-        
         let spawnPointNode = childNode(withName: "SpawnPoint")
-        
         
         let position = spawnPointNode?.position ?? CGPoint(x: 0, y: 0)
         
-        
         return position
     }
-    
-    
-    
     
     func addTriggerToNode(node: SKSpriteNode, callback: @escaping () -> Void) {
         let entity = GKEntity()
@@ -148,7 +153,11 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         self.entities.append(entity)
     }
     
+    
     override func update(_ currentTime: TimeInterval) {
+    
+        cameraController.update(currentTime)
+        
         if canCreatePhysicsBody{
             for node in self.children {
                 if (node.name == "FallenCreating"){
@@ -180,6 +189,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             }
         }
         player.update()
+        parallax.update()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -227,11 +237,6 @@ override func didFinishUpdate() {
     self.cameraController.onFinishUpdate()
     
 }
-    
-    func asd() {
-        player.node.position = getSpawnPoint()
-    }
-
 
 func addPlataform(){
     
