@@ -22,6 +22,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var cameraController: CameraController!
     let camera2 = SKCameraNode()
     var triggersManager: GKComponentSystem<TriggerComponent>!
+    var fallenBlocksManager: GKComponentSystem<FallenBlocksComponent>!
     var timeVariance: Int = 0
     var canCreatePhysicsBody: Bool = true
     var entities: [GKEntity] = []
@@ -29,6 +30,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     override func didMove(to view: SKView) {
         
         triggersManager = GKComponentSystem(componentClass: TriggerComponent.self)
+        fallenBlocksManager = GKComponentSystem(componentClass: FallenBlocksComponent.self)
         
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.gray
@@ -42,7 +44,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         player.applyMachine()
         
         virtualController = VirtualController(target: self.player, scene: self)
-        
+
         
         let boundaries = getBoundaries()
         
@@ -98,6 +100,14 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         let boundaries = childNode(withName: "Boundaries") as? SKSpriteNode
         
         return boundaries
+    }
+    
+    func resetLevel() {
+        
+        for comp in fallenBlocksManager.components {
+            comp.reset()
+        }
+        
     }
     
     func getSpawnPoint() -> CGPoint {

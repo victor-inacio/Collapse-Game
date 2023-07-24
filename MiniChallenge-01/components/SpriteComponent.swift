@@ -5,9 +5,20 @@ class SpriteComponent: GKComponent {
     
     var node: SKSpriteNode!
     
+    private var _node: SKSpriteNode {
+        
+        get {
+            return self.node
+        }
+        
+        set {
+            self.node = newValue
+        }
+    }
+    
     init(node: SKSpriteNode) {
         super.init()
-        self.node = node
+        self._node = node
         
     }
     
