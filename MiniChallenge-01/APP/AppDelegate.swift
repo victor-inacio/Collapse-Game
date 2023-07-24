@@ -5,7 +5,6 @@
 //  Created by Gabriel Eirado on 12/07/23.
 //
 
-
 import UIKit
 
 @main
