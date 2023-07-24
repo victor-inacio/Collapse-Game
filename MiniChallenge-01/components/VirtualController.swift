@@ -71,7 +71,7 @@ class VirtualController: SKNode{
         
         virtualJoystickF?.name = "controllerFront"
         virtualJoystickF?.zPosition = 6
-        virtualJoystickF?.alpha = 0.8
+        virtualJoystickF?.alpha = 1
         
         // JUMP
         let textureJump = SKTexture(imageNamed: "jump")
@@ -80,7 +80,7 @@ class VirtualController: SKNode{
         
         jumpButton?.name = "jump"
         jumpButton?.zPosition = 6
-        jumpButton?.alpha = 0.5
+        jumpButton?.alpha = 0.4
         
         // DASH
         let textureDash = SKTexture(imageNamed: "dash")
@@ -89,7 +89,7 @@ class VirtualController: SKNode{
         
         dashButton?.name = "dash"
         dashButton?.zPosition = 6
-        dashButton?.alpha = 0.5
+        dashButton?.alpha = 0.4
         
         virtualJoystickB?.position = CGPoint(x: scene.size.width / -3 + scene.size.width / 50 , y: scene.size.height  / -5.3)
         virtualJoystickF?.position = CGPoint(x: scene.size.width / -3 + scene.size.width / 50, y: scene.size.height / -5.3)
@@ -121,7 +121,7 @@ class VirtualController: SKNode{
                 jumpButton?.alpha = 0.8
                 let action = SKAction.wait(forDuration: 0.4)
                 let reverse = SKAction.run {
-                    self.jumpButton?.alpha = 0.5
+                    self.jumpButton?.alpha = 0.4
                 }
                 run(SKAction.sequence([action, reverse]))
                 jumpTouch = t
@@ -133,10 +133,10 @@ class VirtualController: SKNode{
 
             if dashButton!.frame.contains(location){
 
-                dashButton?.alpha = 0.8
+                dashButton?.alpha = 0.7
                 let action = SKAction.wait(forDuration: 0.4)
                 let reverse = SKAction.run {
-                    self.dashButton?.alpha = 0.5
+                    self.dashButton?.alpha = 0.4
                 }
                 run(SKAction.sequence([action, reverse]))
                 

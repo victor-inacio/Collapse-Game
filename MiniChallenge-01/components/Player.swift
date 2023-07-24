@@ -221,7 +221,7 @@ class PlayerIdle: GKState {
         
         //        print("idle")
         
-        //        playerNode.run(.repeatForever(.repeatForever(.animate(with: .init(format: "idle frame %@", frameCount: 1...4), timePerFrame: 0.4))))
+                playerNode.run(.repeatForever(.repeatForever(.animate(with: .init(format: "idle frame %@", frameCount: 1...4), timePerFrame: 0.4))))
     }
     
 }

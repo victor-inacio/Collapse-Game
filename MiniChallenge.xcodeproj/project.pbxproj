@@ -34,6 +34,12 @@
 		AB07DB632A60317800721221 /* VirtualController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB622A60317800721221 /* VirtualController.swift */; };
 		AB07DB652A60394100721221 /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB642A60394100721221 /* Ground.swift */; };
 		AB07DB682A60400000721221 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB672A60400000721221 /* Camera.swift */; };
+		E80030EB2A6DCEB1003F78A4 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030EA2A6DCEB1003F78A4 /* MainMenu.swift */; };
+		E80030ED2A6DCED2003F78A4 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030EC2A6DCED2003F78A4 /* MainMenu.sks */; };
+		E80030F12A6DDBBB003F78A4 /* ExplainScene1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030F02A6DDBBB003F78A4 /* ExplainScene1.swift */; };
+		E80030F32A6DDBF1003F78A4 /* ExplainScene1.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030F22A6DDBF1003F78A4 /* ExplainScene1.sks */; };
+		E80030F52A6DE4D1003F78A4 /* ExplainScene2.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030F42A6DE4D1003F78A4 /* ExplainScene2.sks */; };
+		E80030F72A6DE4DA003F78A4 /* ExplainScene2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030F62A6DE4DA003F78A4 /* ExplainScene2.swift */; };
 		E80B5B372A65D5BE00E719E4 /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80B5B362A65D5BE00E719E4 /* SKScene.swift */; };
 		E81CD0692A6C614D00715CC2 /* bugs.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E81CD0682A6C614D00715CC2 /* bugs.mp3 */; };
 		E8302BEB2A6B0C6000BC9C06 /* VisualBug.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8302BEA2A6B0C6000BC9C06 /* VisualBug.swift */; };
@@ -75,6 +81,12 @@
 		AB07DB622A60317800721221 /* VirtualController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualController.swift; sourceTree = "<group>"; };
 		AB07DB642A60394100721221 /* Ground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
 		AB07DB672A60400000721221 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		E80030EA2A6DCEB1003F78A4 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		E80030EC2A6DCED2003F78A4 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
+		E80030F02A6DDBBB003F78A4 /* ExplainScene1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainScene1.swift; sourceTree = "<group>"; };
+		E80030F22A6DDBF1003F78A4 /* ExplainScene1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplainScene1.sks; sourceTree = "<group>"; };
+		E80030F42A6DE4D1003F78A4 /* ExplainScene2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplainScene2.sks; sourceTree = "<group>"; };
+		E80030F62A6DE4DA003F78A4 /* ExplainScene2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainScene2.swift; sourceTree = "<group>"; };
 		E80B5B362A65D5BE00E719E4 /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
 		E81CD0682A6C614D00715CC2 /* bugs.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bugs.mp3; path = ../../../bugs.mp3; sourceTree = "<group>"; };
 		E8302BEA2A6B0C6000BC9C06 /* VisualBug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualBug.swift; sourceTree = "<group>"; };
@@ -141,6 +153,7 @@
 		AB07DB3C2A5F888600721221 /* MiniChallenge-01 */ = {
 			isa = PBXGroup;
 			children = (
+				E80030E92A6DCE9A003F78A4 /* MainMenu */,
 				E8E4921C2A66475400FE6C86 /* Phase3 */,
 				E8E492172A66350800FE6C86 /* Phase2 */,
 				E8E4920B2A662F7800FE6C86 /* Phase1 */,
@@ -185,6 +198,19 @@
 				9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */,
 			);
 			path = components;
+			sourceTree = "<group>";
+		};
+		E80030E92A6DCE9A003F78A4 /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				E80030EA2A6DCEB1003F78A4 /* MainMenu.swift */,
+				E80030EC2A6DCED2003F78A4 /* MainMenu.sks */,
+				E80030F02A6DDBBB003F78A4 /* ExplainScene1.swift */,
+				E80030F22A6DDBF1003F78A4 /* ExplainScene1.sks */,
+				E80030F42A6DE4D1003F78A4 /* ExplainScene2.sks */,
+				E80030F62A6DE4DA003F78A4 /* ExplainScene2.swift */,
+			);
+			path = MainMenu;
 			sourceTree = "<group>";
 		};
 		E8E4920B2A662F7800FE6C86 /* Phase1 */ = {
@@ -272,10 +298,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E80030F32A6DDBF1003F78A4 /* ExplainScene1.sks in Resources */,
 				98155DC62A6722C30067EA24 /* Phase2.sks in Resources */,
 				E81CD0692A6C614D00715CC2 /* bugs.mp3 in Resources */,
 				AB07DB492A5F888600721221 /* Main.storyboard in Resources */,
+				E80030ED2A6DCED2003F78A4 /* MainMenu.sks in Resources */,
 				98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */,
+				E80030F52A6DE4D1003F78A4 /* ExplainScene2.sks in Resources */,
 				98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */,
 				AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */,
 				E8E492202A66477500FE6C86 /* Phase3.sks in Resources */,
@@ -306,6 +335,7 @@
 				9865AC4E2A65B74F003BDA66 /* DoorEntity.swift in Sources */,
 				AB07DB5D2A5F938F00721221 /* Player.swift in Sources */,
 				9806B5C92A69A65E003CDE88 /* WaterEntity.swift in Sources */,
+				E80030F12A6DDBBB003F78A4 /* ExplainScene1.swift in Sources */,
 				984AEF0E2A64C42B00792A84 /* TriggerComponent.swift in Sources */,
 				E8E4921E2A66476B00FE6C86 /* Phase3.swift in Sources */,
 				E8302BEB2A6B0C6000BC9C06 /* VisualBug.swift in Sources */,
@@ -315,7 +345,9 @@
 				AB07DB682A60400000721221 /* Camera.swift in Sources */,
 				AB07DB652A60394100721221 /* Ground.swift in Sources */,
 				AB07DB5B2A5F934600721221 /* Math.swift in Sources */,
+				E80030EB2A6DCEB1003F78A4 /* MainMenu.swift in Sources */,
 				9806B5CF2A69C32B003CDE88 /* Fallen1Entity.swift in Sources */,
+				E80030F72A6DE4DA003F78A4 /* ExplainScene2.swift in Sources */,
 				984AEF102A64C70A00792A84 /* SpriteComponent.swift in Sources */,
 				980FE3652A6871F900681175 /* NodeEntity.swift in Sources */,
 				AB07DB612A602D8C00721221 /* PhysicsCategory.swift in Sources */,

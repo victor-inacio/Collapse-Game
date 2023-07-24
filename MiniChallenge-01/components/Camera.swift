@@ -12,7 +12,8 @@ class CameraController {
     var camera: SKCameraNode!
     var target: SKNode?
     var boundaries: SKNode?
-    var configSize = 0.0
+    var configHeight = 0.0
+    var configWidth = 0.0
     
     init(camera: SKCameraNode, target: SKNode?, boundaries: SKNode?) {
         self.camera = camera
@@ -26,7 +27,7 @@ class CameraController {
     
     func onFinishUpdate() {
         if let target = target{
-            self.camera.run(.move(to: CGPoint(x: target.position.x, y: target.position.y + configSize), duration: 0.3))
+            self.camera.run(.move(to: CGPoint(x: target.position.x + configWidth, y: target.position.y + configHeight), duration: 0.3))
         }
     }
     

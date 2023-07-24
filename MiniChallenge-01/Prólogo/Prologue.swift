@@ -10,6 +10,8 @@ import SpriteKit
 class Prologue: BaseLevelScene{
     var startJumpText = false
     var finishJumpText = false
+    var startAnimation: Bool = false
+    var finishAnimation: Bool = false
     var shine = SKShapeNode()
     var bug: VisualBug!
     
@@ -24,9 +26,10 @@ class Prologue: BaseLevelScene{
         let controllerSize = virtualController.jumpButton?.size
         shine = SKShapeNode(ellipseOf: CGSize(width: (controllerSize?.width ?? 60) + 10 , height: (controllerSize?.height ?? 60) + 10))
         shine.lineWidth = 7
-        cameraController.configSize = 130
+        cameraController.configHeight = 130
         virtualController.dashButton?.zPosition = -10
         virtualController.dashButton?.alpha = 0
+        virtualController.jumpButton?.alpha = 0
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -43,16 +46,14 @@ class Prologue: BaseLevelScene{
             let wait = SKAction.wait(forDuration: 2)
             
             run(SKAction.sequence([wait,SKAction.playSoundFileNamed("bugs", waitForCompletion: false), wait, SKAction.run {
-                self.changeNodeAlpha(name: "Bug 1")
+                self.changeNodeAlpha(name: "Bug 1", alpha: 1)
             }, wait ,SKAction.playSoundFileNamed("bugs", waitForCompletion: false), wait, SKAction.run {
-                self.changeNodeAlpha(name: "Special Bug")
-                if let scene = SKScene(fileNamed: "Phase1") {
+                self.changeNodeAlpha(name: "Special Bug", alpha: 1)
+                if let scene = SKScene(fileNamed: "ExplainScene2") {
                     scene.scaleMode = .aspectFill
                     self.view?.presentScene(scene, transition: SKTransition.fade(withDuration: 3))
                 }
             }]))
-            
-            
             
             
             
@@ -64,14 +65,15 @@ class Prologue: BaseLevelScene{
         
         
         if startJumpText && !finishJumpText{
-            changeNodeAlpha(name: "LabelInvisible")
+            changeNodeAlpha(name: "LabelInvisible", alpha: 1)
             
             let controllerPosition = virtualController.jumpButton?.position
             shine.position = controllerPosition!
             shine.zPosition = virtualController.jumpButton!.zPosition - 1
             camera2.addChild(shine)
+            virtualController.jumpButton?.alpha = 0.4
             
-            run(SKAction.sequence([SKAction.wait(forDuration: 1),SKAction.run {
+            run(SKAction.sequence([SKAction.wait(forDuration: 0.5),SKAction.run {
                 for node in self.children{
                     if node.name == "Block"{
                         node.removeFromParent()
@@ -89,10 +91,10 @@ class Prologue: BaseLevelScene{
         
     }
     
-    func changeNodeAlpha(name: String){
+    func changeNodeAlpha(name: String, alpha: Double){
         for node in self.children{
             if node.name == name{
-                node.alpha = 1
+                node.alpha = alpha
             }
         }
     }

@@ -26,8 +26,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var canCreatePhysicsBody: Bool = true
     var entities: [GKEntity] = []
     
-    var startAnimation: Bool = false
-    var finishAnimation: Bool = false
     
     override func didMove(to view: SKView) {
         triggersManager = GKComponentSystem(componentClass: TriggerComponent.self)
