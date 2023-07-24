@@ -98,7 +98,7 @@ class Prologue: BaseLevelScene{
             shine.position = controllerPosition!
             shine.zPosition = virtualController.jumpButton!.zPosition - 1
             camera2.addChild(shine)
-            virtualController.jumpButton?.alpha = 0.4
+            virtualController.jumpButton?.alpha = 0.9
             
             run(SKAction.sequence([SKAction.wait(forDuration: 0.5),SKAction.run {
                 for node in self.children{

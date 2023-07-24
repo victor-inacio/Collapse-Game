@@ -155,7 +155,7 @@
 		AB07DB3C2A5F888600721221 /* MiniChallenge-01 */ = {
 			isa = PBXGroup;
 			children = (
-				E80030E92A6DCE9A003F78A4 /* MainMenu */,
+				E80030E92A6DCE9A003F78A4 /* Menus */,
 				E8E4921C2A66475400FE6C86 /* Phase3 */,
 				E8E492172A66350800FE6C86 /* Phase2 */,
 				E8E4920B2A662F7800FE6C86 /* Phase1 */,
@@ -203,7 +203,7 @@
 			path = components;
 			sourceTree = "<group>";
 		};
-		E80030E92A6DCE9A003F78A4 /* MainMenu */ = {
+		E80030E92A6DCE9A003F78A4 /* Menus */ = {
 			isa = PBXGroup;
 			children = (
 				E80030EA2A6DCEB1003F78A4 /* MainMenu.swift */,
@@ -213,7 +213,7 @@
 				E80030F42A6DE4D1003F78A4 /* ExplainScene2.sks */,
 				E80030F62A6DE4DA003F78A4 /* ExplainScene2.swift */,
 			);
-			path = MainMenu;
+			path = Menus;
 			sourceTree = "<group>";
 		};
 		E8E4920B2A662F7800FE6C86 /* Phase1 */ = {
