@@ -8,6 +8,13 @@
 import Foundation
 import SpriteKit
 
+extension CGVector {
+    func toCGPoint() -> CGPoint {
+        return .init(x: self.dx, y: self.dy)
+    }
+}
+
+
 extension CGPoint{
     
     func normalize() -> Self {

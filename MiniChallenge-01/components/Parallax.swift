@@ -2,17 +2,19 @@ import SpriteKit
 import GameplayKit
 
 enum ParallaxType {
-    case Default, Background
+    case Default, Background, Fixed
 }
 
 class ParallaxItem {
     var velocityFactor: CGFloat
     var parallaxNodes: [SKSpriteNode] = []
     var type: ParallaxType
+    var offset: CGVector
     
-    init(fileName: String, velocityFactor: CGFloat, zIndex: CGFloat, type: ParallaxType = .Default) {
+    init(fileName: String, velocityFactor: CGFloat, zIndex: CGFloat, type: ParallaxType = .Default, offset: CGVector = .init(dx: 0, dy: 0)) {
         self.velocityFactor = velocityFactor
         self.type = type
+        self.offset = offset
         
         let texture = SKTexture(imageNamed: fileName)
         let node = SKSpriteNode(texture: texture)
@@ -25,7 +27,7 @@ class ParallaxItem {
         node.physicsBody?.collisionBitMask = 0
         node.physicsBody?.contactTestBitMask = 0
         node.physicsBody?.categoryBitMask = 0
-        
+        node.position = offset.toCGPoint()
         parallaxNodes.append(node)
     }
         
@@ -33,20 +35,27 @@ class ParallaxItem {
     func update(scene: BaseLevelScene) {
         
         applyOffset(scene: scene)
-        fillHorizontal(scene: scene)
-        
+        if (self.type != .Fixed) {
+            fillHorizontal(scene: scene)
+            
+           
+    
+        } else {
+            for node in parallaxNodes {
+                node.position.x = scene.camera!.position.x + offset.dx
+                node.position.y = scene.camera!.position.y + offset.dy
+            }
+        }
+
         if (type == .Background) {
             for node in parallaxNodes {
                 node.position.y = scene.camera!.position.y
                 
             }
         }
-        
     }
     
     func fillHorizontal(scene: BaseLevelScene) {
-        
-        var indexToRemove: [Int] = [ ]
         let camera = scene.camera!
         
         while (!isRightSideFilled(camera: camera)) {
@@ -121,6 +130,7 @@ class Parallax {
     var scene: BaseLevelScene
     var items: [ParallaxItem]
     
+    
     init(scene: BaseLevelScene, items: [ParallaxItem]) {
         self.scene = scene 
         self.items = items
@@ -135,6 +145,9 @@ class Parallax {
             
             for node in nodes {
                 node.position = scene.cameraController.camera.position
+                
+                node.position.x = node.position.x + item.offset.dx
+                node.position.y = node.position.y + item.offset.dy
                 
                 scene.addChild(node)
             }
