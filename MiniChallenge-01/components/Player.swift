@@ -50,6 +50,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         }
         
         if let scene = node.scene as? BaseLevelScene {
+            scene.resetLevel()
             let spawnPoint = scene.getSpawnPoint()
             let move = SKAction.move(to: spawnPoint, duration: 0)
             move.timingMode = .easeInEaseOut

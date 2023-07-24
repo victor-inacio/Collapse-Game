@@ -96,6 +96,7 @@ extension BaseLevelScene{
                     let entity = Fallen1Entity(node: tileNode)
                     
                     triggersManager.addComponent(foundIn: entity)
+                    fallenBlocksManager.addComponent(foundIn: entity)
                     self.entities.append(entity)
                 }
             }
