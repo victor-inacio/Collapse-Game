@@ -13,6 +13,7 @@ class Player: VirtualControllerTarget{
     var playerNode: SKSpriteNode!
     var stateMachine: GKStateMachine!
     var velocityX: CGFloat = 0
+    var velocityY: CGFloat = 0
     var angle: CGFloat = 0
     var onGround = false
     var jumpVelocityFallOff: CGFloat = 35
@@ -59,8 +60,8 @@ class Player: VirtualControllerTarget{
         if (playerNode.physicsBody?.velocity.dy ?? 0 < 50 || playerNode.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
             playerNode.physicsBody?.velocity.dy -= jumpVelocityFallOff
         }
+        print(velocityY)
     }
-    
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
         
@@ -69,6 +70,7 @@ class Player: VirtualControllerTarget{
         }
         
         velocityX = direction.x
+        velocityY = direction.y
         self.angle = angle
         
         if stateMachine.currentState is PlayerDash == false{
@@ -89,7 +91,7 @@ class Player: VirtualControllerTarget{
             playerNode.physicsBody!.velocity.dx = distanceX * 7
         }
         
-        if angle > 1.51 || angle < -1.51{
+        if angle > 1.50 || angle < -1.50{
             playerNode.xScale = -1
         } else{
             playerNode.xScale = 1
@@ -133,7 +135,7 @@ class Player: VirtualControllerTarget{
             playerNode.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 100 ))
             
         
-        if  stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && playerNode.physicsBody?.velocity.dy == 0 {
+        if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && playerNode.physicsBody?.velocity.dy == 0 {
             
             self.playerNode.run(.sequence([.wait(forDuration: 0.2), .run{
                 self.stateMachine?.enter(PlayerIdle.self)
@@ -152,7 +154,6 @@ class Player: VirtualControllerTarget{
             }
         }
     }
-    
 }
 
 class PlayerIdle: GKState {
