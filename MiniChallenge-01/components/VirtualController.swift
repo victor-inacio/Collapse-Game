@@ -13,7 +13,6 @@ protocol VirtualControllerTarget {
     func onJoystickChange(direction: CGPoint, angle: CGFloat) -> Void
     func onJoystickJumpBtnTouch(pressingJump: Bool) -> Void
     func onJoystickDashBtnTouch(direction: CGVector) -> Void
-    
 }
 
 class VirtualController: SKNode{
@@ -26,6 +25,18 @@ class VirtualController: SKNode{
     var isAppInForeground: Bool = true
     var exitButton: SKSpriteNode?
     var soundButton: SKSpriteNode?
+    var isSoundMuted: Bool = false {
+        didSet {
+            if isSoundMuted {
+                soundButton?.texture = SKTexture(imageNamed: "soundOff")
+                //Lógica de Desligar o som do Jogo aqui
+            
+            } else {
+                soundButton?.texture = SKTexture(imageNamed: "soundOn")
+                // Lógica de Ligar o som do Jogo aqui
+            }
+        }
+    }
     
     var virtualJoystickB: SKSpriteNode?
     var virtualJoystickF: SKSpriteNode?
@@ -65,9 +76,9 @@ class VirtualController: SKNode{
         
         self.target = target
         
-       
         
-        //OVERLAY CREDITS BUTTON
+        
+        //OVERLAY SOUND BUTTON
         let textureSoundButton = SKTexture(imageNamed: "soundOn")
         soundButton = SKSpriteNode(texture: textureSoundButton, color: .white, size: textureSoundButton.size())
         
@@ -156,7 +167,6 @@ class VirtualController: SKNode{
         
         
         
-        
         addOverlay()
         addPause()
         addJump()
@@ -180,8 +190,19 @@ class VirtualController: SKNode{
             
             // Player não pular durante o pause
             if isOverlay && jumpButton!.frame.contains(location) {
-                       return
-                   }
+                return
+            }
+            
+            if let soundButton = soundButton, soundButton.contains(convert(location, to: overlayPause!)) {
+                isSoundMuted.toggle() // Toggle do soundButton
+            }
+            
+            
+            
+            if let exitButton = exitButton, exitButton.contains(convert(location, to: overlayPause!)) {
+                // Executar a lógica para voltar ao menu inicial
+                print("Botão funcionando")
+            }
             
             if pauseButton!.frame.contains(location) {
                 pauseTouch = t
@@ -207,7 +228,7 @@ class VirtualController: SKNode{
             }
             
             if dashButton!.frame.contains(location){
-
+                
                 dashButton?.alpha = 0.6
                 let action = SKAction.wait(forDuration: 0.4)
                 let reverse = SKAction.run {
@@ -376,6 +397,6 @@ class VirtualController: SKNode{
         overlayPause?.isHidden = true
         scene?.isPaused = false
     }
-   
+
 }
 
