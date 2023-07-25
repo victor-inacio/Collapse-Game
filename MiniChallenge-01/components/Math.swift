@@ -26,11 +26,36 @@ extension CGPoint{
     
 }
 
-func signNum(num: CGFloat) -> Int {
+func signNum(num: CGFloat) -> CGFloat {
     if (num < 0) {return -1}
     if (num > 0) {return 1}
         
     return 0
+}
+
+func normalForDash(vector: CGVector) -> CGVector{
+    
+    let sinalX = signNum(num: vector.dx)
+    let sinalY = signNum(num: vector.dy)
+    
+    switch true {
+        
+    case vector.dy == 0 && vector.dx == 0:
+        
+        return CGVector(dx: 0, dy: 0)
+        
+    case vector.dy > 0.95 || vector.dy < -0.95:
+        
+        return CGVector(dx: 0, dy: sinalY)
+    
+    case vector.dx > 0.95 || vector.dx < -0.95:
+
+        return CGVector(dx: sinalX , dy: 0)
+   
+    default:
+        return CGVector(dx: (0.5 * sinalX) * 2, dy: (0.5 * sinalY) * 2)
+    }
+    
 }
 
 

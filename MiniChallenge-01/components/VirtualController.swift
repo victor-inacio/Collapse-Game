@@ -31,12 +31,12 @@ class VirtualController: SKNode{
     var velocityY: CGFloat = 0
     var distanceX: CGFloat = 0 {
         didSet {
-            self.target.onJoystickChange(direction: .init(x: self.velocityX, y: self.distanceY), angle: joystickAngleRounded)
+            self.target.onJoystickChange(direction: .init(x: self.velocityX, y: self.velocityY), angle: joystickAngleRounded)
         }
     }
     var distanceY: CGFloat = 0 {
         didSet {
-            self.target.onJoystickChange(direction: .init(x: self.velocityX, y: self.distanceY), angle: joystickAngleRounded)
+            self.target.onJoystickChange(direction: .init(x: self.velocityX, y: self.velocityY), angle: joystickAngleRounded)
         }
     }
     
@@ -126,7 +126,8 @@ class VirtualController: SKNode{
 
                 dashTouch = t
 
-                target.onJoystickDashBtnTouch(direction: direction)
+//                target.onJoystickDashBtnTouch(direction: direction)
+                target.onJoystickDashBtnTouch(direction: normalForDash(vector: direction))
             }
   
         
@@ -157,8 +158,7 @@ class VirtualController: SKNode{
             
             joystickInUse = true
             joystickTouch = touch
-          
-            
+ 
         }
     }
         
@@ -206,6 +206,7 @@ class VirtualController: SKNode{
             velocityX = radiusB * CGFloat(sinalX)
             velocityY = radiusB * CGFloat(sinalY)
             
+            
             if distanceY * CGFloat(sinalY) > radiusB - 2 && distanceY * CGFloat(sinalY) < radiusB + 2{
                 velocityX = 0
             }
@@ -225,6 +226,7 @@ class VirtualController: SKNode{
             }
         }
     }
+    
     
     func movementReset(size: CGSize){
         
