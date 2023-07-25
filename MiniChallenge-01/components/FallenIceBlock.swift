@@ -40,7 +40,7 @@ extension SKScene{
                     tileNode.physicsBody?.mass = 1000
                     tileNode.physicsBody?.affectedByGravity = true
                     tileNode.physicsBody?.allowsRotation = false
-                    tileNode.physicsBody?.isDynamic = false
+                    tileNode.physicsBody?.isDynamic = true
                     tileNode.physicsBody?.linearDamping = 15
                     tileNode.physicsBody?.categoryBitMask =  PhysicsCategory.fallenBlocks.rawValue
                     tileNode.physicsBody?.collisionBitMask = 0

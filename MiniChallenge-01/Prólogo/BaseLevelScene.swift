@@ -167,13 +167,13 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                     var waiting = SKAction.wait(forDuration: 0.485)
                     
                     if timeVariance == 0{
-                        waiting = SKAction.wait(forDuration: 0.600)
+                        waiting = SKAction.wait(forDuration: 0.4)
                         timeVariance += 1
                     }else if timeVariance < 4{
                         waiting = SKAction.wait(forDuration: 0.600)
                         timeVariance += 1
                     } else{
-                        waiting = SKAction.wait(forDuration: 0.505 * 6.5)
+                        waiting = SKAction.wait(forDuration: 0.505 * 5.5)
                         timeVariance = 1
                     }
                     
