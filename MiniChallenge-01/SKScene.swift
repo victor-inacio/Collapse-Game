@@ -27,17 +27,6 @@ extension BaseLevelScene{
         
         
         for col in 0..<tileMap.numberOfColumns {
-            for row in 0..<tileMap.numberOfRows {
-                if tileMap.tileDefinition(atColumn: col, row: row) != nil{
-                    array[col][row] = true
-//                    print("\(col), \(row) = true")
-                } else{
-//                    print("\(col), \(row) = false")
-                }
-            }
-        }
-        
-        for col in 0..<tileMap.numberOfColumns {
             
             for row in 0..<tileMap.numberOfRows {
                 
@@ -52,49 +41,21 @@ extension BaseLevelScene{
                     let tileNode = SKSpriteNode(texture: tileTexture)
                     tileNode.scale(to: CGSize(width: tileTexture.size().width/proportion, height: tileTexture.size().height/proportion))
                     tileNode.position = CGPoint(x: x, y: y)
-    
-                    //Detectar quando precisa fazer um node maior
-                    if col < tileMap.numberOfColumns - 1{
-                        if array[col + 1][row] == false && array[col][row] == true{
-                            sizeOfThePhysicsBody[row] += 1
-                            canCreatePhysicsBody = true
-                            
-                        } else if array[col][row] == true && array[col + 1][row] == true{
-                            canCreatePhysicsBody = false
-                            sizeOfThePhysicsBody[row] += 1
-                        }
-                    } else if col == tileMap.numberOfColumns - 1{
-                        if array[col][row] == true{
-                            sizeOfThePhysicsBody[row] += 1
-                            canCreatePhysicsBody = true
-                        }
-                    }
                     
-                    
-//                    Physics Body
-                    if  canCreatePhysicsBody{
-                        tileNode.anchorPoint = CGPoint(x: 0.5 - ((sizeOfThePhysicsBody[row] - 1) * 0.5), y: 0.5)
-                        
-                        tileNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (tileTexture.size().width/proportion) * (sizeOfThePhysicsBody[row]), height: (tileTexture.size().height/proportion)))
+                        tileNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+                        tileNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: (tileTexture.size().width/proportion), height: (tileTexture.size().height/proportion)))
                         
                         tileNode.physicsBody?.affectedByGravity = false
                         tileNode.physicsBody?.allowsRotation = false
                         tileNode.physicsBody?.isDynamic = false
                         tileNode.physicsBody?.friction = 0
                         tileNode.physicsBody?.linearDamping = 0
-
-                        tileNode.position = CGPoint(x: (tileNode.position.x + startingLocation.x) - (0.5 * (sizeOfThePhysicsBody[row] - 1) * Double(tileTexture.size().width/proportion)) , y: tileNode.position.y + startingLocation.y)
-                        sizeOfThePhysicsBody[row] = 0
-                        
     
                         self.addChild(tileNode)
-                    } else{
-                        self.addChild(tileNode)
                         tileNode.position = CGPoint(x: tileNode.position.x + startingLocation.x , y: tileNode.position.y + startingLocation.y)
-                    }
+                    
                     
                     let entity = Fallen1Entity(node: tileNode)
-                    
                     triggersManager.addComponent(foundIn: entity)
                     fallenBlocksManager.addComponent(foundIn: entity)
                     self.entities.append(entity)
