@@ -11,6 +11,8 @@
 		9806B5CB2A69A719003CDE88 /* KillierCollisionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */; };
 		9806B5CD2A69BE02003CDE88 /* SKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */; };
 		9806B5CF2A69C32B003CDE88 /* Fallen1Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CE2A69C32B003CDE88 /* Fallen1Entity.swift */; };
+		980D33592A706E4A00944EF5 /* WhiteSpriteShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 980D33582A706E4A00944EF5 /* WhiteSpriteShader.fsh */; };
+		980D335B2A7077EF00944EF5 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 980D335A2A7077EF00944EF5 /* Shader.fsh */; };
 		980FE3652A6871F900681175 /* NodeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980FE3642A6871F900681175 /* NodeEntity.swift */; };
 		98155DC62A6722C30067EA24 /* Phase2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98155DC52A6722C30067EA24 /* Phase2.sks */; };
 		98155DC82A672DD30067EA24 /* FallenBlocksComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */; };
@@ -63,6 +65,8 @@
 		9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillierCollisionComponent.swift; sourceTree = "<group>"; };
 		9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsBody.swift; sourceTree = "<group>"; };
 		9806B5CE2A69C32B003CDE88 /* Fallen1Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fallen1Entity.swift; sourceTree = "<group>"; };
+		980D33582A706E4A00944EF5 /* WhiteSpriteShader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = WhiteSpriteShader.fsh; sourceTree = "<group>"; };
+		980D335A2A7077EF00944EF5 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		980FE3642A6871F900681175 /* NodeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeEntity.swift; sourceTree = "<group>"; };
 		98155DC52A6722C30067EA24 /* Phase2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Phase2.sks; sourceTree = "<group>"; };
 		98155DC72A672DD30067EA24 /* FallenBlocksComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallenBlocksComponent.swift; sourceTree = "<group>"; };
@@ -122,6 +126,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		980D33572A706E2F00944EF5 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				980D33582A706E4A00944EF5 /* WhiteSpriteShader.fsh */,
+				980D335A2A7077EF00944EF5 /* Shader.fsh */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
 		984AEF082A64BBF800792A84 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +178,7 @@
 		AB07DB3C2A5F888600721221 /* MiniChallenge-01 */ = {
 			isa = PBXGroup;
 			children = (
+				980D33572A706E2F00944EF5 /* Shaders */,
 				E80031082A6F15AF003F78A4 /* FinalScene */,
 				E80030FA2A6E5ACA003F78A4 /* SwinPhase */,
 				E80030E92A6DCE9A003F78A4 /* Menus */,
@@ -335,6 +349,7 @@
 				E80030F32A6DDBF1003F78A4 /* ExplainScene1.sks in Resources */,
 				98155DC62A6722C30067EA24 /* Phase2.sks in Resources */,
 				E80031072A6F1588003F78A4 /* ExplainScene3.sks in Resources */,
+				980D335B2A7077EF00944EF5 /* Shader.fsh in Resources */,
 				AB07DB492A5F888600721221 /* Main.storyboard in Resources */,
 				E80030ED2A6DCED2003F78A4 /* MainMenu.sks in Resources */,
 				E800310C2A6F15CD003F78A4 /* FinalScene.sks in Resources */,
@@ -346,6 +361,7 @@
 				E8E492202A66477500FE6C86 /* Phase3.sks in Resources */,
 				AB07DB4E2A5F888800721221 /* LaunchScreen.storyboard in Resources */,
 				E8E492162A6633F800FE6C86 /* Phase1.sks in Resources */,
+				980D33592A706E4A00944EF5 /* WhiteSpriteShader.fsh in Resources */,
 				98CE02B12A64A0660032DFCC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -537,7 +553,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PCTRQS8Z4G;
+				DEVELOPMENT_TEAM = M67J2XKW43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

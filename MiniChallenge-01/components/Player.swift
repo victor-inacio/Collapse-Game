@@ -16,6 +16,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     var onGround = false
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
+    private let dashDuration: CGFloat = 0.2
 
     
     init(){
@@ -89,6 +90,11 @@ class Player: NodeEntity, VirtualControllerTarget{
         if (node.physicsBody?.velocity.dy ?? 0 < 50 || node.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
             node.physicsBody?.velocity.dy -= jumpVelocityFallOff
         }
+        
+        let texture = self.node.texture
+        
+
+        
         //teste
     }
   
@@ -182,10 +188,11 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         
             
-            self.node.physicsBody?.affectedByGravity = false
+        self.node.physicsBody?.affectedByGravity = false
             
-        node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 100 ))
+        node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 100))
             
+        createTrail()
         
         if  stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0 {
             
@@ -201,10 +208,43 @@ class Player: NodeEntity, VirtualControllerTarget{
                 self.node.physicsBody?.affectedByGravity = true
             }]))
             
+            
+            
             if node.physicsBody?.velocity.dy == 0{
                 node.removeAllActions()
             }
         }
+    }
+    
+    func createTrail() {
+        
+        let trailCount = 10
+        let eachTrailInterval = dashDuration / CGFloat(trailCount)
+        
+        
+        node.run(.repeat(.sequence([
+            .run({
+                let shader = SKShader(fileNamed: "WhiteSpriteShader")
+                let texture = self.node.texture
+                
+                let trailSprite = SKSpriteNode(texture: texture)
+                trailSprite.position = self.node.position
+                
+                self.node.scene!.addChild(trailSprite)
+                
+                
+                
+                trailSprite.alpha = 0.5
+                trailSprite.shader = shader
+                
+                trailSprite.run(.sequence([
+                    .fadeAlpha(to: 0, duration: self.dashDuration),
+                    .removeFromParent()
+                ]))
+            }),
+            .wait(forDuration: eachTrailInterval)
+        ]), count: trailCount))
+        
     }
     
 }

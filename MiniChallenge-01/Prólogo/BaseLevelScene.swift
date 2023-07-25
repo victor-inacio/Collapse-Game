@@ -44,16 +44,11 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         
         self.camera = camera2
         
-        
         player = Player()
         addPlayer()
         player.applyMachine()
         
         virtualController = VirtualController(target: self.player, scene: self)
-
- 
-        
-        
 
         let boundaries = getBoundaries()
         
@@ -65,8 +60,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         addChild(camera2)
         camera2.addChild(virtualController)
         
-    
-        
         cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         
         setupDoors()
@@ -76,8 +69,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             .init(fileName: "Nuvens2", velocityFactor: 0.08, zIndex: -2, offset: CGVector(dx: 0, dy: 60)),
             .init(fileName: "Noite Estrelada", velocityFactor: 0.005, zIndex: -4, type: .Background)
         ])
-        
-        
+
 
         for node in self.children {
             if (node.name == "Floor"){
@@ -222,7 +214,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
                     
             for door in doors {
                 let doorEntity = DoorEntity(node: door)
-                
+            
                 doorEntity.addComponent(DoorComponent())
                 triggersManager.addComponent(foundIn: doorEntity)
                 self.entities.append(doorEntity)
@@ -232,9 +224,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     }
 
     override func didFinishUpdate() {
-        
         self.cameraController.onFinishUpdate()
-        
     }
     
     func asd() {
@@ -243,7 +233,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
 
 
     func addPlataform(){
-        
         plataform = SKSpriteNode(imageNamed: "plataform")
         plataform.position = CGPoint(x: size.width * 0.8 , y: size.height * 0.2 + plataform.size.height)
         plataform.zPosition = 1
@@ -252,7 +241,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         plataform.physicsBody?.isDynamic = false
         
         addChild(plataform)
-        
     }
 
     func addPlayer(){
@@ -261,8 +249,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
 
     func addGround(){
         ground.position = CGPoint(x: size.width * 0.5 , y: size.height * 0.1 - ground.size.height)
-    self.addChild(ground)
-    
+        self.addChild(ground)
     }
 
 
