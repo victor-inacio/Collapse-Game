@@ -59,7 +59,6 @@ class Player: VirtualControllerTarget{
         if (playerNode.physicsBody?.velocity.dy ?? 0 < 50 || playerNode.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
             playerNode.physicsBody?.velocity.dy -= jumpVelocityFallOff
         }
-        //teste
     }
     
     
@@ -129,8 +128,6 @@ class Player: VirtualControllerTarget{
     
     func dash(direction: CGVector){
         
-        
-            
             self.playerNode.physicsBody?.affectedByGravity = false
             
             playerNode.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 100 ))
@@ -169,16 +166,11 @@ class PlayerIdle: GKState {
     
     override func didEnter(from previousState: GKState?) {
         
-        //        print("idle")
-        
-        //        playerNode.run(.repeatForever(.repeatForever(.animate(with: .init(format: "idle frame %@", frameCount: 1...4), timePerFrame: 0.4))))
+       playerNode.run(.repeatForever(.animate(with: .init(format: "idle frame %@", frameCount: 1...4), timePerFrame: 0.4)))
     }
-    
 }
 
 class PlayerRun: GKState{
-    
-    var isRunning = false
     
     public var playerNode: SKSpriteNode
     
@@ -188,10 +180,7 @@ class PlayerRun: GKState{
     }
     
     override func didEnter(from previousState: GKState?) {
-        
-        //                print("run")
-        isRunning = true
-        
+   
     }
 }
 
@@ -199,45 +188,21 @@ class PlayerJump: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
-        //        print("jump")
-        
     }
 }
 
 class PlayerDash: GKState{
     
     override func didEnter(from previousState: GKState?) {
-        //        print("dash")
+      
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        
-        switch stateClass{
-            
-        case is PlayerRun:
-            
-            return false
-            
-        case is PlayerGrounded:
-            
-            return false
-            
-        default:
-            
-            return true
-        }
-    }
-    
-    override func willExit(to nextState: GKState) {
-        
-    }
 }
 
 class PlayerGrounded: GKState{
     
     override func didEnter(from previousState: GKState?) {
-        
-        //        print("onGround")
+    
         
     }
 }
@@ -246,9 +211,6 @@ class PlayerGrounded: GKState{
 class PlayerDead: GKState {
     
     override func didEnter(from previousState: GKState?) {
-        
-        //        print("onGround")
-        
-    }
     
+    }
 }
