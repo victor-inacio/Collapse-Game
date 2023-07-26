@@ -16,6 +16,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     var direction: CGVector!
     var angle: CGFloat = 0
     var canDash = false
+    var dashDuration: CGFloat = 0.25
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
     
@@ -71,7 +72,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     func applyMachine(){
         
         stateMachine = GKStateMachine(states: [
-            PlayerIdle(playerNode: playerNode), PlayerRun(playerNode: playerNode), PlayerJump(playerNode: playerNode), PlayerDash(), PlayerGrounded(canDash: canDash), PlayerDead()
+            PlayerIdle(playerNode: node), PlayerRun(playerNode: node), PlayerJump(playerNode: node), PlayerDash(), PlayerGrounded(canDash: canDash), PlayerDead()
         ])
         
         stateMachine?.enter(PlayerIdle.self)
@@ -91,7 +92,7 @@ class Player: NodeEntity, VirtualControllerTarget{
             node.physicsBody?.velocity.dy -= jumpVelocityFallOff
         }
         
-        if playerNode.physicsBody?.velocity.dx == 0 && playerNode.physicsBody?.velocity.dy == 0{
+        if node.physicsBody?.velocity.dx == 0 && node.physicsBody?.velocity.dy == 0{
             stateMachine.enter(PlayerIdle.self)
         }
         
@@ -120,12 +121,12 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerDash == false{
             
-            playerNode.physicsBody!.velocity.dx = distanceX * 7
+            node.physicsBody!.velocity.dx = distanceX * 7
             
         }
         
         if angle > 1.50 || angle < -1.50{
-            playerNode.xScale = -1
+            node.xScale = -1
         } else{
             node.xScale = 1
         }
@@ -145,7 +146,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0{
             
-            playerNode.physicsBody?.applyImpulse(CGVector(dx: playerNode.size.height , dy: playerNode.size.height + playerNode.size.height / 4))
+            node.physicsBody?.applyImpulse(CGVector(dx: node.size.height , dy: node.size.height + node.size.height / 4))
             
             stateMachine?.enter(PlayerJump.self)
             
@@ -166,14 +167,14 @@ class Player: NodeEntity, VirtualControllerTarget{
     func dash(direction: CGVector){
         
         
-        self.playerNode.physicsBody?.affectedByGravity = false
-        playerNode.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 80 ))
+        self.node.physicsBody?.affectedByGravity = false
+        node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 80 ))
         
         canDash = false
         
-        if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && playerNode.physicsBody?.velocity.dy == 0 {
+        if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0 {
             
-            self.playerNode.run(.sequence([.wait(forDuration: 0.25), .run{
+            self.node.run(.sequence([.wait(forDuration: 0.25), .run{
                 self.stateMachine?.enter(PlayerIdle.self)
                 self.node.physicsBody?.affectedByGravity = true
                 
