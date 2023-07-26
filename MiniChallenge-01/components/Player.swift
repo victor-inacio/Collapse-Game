@@ -19,7 +19,6 @@ class Player: VirtualControllerTarget{
     var canDash = false
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
-    var jumpAndDash: CGFloat = 0
     
     init(){
         
@@ -74,9 +73,6 @@ class Player: VirtualControllerTarget{
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
         
-        if stateMachine.currentState is PlayerDash == false{
-            applyMovement(distanceX: direction.x, angle: angle)
-        }
         
         velocityX = direction.x
         velocityY = direction.y
@@ -117,7 +113,7 @@ class Player: VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && playerNode.physicsBody?.velocity.dy == 0{
             
-            playerNode.physicsBody?.applyImpulse(CGVector(dx: jumpAndDash , dy: playerNode.size.height + playerNode.size.height / 4))
+            playerNode.physicsBody?.applyImpulse(CGVector(dx: playerNode.size.height , dy: playerNode.size.height + playerNode.size.height / 4))
             
             stateMachine?.enter(PlayerJump.self)
             
@@ -141,19 +137,18 @@ class Player: VirtualControllerTarget{
         self.playerNode.physicsBody?.affectedByGravity = false
         playerNode.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 80 ))
         
-        jumpAndDash = direction.dx * 100
         canDash = false
         
         if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && playerNode.physicsBody?.velocity.dy == 0 {
             
-            self.playerNode.run(.sequence([.wait(forDuration: 0.2), .run{
+            self.playerNode.run(.sequence([.wait(forDuration: 0.25), .run{
                 self.stateMachine?.enter(PlayerIdle.self)
                 self.playerNode.physicsBody?.affectedByGravity = true
                 
             }]))
         } else {
             
-            self.playerNode.run(.sequence([.wait(forDuration: 0.2), .run{
+            self.playerNode.run(.sequence([.wait(forDuration: 0.25), .run{
                 self.stateMachine?.enter(PlayerIdle.self)
                 self.playerNode.physicsBody?.affectedByGravity = true
             }]))
