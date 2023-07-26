@@ -47,14 +47,16 @@ class VirtualController: SKNode{
     var dashTouch: UITouch?
     var direction: CGVector = CGVector(dx: 0, dy: 0)
     var joystickAngleRounded: CGFloat = 0
+    var velocityX: CGFloat = 0
+    var velocityY: CGFloat = 0
     var distanceX: CGFloat = 0 {
         didSet {
-            self.target.onJoystickChange(direction: .init(x: self.distanceX, y: self.distanceY), angle: joystickAngleRounded)
+            self.target.onJoystickChange(direction: .init(x: self.velocityX, y: self.velocityY), angle: joystickAngleRounded)
         }
     }
     var distanceY: CGFloat = 0 {
         didSet {
-            self.target.onJoystickChange(direction: .init(x: self.distanceX, y: self.distanceY), angle: joystickAngleRounded)
+            self.target.onJoystickChange(direction: .init(x: self.velocityX, y: self.velocityY), angle: joystickAngleRounded)
         }
     }
     
@@ -237,8 +239,9 @@ class VirtualController: SKNode{
                 run(SKAction.sequence([action, reverse]))
                 
                 dashTouch = t
-                
-                target.onJoystickDashBtnTouch(direction: direction)
+
+//                target.onJoystickDashBtnTouch(direction: direction)
+                target.onJoystickDashBtnTouch(direction: normalForDash(vector: direction))
             }
             
             
@@ -273,8 +276,7 @@ class VirtualController: SKNode{
             
             joystickInUse = true
             joystickTouch = touch
-            
-            
+ 
         }
     }
     
@@ -313,10 +315,20 @@ class VirtualController: SKNode{
             
             distanceX = CGFloat(sin(angle - CGFloat.pi / 2) * distanceFromCenter) * -1
             distanceY = CGFloat(cos(angle - CGFloat.pi / 2) * -distanceFromCenter) * -1
+           
+            let radiusB = virtualJoystickB!.size.width / 2
+           
+            let sinalX = signNum(num: distanceX)
+            let sinalY = signNum(num: distanceY)
+               
+            velocityX = radiusB * CGFloat(sinalX)
+            velocityY = radiusB * CGFloat(sinalY)
             
             
-            //let radiusB = controllerJoystick.virtualControllerB.size.width / 2
-            
+            if distanceY * CGFloat(sinalY) > radiusB - 2 && distanceY * CGFloat(sinalY) < radiusB + 2{
+                velocityX = 0
+            }
+
             if virtualJoystickB!.frame.contains(location){
                 //                        -location.x / 4 > radiusB && -location.x / 5.8 < radiusB  &&  -location.y * 0.9 > radiusB  && -location.y / 2.9 < radiusB {
                 // 0.8 é o meio até o lado para o x
@@ -333,6 +345,7 @@ class VirtualController: SKNode{
         }
     }
     
+    
     func movementReset(size: CGSize){
         
         let moveback = SKAction.move(to: CGPoint(x: size.width / -3 + size.width / 50, y: size.height  / -5.3), duration: 0.1)
@@ -340,7 +353,7 @@ class VirtualController: SKNode{
         virtualJoystickF?.run(moveback)
         virtualJoystickB?.run(moveback)
         joystickInUse = false
-        distanceX = 0
+        velocityX = 0
         distanceY = 0
         direction = CGVector(dx: 0, dy: 0)
         
