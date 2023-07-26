@@ -11,7 +11,8 @@ import GameplayKit
 protocol VirtualControllerTarget {
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) -> Void
-    func onJoystickJumpBtnTouch(pressingJump: Bool) -> Void
+    func onJoystickJumpBtnTouchStart() -> Void
+    func onJoystickJumpBtnTouchEnd() -> Void
     func onJoystickDashBtnTouch(direction: CGVector) -> Void
     
 }
@@ -48,14 +49,7 @@ class VirtualController: SKNode{
     }
     
     var joystickInUse: Bool = false
-    
-    var pressingJump: Bool = false {
-        didSet {
-            self.target.onJoystickJumpBtnTouch(pressingJump: self.pressingJump)
-        }
-    }
-    
-    
+
     var gameScene = BaseLevelScene()
     var target: VirtualControllerTarget!
     
@@ -201,9 +195,7 @@ class VirtualController: SKNode{
                 run(SKAction.sequence([action, reverse]))
                 jumpTouch = t
                 
-                pressingJump = true
-                
-                target.onJoystickJumpBtnTouch(pressingJump: pressingJump)
+                target.onJoystickJumpBtnTouchStart()
             }
             
             if dashButton!.frame.contains(location){
@@ -240,7 +232,7 @@ class VirtualController: SKNode{
                 }
                 
                 if t == jumpTouch {
-                    pressingJump = false
+                    target.onJoystickJumpBtnTouchEnd()
                 }
             }
         }
@@ -249,11 +241,8 @@ class VirtualController: SKNode{
     func firstTouch(location: CGPoint, touch: UITouch ){
         
         if virtualJoystickF!.frame.contains(location) && location.x < 0{
-            
             joystickInUse = true
             joystickTouch = touch
-            
-            
         }
     }
     

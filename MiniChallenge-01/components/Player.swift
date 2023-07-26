@@ -86,7 +86,7 @@ class Player: NodeEntity, VirtualControllerTarget{
             node.physicsBody?.velocity = dashDirection * 1500
         }
 
-        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
+        if node.physicsBody!.velocity.dy == 0 {
             stateMachine.enter(PlayerGrounded.self)
         }
 
@@ -160,9 +160,10 @@ class Player: NodeEntity, VirtualControllerTarget{
 //        }
 //    }
     
-    func onJoystickJumpBtnTouch(pressingJump: Bool) {
+    func onJoystickJumpBtnTouchStart() {
         
-        self.pressingJump = pressingJump
+        
+        pressingJump = true
         
         if stateMachine.currentState is PlayerDash == false && pressingJump{
             jump()
@@ -170,7 +171,13 @@ class Player: NodeEntity, VirtualControllerTarget{
         
     }
     
+    func onJoystickJumpBtnTouchEnd() {
+        pressingJump = false
+    }
+    
+    
     func jump(){
+        
         
         if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0{
             
@@ -189,6 +196,14 @@ class Player: NodeEntity, VirtualControllerTarget{
         
     }
     
+    func shakeScreen() {
+        
+        let camera = node.scene!.camera!
+        
+        camera.run(.shake(initialPosition: camera.position, duration: 1, amplitudeX: 50, amplitudeY: 0))
+        
+    }
+    
     func dash(direction: CGVector){
         
         
@@ -198,6 +213,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         dashDirection = direction
             
         createTrail()
+        shakeScreen()
         
         if  stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0 {
             
