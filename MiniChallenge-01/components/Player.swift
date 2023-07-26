@@ -19,6 +19,10 @@ class Player: NodeEntity, VirtualControllerTarget{
     var dashDuration: CGFloat = 0.25
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
+    var boosting = false
+    private let dashDuration: CGFloat = 0.2
+    private var dashDirection: CGVector = .init(dx: 0, dy: 0)
+    private var canBoost = false
     
     init(){
         
@@ -80,11 +84,13 @@ class Player: NodeEntity, VirtualControllerTarget{
     
    func update() {
         
-       if stateMachine.currentState is PlayerDash == false {
-           applyMovement(distanceX: velocityX, angle: angle)
-       }
+        if stateMachine.currentState is PlayerDash == false {
+            applyMovement(distanceX: velocityX, angle: angle)
+        } else {
+            node.physicsBody?.velocity = dashDirection * 1500
+        }
 
-        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
+        if node.physicsBody!.velocity.dy == 0 {
             stateMachine.enter(PlayerGrounded.self)
         }
 
@@ -119,9 +125,12 @@ class Player: NodeEntity, VirtualControllerTarget{
             return
         }
         
-        if stateMachine.currentState is PlayerDash == false{
+        if stateMachine.currentState is PlayerDash == false {
             
-            node.physicsBody!.velocity.dx = distanceX * 7
+            if (!boosting) {
+                node.physicsBody!.velocity.dx = distanceX * 7
+            }
+        } else {
             
         }
         
@@ -132,9 +141,25 @@ class Player: NodeEntity, VirtualControllerTarget{
         }
     }
     
-    func onJoystickJumpBtnTouch(pressingJump: Bool) {
+//    func update() {
+//
+//
+//        if stateMachine.currentState is PlayerDash == false {
+//            applyMovement(distanceX: velocityX, angle: angle)
+//        }
+//
+//
+//        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
+//
+//            stateMachine.enter(PlayerGrounded.self)
+//
+//        }
+//    }
+    
+    func onJoystickJumpBtnTouchStart() {
         
-        self.pressingJump = pressingJump
+        
+        pressingJump = true
         
         if pressingJump{
             jump()
@@ -142,11 +167,31 @@ class Player: NodeEntity, VirtualControllerTarget{
         
     }
     
+    func onJoystickJumpBtnTouchEnd() {
+        pressingJump = false
+    }
+    
+    
     func jump(){
+        
         
         if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0{
             
-            node.physicsBody?.applyImpulse(CGVector(dx: node.size.height , dy: node.size.height + node.size.height / 4))
+            if (canBoost) {
+                boosting = true
+                
+                node.run(.sequence([
+                    .wait(forDuration: 0.5),
+                    .run {
+                        self.boosting = false
+                    }
+                ]))
+            }
+            
+            print(node.xScale)
+
+            
+            node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
             
             stateMachine?.enter(PlayerJump.self)
             
@@ -164,19 +209,42 @@ class Player: NodeEntity, VirtualControllerTarget{
         }
     }
     
+    func shakeScreen() {
+        
+        let camera = node.scene!.camera!
+        
+        camera.run(.shake(initialPosition: camera.position, duration: 1, amplitudeX: 50, amplitudeY: 0))
+        
+    }
+    
     func dash(direction: CGVector){
         
         
         self.node.physicsBody?.affectedByGravity = false
-        node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 80 ))
+            
+        dashDirection = direction
+            
+        createTrail()
+        shakeScreen()
+        canBoost = true
+        
+        let boostLifeTime = 0.1
         
         canDash = false
         
         if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0 {
             
-            self.node.run(.sequence([.wait(forDuration: 0.25), .run{
+            self.node.run(.sequence([.wait(forDuration: dashDuration), .run{
                 self.stateMachine?.enter(PlayerIdle.self)
                 self.node.physicsBody?.affectedByGravity = true
+                
+                self.node.run(.sequence([
+                
+                    .wait(forDuration: boostLifeTime),
+                    .run {
+                        self.canBoost = false
+                    }
+                ]))
                 
             }]))
         } else {
@@ -184,6 +252,14 @@ class Player: NodeEntity, VirtualControllerTarget{
             self.node.run(.sequence([.wait(forDuration: 0.25), .run{
                 self.stateMachine?.enter(PlayerIdle.self)
                 self.node.physicsBody?.affectedByGravity = true
+                
+                self.node.run(.sequence([
+                    
+                    .wait(forDuration: boostLifeTime),
+                    .run {
+                        self.canBoost = false
+                    }
+                ]))
             }]))
             
             
