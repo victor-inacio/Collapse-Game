@@ -50,6 +50,7 @@ extension BaseLevelScene{
                         tileNode.physicsBody?.isDynamic = false
                         tileNode.physicsBody?.friction = 0
                         tileNode.physicsBody?.linearDamping = 0
+                        tileNode.physicsBody?.restitution = 0
     
                         self.addChild(tileNode)
                         tileNode.position = CGPoint(x: tileNode.position.x + startingLocation.x , y: tileNode.position.y + startingLocation.y)
@@ -136,6 +137,7 @@ extension BaseLevelScene{
                         tileNode.physicsBody?.isDynamic = false
                         tileNode.physicsBody?.friction = 0
                         tileNode.physicsBody?.linearDamping = 0
+                        tileNode.physicsBody?.restitution = 0
                         tileNode.physicsBody?.collisionBitMask = PhysicsCategory.player.rawValue
 
                         
