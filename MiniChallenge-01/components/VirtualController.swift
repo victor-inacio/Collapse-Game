@@ -202,9 +202,13 @@ class VirtualController: SKNode{
             
             
             if let exitButton = exitButton, exitButton.contains(convert(location, to: overlayPause!)) {
-                // Executar a lógica para voltar ao menu inicial
-                print("Botão funcionando")
+                // Volta ao menu inicial
+                if let scene = SKScene(fileNamed: "MainMenu") {
+                    scene.scaleMode = .aspectFill
+                    self.scene?.view?.presentScene(scene, transition: SKTransition.fade(withDuration: 3))
+                }
             }
+
             
             if pauseButton!.frame.contains(location) {
                 pauseTouch = t
