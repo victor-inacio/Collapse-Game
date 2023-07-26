@@ -16,9 +16,10 @@ class Player: NodeEntity, VirtualControllerTarget{
     var onGround = false
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
+    var boosting = false
     private let dashDuration: CGFloat = 0.2
     private var dashDirection: CGVector = .init(dx: 0, dy: 0)
-
+    private var canBoost = false
     
     init(){
         
@@ -130,10 +131,11 @@ class Player: NodeEntity, VirtualControllerTarget{
             return
         }
         
-        if stateMachine.currentState is PlayerDash == false{
+        if stateMachine.currentState is PlayerDash == false {
             
-            
-            node.physicsBody!.velocity.dx = distanceX * 7
+            if (!boosting) {
+                node.physicsBody!.velocity.dx = distanceX * 7
+            }
         } else {
             
         }
@@ -181,7 +183,21 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0{
             
-            node.physicsBody?.applyImpulse(CGVector(dx: 0 , dy: node.size.height + node.size.height * 1.2 ))
+            if (canBoost) {
+                boosting = true
+                
+                node.run(.sequence([
+                    .wait(forDuration: 0.5),
+                    .run {
+                        self.boosting = false
+                    }
+                ]))
+            }
+            
+            print(node.xScale)
+
+            
+            node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
             
             stateMachine?.enter(PlayerJump.self)
             
@@ -214,6 +230,9 @@ class Player: NodeEntity, VirtualControllerTarget{
             
         createTrail()
         shakeScreen()
+        canBoost = true
+        
+        let boostLifeTime = 0.1
         
         if  stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0 {
             
@@ -221,12 +240,28 @@ class Player: NodeEntity, VirtualControllerTarget{
                 self.stateMachine?.enter(PlayerIdle.self)
                 self.node.physicsBody?.affectedByGravity = true
                 
+                self.node.run(.sequence([
+                
+                    .wait(forDuration: boostLifeTime),
+                    .run {
+                        self.canBoost = false
+                    }
+                ]))
+                
             }]))
         } else {
             
             self.node.run(.sequence([.wait(forDuration: 0.25), .run{
                 self.stateMachine?.enter(PlayerIdle.self)
                 self.node.physicsBody?.affectedByGravity = true
+                
+                self.node.run(.sequence([
+                    
+                    .wait(forDuration: boostLifeTime),
+                    .run {
+                        self.canBoost = false
+                    }
+                ]))
             }]))
             
             
