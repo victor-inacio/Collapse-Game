@@ -17,6 +17,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
     private let dashDuration: CGFloat = 0.2
+    private var dashDirection: CGVector = .init(dx: 0, dy: 0)
 
     
     init(){
@@ -81,6 +82,8 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if stateMachine.currentState is PlayerDash == false {
             applyMovement(distanceX: velocityX, angle: angle)
+        } else {
+            node.physicsBody?.velocity = dashDirection * 1500
         }
 
         if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
@@ -131,6 +134,8 @@ class Player: NodeEntity, VirtualControllerTarget{
             
             
             node.physicsBody!.velocity.dx = distanceX * 7
+        } else {
+            
         }
         
         if angle > 1.51 || angle < -1.51{
@@ -190,13 +195,13 @@ class Player: NodeEntity, VirtualControllerTarget{
             
         self.node.physicsBody?.affectedByGravity = false
             
-        node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100 , dy: direction.dy * 100))
+        dashDirection = direction
             
         createTrail()
         
         if  stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0 {
             
-            self.node.run(.sequence([.wait(forDuration: 0.2), .run{
+            self.node.run(.sequence([.wait(forDuration: dashDuration), .run{
                 self.stateMachine?.enter(PlayerIdle.self)
                 self.node.physicsBody?.affectedByGravity = true
                 

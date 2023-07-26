@@ -12,6 +12,14 @@ extension CGVector {
     func toCGPoint() -> CGPoint {
         return .init(x: self.dx, y: self.dy)
     }
+    
+    static func *(vec1: CGVector, vec2: CGVector) -> Self {
+        return .init(dx: vec1.dx * vec2.dx, dy: vec1.dy * vec2.dy)
+    }
+    
+    static func *(vec1: CGVector, int: CGFloat) -> Self {
+        return .init(dx: vec1.dx * int, dy: vec1.dy * int)
+    }
 }
 
 
