@@ -126,6 +126,7 @@ class VirtualController: SKNode{
         deadCount?.fontName = "Futura Bold"
         deadCount?.fontSize = 40
         deadCount?.horizontalAlignmentMode = .left
+        deadCount?.zPosition = 11
         
         // JOYSTICK
         let textureControllerB = SKTexture(imageNamed: "virtualControllerB")
