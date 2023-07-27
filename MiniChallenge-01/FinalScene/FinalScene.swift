@@ -11,6 +11,12 @@ class FinalScene: BaseLevelScene{
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         cameraController.configHeight = 130
+        
+        parallax = Parallax(scene: self, items: [
+            .init(fileName: "Nuvens", velocityFactor: 0.06, zIndex: -1, offset: CGVector(dx: 0, dy: 150)),
+            .init(fileName: "Nuvens2", velocityFactor: 0.08, zIndex: -2, offset: CGVector(dx: 0, dy: 60)),
+            .init(fileName: "Noite Estrelada", velocityFactor: 0.005, zIndex: -4, type: .Background)
+        ])
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -21,5 +27,6 @@ class FinalScene: BaseLevelScene{
                 self.view?.presentScene(scene, transition: SKTransition.push(with: SKTransitionDirection.down, duration: 3))
             }
         }
+        parallax.update()
     }
 }

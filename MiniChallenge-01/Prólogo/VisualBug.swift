@@ -14,7 +14,7 @@ class VisualBug{
         let bugTexture = SKTexture(imageNamed: "VisualBug")
         
         node = SKSpriteNode(texture: bugTexture)
-        
+        node.zPosition = 1.3
         
         node.run(.repeatForever(.repeatForever(.animate(with: .init(format: "VisualBug %@", frameCount: 1...3), timePerFrame: 0.2))))
         

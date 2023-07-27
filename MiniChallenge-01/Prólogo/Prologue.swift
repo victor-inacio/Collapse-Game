@@ -34,6 +34,12 @@ class Prologue: BaseLevelScene{
         virtualController.dashButton?.zPosition = -10
         virtualController.dashButton?.alpha = 0
         virtualController.jumpButton?.alpha = 0
+        
+        parallax = Parallax(scene: self, items: [
+            .init(fileName: "Nuvens", velocityFactor: 0.06, zIndex: -1, offset: CGVector(dx: 0, dy: 150)),
+            .init(fileName: "Nuvens2", velocityFactor: 0.08, zIndex: -2, offset: CGVector(dx: 0, dy: 60)),
+            .init(fileName: "Noite Estrelada", velocityFactor: 0.005, zIndex: -4, type: .Background)
+        ])
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -65,19 +71,10 @@ class Prologue: BaseLevelScene{
                 self.run(SKAction.playSoundFileNamed("bugs", waitForCompletion: false))
                 self.run(SKAction.playSoundFileNamed("FinalBug", waitForCompletion: false))
                 self.addBigVisualBug(nameOfTheAsset: "BigVisualBug")
-                
-            }, SKAction.wait(forDuration: 1.0),SKAction.run {
-                for node in self.children{
-                    if node.name == "Blind"{
-                        let blind = SKAction.fadeAlpha(to: 1, duration: 1.5)
-                        node.run(blind)
-                        
-                    }
-                }
-            }, SKAction.wait(forDuration: 3), SKAction.run {
+            }, SKAction.wait(forDuration: 1), SKAction.run {
                 if let scene = SKScene(fileNamed: "ExplainScene2") {
                     scene.scaleMode = .aspectFill
-                    self.view?.presentScene(scene, transition: SKTransition.fade(withDuration: 1))
+                    self.view?.presentScene(scene, transition: SKTransition.fade(with: .white, duration: 4))
                 }
             }]))
             
@@ -116,6 +113,7 @@ class Prologue: BaseLevelScene{
             startJumpText = true
         }
         
+        parallax.update()
     }
     
     func changeNodeAlpha(name: String, alpha: Double){

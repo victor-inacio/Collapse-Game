@@ -9,6 +9,7 @@ import SpriteKit
 
 class MainMenu: SKScene{
     var newGameNode: SKSpriteNode!
+    var continueButton: SKSpriteNode!
     var cloud1: SKSpriteNode!
     var cloud2: SKSpriteNode!
     var cloud3: SKSpriteNode!
@@ -20,8 +21,11 @@ class MainMenu: SKScene{
     var restart: SKSpriteNode!
     var restart2: SKSpriteNode!
     var rndNumber: Int!
+    var dieLabel: SKLabelNode!
+    var canContinue: Bool = false
     
     override func didMove(to view: SKView){
+        
         cloud1 = childNode(withName: "Cloud 1")! as? SKSpriteNode
         cloud2 = childNode(withName: "Cloud 2")! as? SKSpriteNode
         cloud3 = childNode(withName: "Cloud 3")! as? SKSpriteNode
@@ -33,6 +37,20 @@ class MainMenu: SKScene{
         restart = childNode(withName: "Restart")! as? SKSpriteNode
         restart2 = childNode(withName: "Restart 2")! as? SKSpriteNode
         newGameNode = self.childNode(withName: "New Game")! as? SKSpriteNode
+        continueButton = self.childNode(withName: "Continue")! as? SKSpriteNode
+        dieLabel = childNode(withName: "HighScore")! as? SKLabelNode
+        
+        
+        let fadeInAction = SKAction.fadeAlpha(to: 0.1, duration: 0.2)
+        let fadeOutAction = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
+        let blinkSequence = SKAction.sequence([fadeInAction, fadeOutAction])
+        let blinkForever = SKAction.repeat(blinkSequence, count: 7)
+        dieLabel.run(blinkForever)
+        
+        print(winGame)
+        
+        
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -42,6 +60,10 @@ class MainMenu: SKScene{
         if newGameNode.contains(touchLocation){
             newGameNode.alpha = 0.5
         }
+        
+        if continueButton.contains(touchLocation) && canContinue{
+            continueButton.alpha = 0.5
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -49,15 +71,50 @@ class MainMenu: SKScene{
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
         
+        if canContinue{
+            continueButton.alpha = 0.9
+        }
+        
         if newGameNode.contains(touchLocation){
-            if let scene = SKScene(fileNamed: "ExplainScene1") {
-                scene.scaleMode = .aspectFill
-                self.view?.presentScene(scene, transition: SKTransition.push(with: SKTransitionDirection.down, duration: 3))
-            }
+            userDefaults.set(0, forKey: "commonDeadCount")
+            nextLevel("ExplainScene1", direction: SKTransitionDirection.down)
+        }
+        
+        if continueButton.contains(touchLocation) && canContinue{
+            nextLevel(levelName ?? "ExplainScene1", transition: SKTransition.fade(with: .white, duration: 1.4))
         }
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
+        if !winGame{
+            userDefaults.set(-1, forKey: "minDeadCount")
+        }
+        print(winGame)
+        
+        winGame = userDefaults.bool(forKey: "winGame")
+        commonDeadCount = userDefaults.integer(forKey: "commonDeadCount")
+        print(commonDeadCount)
+        minDeadCount = userDefaults.integer(forKey: "minDeadCount")
+        print("min: \(minDeadCount)")
+        levelName = userDefaults.string(forKey: "highLevelName")
+        
+        if levelName != nil{
+            canContinue = true
+            continueButton.alpha = 0.9
+        }
+        
+        if minDeadCount == -1 && !canContinue{
+            let deadNumber = userDefaults.integer(forKey: "commonDeadCount")
+            userDefaults.set(deadNumber, forKey: "minDeadCount")
+        } else if commonDeadCount < minDeadCount && !canContinue{
+            let deadNumber = userDefaults.integer(forKey: "commonDeadCount")
+            userDefaults.set(deadNumber, forKey: "minDeadCount")
+        }
+        
+        
+        
+        dieLabel.text = "Menor número de mortes: \((winGame) ? String(minDeadCount) : "---" )"
         cloud1!.position.x += 0.15
         cloud2!.position.x += 0.1
         cloud3!.position.x += 0.2
@@ -81,4 +138,20 @@ class MainMenu: SKScene{
     }
     
     
+}
+
+extension SKScene{
+    func nextLevel(_ a: String, direction: SKTransitionDirection){
+        if let scene = SKScene(fileNamed: a){
+            scene.scaleMode = .aspectFill
+            self.view?.presentScene(scene, transition: SKTransition.push(with: direction, duration: 3))
+        }
+    }
+    
+    func nextLevel(_ a: String, transition: SKTransition){
+        if let scene = SKScene(fileNamed: a){
+            scene.scaleMode = .aspectFill
+            self.view?.presentScene(scene, transition: transition)
+        }
+    }
 }

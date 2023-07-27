@@ -65,6 +65,10 @@ class Player: NodeEntity, VirtualControllerTarget{
                 
             ]))
         }
+        
+        let somar = userDefaults.integer(forKey: "commonDeadCount") + 1
+        userDefaults.set(somar, forKey: "commonDeadCount")
+        print(userDefaults.integer(forKey: "commonDeadCount"))
     }
     
     func applyMachine(){

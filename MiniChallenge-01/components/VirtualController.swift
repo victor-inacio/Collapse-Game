@@ -26,6 +26,8 @@ class VirtualController: SKNode{
     var isAppInForeground: Bool = true
     var exitButton: SKSpriteNode?
     var soundButton: SKSpriteNode?
+    var skull: SKSpriteNode?
+    var deadCount: SKLabelNode?
     
     var virtualJoystickB: SKSpriteNode?
     var virtualJoystickF: SKSpriteNode?
@@ -107,6 +109,16 @@ class VirtualController: SKNode{
         pauseButton?.name = "pause"
         pauseButton?.zPosition = 11
         
+        //DEAD COUNT
+        let textureSkull = SKTexture(imageNamed: "Skull")
+        
+        skull = SKSpriteNode(texture: textureSkull, size: textureSkull.size())
+        skull?.zPosition = 11
+        
+        deadCount = SKLabelNode(text: "\(commonDeadCount)")
+        deadCount?.fontName = "Futura Bold"
+        deadCount?.fontSize = 40
+        deadCount?.horizontalAlignmentMode = .left
         
         // JOYSTICK
         let textureControllerB = SKTexture(imageNamed: "virtualControllerB")
@@ -149,6 +161,10 @@ class VirtualController: SKNode{
         jumpButton?.position = CGPoint(x:  scene.size.width / 5 + scene.size.width / 9  , y:  scene.size.height  / -4)
         dashButton?.position = CGPoint(x: scene.size.width / 2.6 - scene.size.width / 200, y: scene.size.height / -14 )
         pauseButton?.position = CGPoint(x: scene.size.width / 2.6 + scene.size.width / 20, y: scene.size.height / 3.5 )
+        
+        skull?.position = CGPoint(x: scene.size.width / -2.24 + scene.size.width / 50, y: scene.size.height / 3.4 )
+        deadCount?.position = CGPoint(x: scene.size.width / -2.46 + scene.size.width / 50, y: scene.size.height / 3.7 )
+        
         overlayPause?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 14)
         overlayShadow?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 200, y: scene.size.height / -12)
         exitButton?.position = CGPoint (x: scene.size.width / 9 - scene.size.width / 20 , y: scene.size.height / -10)
@@ -162,6 +178,8 @@ class VirtualController: SKNode{
         addJump()
         addDash()
         addController()
+        addSkull()
+        addDeadCount()
         
     }
     
@@ -353,8 +371,21 @@ class VirtualController: SKNode{
         addChild(pauseButton!)
     }
     
+    //DEAD COUNT
+    func addSkull(){
+        addChild(skull!)
+    }
+    
+    func addDeadCount(){
+        addChild(deadCount!)
+    }
+    
+    func actualDeadNumber(){
+        deadCount!.text = "\(userDefaults.integer(forKey: "commonDeadCount"))"
+    }
+    
     //OVERLAY PAUSE - Tudo que estiver no overlay de Pause deve ser adicionado como filho de overlayPause.
-    func addOverlay (){
+    func addOverlay(){
         
         addChild(overlayPause!)
         overlayPause?.isHidden = true

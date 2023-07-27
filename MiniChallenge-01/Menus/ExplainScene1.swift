@@ -27,15 +27,12 @@ class ExplainScene1: SKScene{
             self.canSkip = true
         }]))
             
-        
+        setUserDefaults(self.name!)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if canSkip{
-            if let scene = SKScene(fileNamed: "PlataformGameScene") {
-                scene.scaleMode = .aspectFill
-                self.view?.presentScene(scene, transition: SKTransition.push(with: SKTransitionDirection.up, duration: 3))
-            }
+            nextLevel("PlataformGameScene", direction: SKTransitionDirection.up)
         } else{
             removeAllActions()
             label1.alpha = 1

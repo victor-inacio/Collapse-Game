@@ -38,6 +38,12 @@ class SwinPhase: BaseLevelScene{
         
         player.node.physicsBody?.linearDamping = 1
         
+        
+        parallax = Parallax(scene: self, items: [
+            .init(fileName: "New Planet", velocityFactor: 0, zIndex: -5, offset: CGVector(dx: 0, dy: 450)),
+            .init(fileName: "New Planet 2", velocityFactor: -0.02, zIndex: -4, offset: CGVector(dx: 150, dy: 200)),
+            .init(fileName: "New Planet 3", velocityFactor: 0.06, zIndex: -3, offset: CGVector(dx: -140, dy: 200)),
+        ])
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -46,6 +52,9 @@ class SwinPhase: BaseLevelScene{
             self.physicsWorld.gravity = CGVector(dx: 0, dy: 23.8)
         } else if  player.node.position.y > (childNode(withName: "Limiting gravity")?.position.y)!{
             self.physicsWorld.gravity = CGVector(dx: 0, dy: -5)
+            
+        } else if player.node.position.y < (childNode(withName: "Limiting gravity")?.position.y)!{
+            player.node.physicsBody?.applyForce(CGVector(dx: 0, dy: 730))
         }
         
         if (childNode(withName: "LabelTrigger")?.position.x)! > player.node.position.x{
@@ -58,6 +67,7 @@ class SwinPhase: BaseLevelScene{
                 self.view?.presentScene(scene, transition: SKTransition.fade(withDuration: 4))
             }
         }
+        parallax.update()
         
     }
     
