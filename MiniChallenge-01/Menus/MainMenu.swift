@@ -77,11 +77,11 @@ class MainMenu: SKScene{
         
         if newGameNode.contains(touchLocation){
             userDefaults.set(0, forKey: "commonDeadCount")
-            nextLevel("ExplainScene1", direction: SKTransitionDirection.down)
+            nextLevel("Test", direction: SKTransitionDirection.down)
         }
         
         if continueButton.contains(touchLocation) && canContinue{
-            nextLevel(levelName ?? "ExplainScene1", transition: SKTransition.fade(with: .white, duration: 1.4))
+            nextLevel(levelName ?? "Test", transition: SKTransition.fade(with: .white, duration: 1.4))
         }
     }
     

@@ -37,6 +37,8 @@
 		AB07DB632A60317800721221 /* VirtualController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB622A60317800721221 /* VirtualController.swift */; };
 		AB07DB652A60394100721221 /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB642A60394100721221 /* Ground.swift */; };
 		AB07DB682A60400000721221 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB672A60400000721221 /* Camera.swift */; };
+		AB6D31452A72D21C00D31F16 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6D31442A72D21C00D31F16 /* Test.swift */; };
+		AB6D31472A72D22C00D31F16 /* Test.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB6D31462A72D22C00D31F16 /* Test.sks */; };
 		E80030EB2A6DCEB1003F78A4 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030EA2A6DCEB1003F78A4 /* MainMenu.swift */; };
 		E80030ED2A6DCED2003F78A4 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030EC2A6DCED2003F78A4 /* MainMenu.sks */; };
 		E80030F12A6DDBBB003F78A4 /* ExplainScene1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030F02A6DDBBB003F78A4 /* ExplainScene1.swift */; };
@@ -93,6 +95,8 @@
 		AB07DB622A60317800721221 /* VirtualController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualController.swift; sourceTree = "<group>"; };
 		AB07DB642A60394100721221 /* Ground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
 		AB07DB672A60400000721221 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		AB6D31442A72D21C00D31F16 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		AB6D31462A72D22C00D31F16 /* Test.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Test.sks; sourceTree = "<group>"; };
 		E80030EA2A6DCEB1003F78A4 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		E80030EC2A6DCED2003F78A4 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		E80030F02A6DDBBB003F78A4 /* ExplainScene1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainScene1.swift; sourceTree = "<group>"; };
@@ -277,6 +281,8 @@
 			children = (
 				E8E492132A66314900FE6C86 /* Phase1.swift */,
 				E8E492152A6633F800FE6C86 /* Phase1.sks */,
+				AB6D31442A72D21C00D31F16 /* Test.swift */,
+				AB6D31462A72D22C00D31F16 /* Test.sks */,
 			);
 			path = Phase1;
 			sourceTree = "<group>";
@@ -366,6 +372,7 @@
 				E800310C2A6F15CD003F78A4 /* FinalScene.sks in Resources */,
 				98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */,
 				E80030FE2A6E5B2C003F78A4 /* SwinPhase.sks in Resources */,
+				AB6D31472A72D22C00D31F16 /* Test.sks in Resources */,
 				E80030F52A6DE4D1003F78A4 /* ExplainScene2.sks in Resources */,
 				98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */,
 				AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */,
@@ -413,6 +420,7 @@
 				AB07DB682A60400000721221 /* Camera.swift in Sources */,
 				AB07DB652A60394100721221 /* Ground.swift in Sources */,
 				AB07DB5B2A5F934600721221 /* Math.swift in Sources */,
+				AB6D31452A72D21C00D31F16 /* Test.swift in Sources */,
 				E80030EB2A6DCEB1003F78A4 /* MainMenu.swift in Sources */,
 				9806B5CF2A69C32B003CDE88 /* Fallen1Entity.swift in Sources */,
 				E80030F72A6DE4DA003F78A4 /* ExplainScene2.swift in Sources */,
@@ -565,7 +573,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PCTRQS8Z4G;
+				DEVELOPMENT_TEAM = 6FXWX5Z987;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -593,7 +601,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PCTRQS8Z4G;
+				DEVELOPMENT_TEAM = 6FXWX5Z987;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
