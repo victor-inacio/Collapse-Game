@@ -1,23 +1,26 @@
 import GameplayKit
 
 class PlayerState: GKState {
-    
     var player: Player!
     
     init(player: Player) {
         self.player = player
     }
-    
 }
 
 class PlayerIdle: PlayerState {
     
-    
+    override func didEnter(from previousState: GKState?) {
+        player.node.physicsBody?.velocity = .init(dx: 0, dy: 0)
+    }
     
 }
 
 class PlayerRun: PlayerState{
-    
+
+    override func update(deltaTime seconds: TimeInterval) {
+        player.applyMovement(distanceX: player.velocityX, angle: player.angle)
+    }
 
 }
 

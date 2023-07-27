@@ -50,7 +50,6 @@ class Player: NodeEntity, VirtualControllerTarget{
     }
     
     func die() {
-        
         if (stateMachine.currentState is PlayerDead) {
             return
         }
@@ -68,7 +67,6 @@ class Player: NodeEntity, VirtualControllerTarget{
                     self.node.physicsBody?.velocity.dx = 0
                     self.node.physicsBody?.velocity.dy = 0
                 }
-                
             ]))
         }
     }
@@ -87,13 +85,15 @@ class Player: NodeEntity, VirtualControllerTarget{
     }
     
    func update() {
-        
+
        isGrounded = node.physicsBody!.velocity.dy == 0
        
        stateMachine.update(deltaTime: 0)
        
+       print(stateMachine.currentState)
+       
         if stateMachine.currentState is PlayerDash == false {
-            applyMovement(distanceX: velocityX, angle: angle)
+            
         } else {
             node.physicsBody?.velocity = dashDirection * 1500
         }
@@ -112,15 +112,16 @@ class Player: NodeEntity, VirtualControllerTarget{
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
-        
-        
         velocityX = direction.x
         velocityY = direction.y
         self.angle = angle
         
-        if stateMachine.currentState is PlayerDash == false{
-            stateMachine?.enter(PlayerRun.self)
+        if (velocityX == 0 && velocityY == 0) {
+            stateMachine.enter(PlayerIdle.self)
+        } else {
+            stateMachine.enter(PlayerRun.self)
         }
+    
     }
     
     func applyMovement(distanceX: CGFloat, angle: CGFloat){
@@ -144,30 +145,12 @@ class Player: NodeEntity, VirtualControllerTarget{
         }
     }
     
-//    func update() {
-//
-//
-//        if stateMachine.currentState is PlayerDash == false {
-//            applyMovement(distanceX: velocityX, angle: angle)
-//        }
-//
-//
-//        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
-//
-//            stateMachine.enter(PlayerGrounded.self)
-//
-//        }
-//    }
-    
     func onJoystickJumpBtnTouchStart() {
-        
-        
         pressingJump = true
         
         if pressingJump{
             jump()
         }
-        
     }
     
     func onJoystickJumpBtnTouchEnd() {
