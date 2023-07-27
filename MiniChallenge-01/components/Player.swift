@@ -20,7 +20,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
     var boosting = false
-    private let dashDuration: CGFloat = 0.2
+//    private let dashDuration: CGFloat = 0.2
     private var dashDirection: CGVector = .init(dx: 0, dy: 0)
     private var canBoost = false
     
@@ -140,21 +140,6 @@ class Player: NodeEntity, VirtualControllerTarget{
             node.xScale = 1
         }
     }
-    
-//    func update() {
-//
-//
-//        if stateMachine.currentState is PlayerDash == false {
-//            applyMovement(distanceX: velocityX, angle: angle)
-//        }
-//
-//
-//        if node.physicsBody!.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
-//
-//            stateMachine.enter(PlayerGrounded.self)
-//
-//        }
-//    }
     
     func onJoystickJumpBtnTouchStart() {
         
