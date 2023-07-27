@@ -21,8 +21,9 @@ class Player: NodeEntity, VirtualControllerTarget{
     var pressingJump: Bool = false
     var boosting = false
     var isGrounded = true
-    private var dashDirection: CGVector = .init(dx: 0, dy: 0)
+    var dashDirection: CGVector = .init(dx: 0, dy: 0)
     var canBoost = false
+    var lastPlayerVelocity: CGVector = .init(dx: 0, dy: 0)
     
     init(){
         
@@ -78,17 +79,32 @@ class Player: NodeEntity, VirtualControllerTarget{
             PlayerRun(player: self),
             PlayerJump(player: self),
             PlayerDash(player: self),
-            PlayerDead(player: self)
+            PlayerDead(player: self),
+            PlayerFall(player: self)
         ])
         
         stateMachine?.enter(PlayerIdle.self)
     }
     
-   func update() {
-
-       isGrounded = node.physicsBody!.velocity.dy == 0
+    func checkFall() -> Bool {
+        
+        let currentVelocity = node.physicsBody?.velocity
+        
+        return currentVelocity!.dy < lastPlayerVelocity.dy
+        
+    }
+    
+    func update() {
+        
+        isGrounded = node.physicsBody!.velocity.dy == 0
+        
+        if (checkFall()) {
+            stateMachine.enter(PlayerFall.self)
+        }
        
        stateMachine.update(deltaTime: 0)
+       
+       lastPlayerVelocity = node.physicsBody!.velocity
        
        print(stateMachine.currentState)
        
@@ -206,55 +222,9 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func dash(direction: CGVector){
         
+        stateMachine.enter(PlayerDash.self)
         
-        self.node.physicsBody?.affectedByGravity = false
-            
-        dashDirection = direction
-            
-        createTrail()
-        shakeScreen()
-        canBoost = true
         
-        let boostLifeTime = 0.1
-        
-        canDash = false
-        
-        if isGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0 {
-            
-            self.node.run(.sequence([.wait(forDuration: dashDuration), .run{
-                self.stateMachine?.enter(PlayerIdle.self)
-                self.node.physicsBody?.affectedByGravity = true
-                
-                self.node.run(.sequence([
-                
-                    .wait(forDuration: boostLifeTime),
-                    .run {
-                        self.canBoost = false
-                    }
-                ]))
-                
-            }]))
-        } else {
-            
-            self.node.run(.sequence([.wait(forDuration: 0.25), .run{
-                self.stateMachine?.enter(PlayerIdle.self)
-                self.node.physicsBody?.affectedByGravity = true
-                
-                self.node.run(.sequence([
-                    
-                    .wait(forDuration: boostLifeTime),
-                    .run {
-                        self.canBoost = false
-                    }
-                ]))
-            }]))
-            
-            
-            
-            if node.physicsBody?.velocity.dy == 0{
-                node.removeAllActions()
-            }
-        }
     }
     
     func createTrail() {
