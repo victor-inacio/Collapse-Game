@@ -16,12 +16,14 @@ class Player: NodeEntity, VirtualControllerTarget{
     var direction: CGVector!
     var angle: CGFloat = 0
     var canDash = false
+    var dashDuration: CGFloat = 0.25
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
     var boosting = false
-    private let dashDuration: CGFloat = 0.2
-    private var dashDirection: CGVector = .init(dx: 0, dy: 0)
-    private var canBoost = false
+    var isGrounded = true
+    var dashDirection: CGVector = .init(dx: 0, dy: 0)
+    var canBoost = false
+    var lastPlayerVelocity: CGVector = .init(dx: 0, dy: 0)
     
     init(){
         
@@ -48,32 +50,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         fatalError("Error")
     }
     
-    //    func die() {
-    //
-    //        if (stateMachine.currentState is PlayerDead) {
-    //            return
-    //        }
-    //
-    //        if let scene = node.scene as? BaseLevelScene {
-    //            scene.resetLevel()
-    //            let spawnPoint = scene.getSpawnPoint()
-    //            let move = SKAction.move(to: spawnPoint, duration: 0)
-    //            move.timingMode = .easeInEaseOut
-    //
-    //            stateMachine.enter(PlayerDead.self)
-    //            node.run(.sequence([
-    //                move,
-    //                .run {
-    //                    self.node.physicsBody?.velocity.dx = 0
-    //                    self.node.physicsBody?.velocity.dy = 0
-    //                }
-    //
-    //            ]))
-    //        }
-    //    }
-    
     func die() {
-        
         if (stateMachine.currentState is PlayerDead) {
             return
         }
@@ -91,57 +68,63 @@ class Player: NodeEntity, VirtualControllerTarget{
                     self.node.physicsBody?.velocity.dx = 0
                     self.node.physicsBody?.velocity.dy = 0
                 }
-                
             ]))
         }
-        
-        let somar = userDefaults.integer(forKey: "commonDeadCount") + 1
-        userDefaults.set(somar, forKey: "commonDeadCount")
-        print(userDefaults.integer(forKey: "commonDeadCount"))
     }
     
     func applyMachine(){
         
         stateMachine = GKStateMachine(states: [
-            PlayerIdle(playerNode: node), PlayerRun(playerNode: node), PlayerJump(playerNode: node), PlayerDash(), PlayerGrounded(canDash: canDash), PlayerDead()
+            PlayerIdle(player: self),
+            PlayerRun(player: self),
+            PlayerJump(player: self),
+            PlayerDash(player: self),
+            PlayerDead(player: self),
+            PlayerFall(player: self)
         ])
         
         stateMachine?.enter(PlayerIdle.self)
     }
     
+    func checkFall() -> Bool {
+        
+        let currentVelocity = node.physicsBody?.velocity
+        
+        return currentVelocity!.dy < lastPlayerVelocity.dy
+        
+    }
+    
     func update() {
         
-        if stateMachine.currentState is PlayerDash == false {
-            applyMovement(distanceX: velocityX, angle: angle)
-        }
-        if node.physicsBody!.velocity.dy == 0 {
-            stateMachine.enter(PlayerGrounded.self)
-        }
+        isGrounded = node.physicsBody!.velocity.dy == 0
         
+        if (checkFall()) {
+            stateMachine.enter(PlayerFall.self)
+        }
+       
+       stateMachine.update(deltaTime: 0)
+       
+       lastPlayerVelocity = node.physicsBody!.velocity
+       
+       print(stateMachine.currentState)
+    
+
         if (node.physicsBody?.velocity.dy ?? 0 < 50 || node.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
             node.physicsBody?.velocity.dy -= jumpVelocityFallOff
         }
-        
-        if node.physicsBody?.velocity.dx == 0 && node.physicsBody?.velocity.dy == 0{
-            stateMachine.enter(PlayerIdle.self)
-        }
-        
-        if stateMachine.currentState is PlayerGrounded{
-            canDash = true
-        }
-        print(dashDirection)
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
-        
-        
         velocityX = direction.x
         velocityY = direction.y
         self.angle = angle
         
-        if stateMachine.currentState is PlayerDash == false{
-            stateMachine?.enter(PlayerRun.self)
+        if (velocityX == 0 && velocityY == 0) {
+            stateMachine.enter(PlayerIdle.self)
+        } else {
+            stateMachine.enter(PlayerRun.self)
         }
+    
     }
     
     func applyMovement(distanceX: CGFloat, angle: CGFloat){
@@ -152,7 +135,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         if stateMachine.currentState is PlayerDash == false {
             
             if (!boosting) {
-                node.physicsBody!.velocity.dx = distanceX * 4
+                node.physicsBody!.velocity.dx = distanceX * 7
             }
         } else {
             
@@ -166,14 +149,11 @@ class Player: NodeEntity, VirtualControllerTarget{
     }
     
     func onJoystickJumpBtnTouchStart() {
-        
-        
         pressingJump = true
         
         if pressingJump{
             jump()
         }
-        
     }
     
     func onJoystickJumpBtnTouchEnd() {
@@ -183,9 +163,13 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func jump(){
         
+        if (isGrounded) {
+            stateMachine.enter(PlayerJump.self)
+        }
         
-        if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0{
-            
+        return
+        
+        if isGrounded || stateMachine.currentState is PlayerRun &&  node.physicsBody?.velocity.dy == 0{
             if (canBoost) {
                 boosting = true
                 
@@ -196,9 +180,6 @@ class Player: NodeEntity, VirtualControllerTarget{
                     }
                 ]))
             }
-            
-            print(node.xScale)
-            
             
             node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
             
@@ -211,11 +192,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         self.direction = direction
         
-        if canDash{
-            dash(direction: direction)
-            
-            stateMachine?.enter(PlayerDash.self)
-        }
+        stateMachine?.enter(PlayerDash.self)
     }
     
     func shakeScreen() {
@@ -228,59 +205,11 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func dash(direction: CGVector){
         
+        stateMachine.enter(PlayerDash.self)
         
-        self.node.physicsBody?.affectedByGravity = false
         
-        dashDirection = direction
-        
-                node.physicsBody?.applyImpulse(CGVector(dx: dashDirection.dx * 100, dy: dashDirection.dy * 100))
-        
-        createTrail()
-        shakeScreen()
-        //        canBoost = true
-        
-        let boostLifeTime = 0.1
-        
-        canDash = false
-        
-        if stateMachine.currentState is PlayerGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0 {
-            
-            self.node.run(.sequence([.wait(forDuration: dashDuration), .run{
-                self.stateMachine?.enter(PlayerIdle.self)
-                self.node.physicsBody?.affectedByGravity = true
-                
-                self.node.run(.sequence([
-                    
-                    .wait(forDuration: boostLifeTime),
-                    .run {
-                        self.canBoost = false
-                    }
-                ]))
-                
-            }]))
-        } else {
-            
-            self.node.run(.sequence([.wait(forDuration: 0.25), .run{
-                self.stateMachine?.enter(PlayerIdle.self)
-                self.node.physicsBody?.affectedByGravity = true
-                
-                self.node.run(.sequence([
-                    
-                    .wait(forDuration: boostLifeTime),
-                    .run {
-                        self.canBoost = false
-                    }
-                ]))
-            }]))
-            
-            
-            
-            if node.physicsBody?.velocity.dy == 0{
-                node.removeAllActions()
-            }
-        }
     }
-
+    
     func createTrail() {
         
         let trailCount = 10
@@ -314,82 +243,4 @@ class Player: NodeEntity, VirtualControllerTarget{
     
 }
 
-class PlayerIdle: GKState {
-    
-    public var playerNode: SKSpriteNode
-    
-    init (playerNode: SKSpriteNode){
-        self.playerNode = playerNode
-        super.init()
-    }
-    
-    override func didEnter(from previousState: GKState?) {
-        
-//        playerNode.run(.repeatForever(.animate(with: .init(format: "idle frame %@", frameCount: 1...4), timePerFrame: 0.4)))
-    }
-}
 
-class PlayerRun: GKState{
-    
-    public var playerNode: SKSpriteNode
-    
-    init (playerNode: SKSpriteNode){
-        self.playerNode = playerNode
-        super.init()
-    }
-    
-    override func didEnter(from previousState: GKState?) {
-//        playerNode.run(.repeatForever(.animate(with: .init(format: "run frame %@", frameCount: 1...4), timePerFrame: 0.4)))
-    }
-}
-
-class PlayerJump: GKState{
-    
-    public var playerNode: SKSpriteNode
-    
-    init (playerNode: SKSpriteNode){
-        self.playerNode = playerNode
-        super.init()
-    }
-    
-    override func didEnter(from previousState: GKState?) {
-//        playerNode.run(.repeatForever(.animate(with: .init(format: "jump frame %@", frameCount: 1...4), timePerFrame: 0.4)))
-    }
-}
-
-class PlayerDash: GKState{
-    
-    override func didEnter(from previousState: GKState?) {
-        
-    }
-    
-}
-
-class PlayerGrounded: GKState{
-    
-    var canDash = false
-    
-    init (canDash: Bool){
-        self.canDash = canDash
-        super.init()
-    }
-    override func didEnter(from previousState: GKState?) {
-        
-        canDash = true
-        
-    }
-    
-    override func willExit(to nextState: GKState) {
-        
-        canDash = false
-        
-    }
-}
-
-
-class PlayerDead: GKState {
-    
-    override func didEnter(from previousState: GKState?) {
-        
-    }
-}

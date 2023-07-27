@@ -11,6 +11,7 @@
 		9806B5CB2A69A719003CDE88 /* KillierCollisionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */; };
 		9806B5CD2A69BE02003CDE88 /* SKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */; };
 		9806B5CF2A69C32B003CDE88 /* Fallen1Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CE2A69C32B003CDE88 /* Fallen1Entity.swift */; };
+		9808510B2A72CB0C007F80E9 /* PlayerStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808510A2A72CB0C007F80E9 /* PlayerStates.swift */; };
 		980D33592A706E4A00944EF5 /* WhiteSpriteShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 980D33582A706E4A00944EF5 /* WhiteSpriteShader.fsh */; };
 		980D335B2A7077EF00944EF5 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 980D335A2A7077EF00944EF5 /* Shader.fsh */; };
 		980FE3652A6871F900681175 /* NodeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980FE3642A6871F900681175 /* NodeEntity.swift */; };
@@ -68,6 +69,7 @@
 		9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillierCollisionComponent.swift; sourceTree = "<group>"; };
 		9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsBody.swift; sourceTree = "<group>"; };
 		9806B5CE2A69C32B003CDE88 /* Fallen1Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fallen1Entity.swift; sourceTree = "<group>"; };
+		9808510A2A72CB0C007F80E9 /* PlayerStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStates.swift; sourceTree = "<group>"; };
 		980D33582A706E4A00944EF5 /* WhiteSpriteShader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = WhiteSpriteShader.fsh; sourceTree = "<group>"; };
 		980D335A2A7077EF00944EF5 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		980FE3642A6871F900681175 /* NodeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeEntity.swift; sourceTree = "<group>"; };
@@ -132,6 +134,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		980851082A72CA93007F80E9 /* States */ = {
+			isa = PBXGroup;
+			children = (
+				980851092A72CAF4007F80E9 /* Player */,
+				9808510A2A72CB0C007F80E9 /* PlayerStates.swift */,
+			);
+			path = States;
+			sourceTree = "<group>";
+		};
+		980851092A72CAF4007F80E9 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
 		980D33572A706E2F00944EF5 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +202,7 @@
 		AB07DB3C2A5F888600721221 /* MiniChallenge-01 */ = {
 			isa = PBXGroup;
 			children = (
+				980851082A72CA93007F80E9 /* States */,
 				980D33572A706E2F00944EF5 /* Shaders */,
 				E871D9C82A70604200716754 /* Persistence */,
 				E80031082A6F15AF003F78A4 /* FinalScene */,
@@ -413,6 +432,7 @@
 				E8302BEB2A6B0C6000BC9C06 /* VisualBug.swift in Sources */,
 				98A56A282A6F2E9D00A19A18 /* Parallax.swift in Sources */,
 				E80030FC2A6E5AE0003F78A4 /* SwinPhase.swift in Sources */,
+				9808510B2A72CB0C007F80E9 /* PlayerStates.swift in Sources */,
 				984AEF0C2A64BCD300792A84 /* DoorComponent.swift in Sources */,
 				AB07DB632A60317800721221 /* VirtualController.swift in Sources */,
 				E871D9CA2A70605100716754 /* Persistence.swift in Sources */,

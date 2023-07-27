@@ -52,16 +52,8 @@ class VirtualController: SKNode{
     var joystickAngleRounded: CGFloat = 0
     var velocityX: CGFloat = 0
     var velocityY: CGFloat = 0
-    var distanceX: CGFloat = 0 {
-        didSet {
-            self.target.onJoystickChange(direction: .init(x: self.velocityX, y: self.velocityY), angle: joystickAngleRounded)
-        }
-    }
-    var distanceY: CGFloat = 0 {
-        didSet {
-            self.target.onJoystickChange(direction: .init(x: self.velocityX, y: self.velocityY), angle: joystickAngleRounded)
-        }
-    }
+    var distanceX: CGFloat = 0
+    var distanceY: CGFloat = 0
     
     var joystickInUse: Bool = false
 
@@ -272,6 +264,7 @@ class VirtualController: SKNode{
                         // Despausar o jogo e remover o overlay de pausa
                         resumeGame()
                     }
+                    target.onJoystickChange(direction: .init(x: 0, y: 0), angle: joystickAngleRounded)
                     movementReset(size: scene!.size)
                 }
                 
@@ -327,6 +320,8 @@ class VirtualController: SKNode{
             distanceX = CGFloat(sin(angle - CGFloat.pi / 2) * distanceFromCenter) * -1
             distanceY = CGFloat(cos(angle - CGFloat.pi / 2) * -distanceFromCenter) * -1
            
+            
+            
             let radiusB = virtualJoystickB!.size.width / 2
            
             let sinalX = signNum(num: distanceX)
@@ -339,6 +334,8 @@ class VirtualController: SKNode{
             if distanceY * CGFloat(sinalY) > radiusB - 2 && distanceY * CGFloat(sinalY) < radiusB + 2{
                 velocityX = 0
             }
+            
+            target.onJoystickChange(direction: .init(x: velocityX, y: velocityY), angle: joystickAngleRounded)
 
             if virtualJoystickB!.frame.contains(location){
                 
