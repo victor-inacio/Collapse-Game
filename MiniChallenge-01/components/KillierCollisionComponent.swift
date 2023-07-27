@@ -7,7 +7,7 @@ class KillerCollisionComponent: GKComponent {
         let trigger = TriggerComponent { otherNode in
                     
             if let entity = otherNode?.entity as? Player {
-//                entity.die()
+                entity.die()
             }
                     
         }
