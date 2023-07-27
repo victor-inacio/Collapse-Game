@@ -64,6 +64,11 @@ class PlayerDash: PlayerState{
     var canDash: Bool = true
     
     override func didEnter(from previousState: GKState?) {
+        
+        if (!canDash) {
+            return
+        }
+        
         dashing = true
         player.node.physicsBody?.affectedByGravity = false
         
@@ -91,11 +96,20 @@ class PlayerDash: PlayerState{
                 .wait(forDuration: boostLifeTime),
                 .run {
                     self.player.canBoost = false
+                    
+                    self.player.node.run(.sequence([
+                        
+                        .wait(forDuration: self.player.dashDuration),
+                        .run {
+                            self.canDash = true
+                        }
+                    ]))
                 }
             ]))
             
         }]))
         
+        canDash = false
         }
     
     override func willExit(to nextState: GKState) {

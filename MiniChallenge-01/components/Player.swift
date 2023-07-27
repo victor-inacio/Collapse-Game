@@ -90,8 +90,6 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         let currentVelocity = node.physicsBody?.velocity
         
-        print(currentVelocity?.dy)
-        
         if (doubleEqual(currentVelocity!.dy, 0)) {
             return false
         }
@@ -104,7 +102,6 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         isGrounded = node.physicsBody!.velocity.dy == 0
         
-        print(node.physicsBody?.velocity)
         
         if (checkFall()) {
             stateMachine.enter(PlayerFall.self)
@@ -115,10 +112,6 @@ class Player: NodeEntity, VirtualControllerTarget{
        stateMachine.update(deltaTime: 0)
        
        lastPlayerVelocity = node.physicsBody!.velocity
-       
-       print(stateMachine.currentState)
-
-        
         
         if (doubleEqual(node.physicsBody!.velocity.dy, 0) && doubleEqual(node.physicsBody!.velocity.dx, 0)) {
             stateMachine.enter(PlayerIdle.self)
