@@ -72,7 +72,7 @@ class PlayerDash: PlayerState{
         
         player.canDash = false
         
- 
+        player.node.physicsBody?.applyImpulse(player.dashDirection * 300)
             
         player.node.run(.sequence([
             .wait(forDuration: player.dashDuration),
