@@ -32,6 +32,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     var skull: SKSpriteNode?
     var killCount: SKLabelNode?
     var parallax: Parallax!
+    var isFallenWaterCreated: Bool = false
     
     override func didMove(to view: SKView) {
         triggersManager = GKComponentSystem(componentClass: TriggerComponent.self)
@@ -63,12 +64,14 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         cameraController = CameraController(camera: self.camera!, target: player.node, boundaries: boundaries)
         
         setupDoors()
+    
         
         parallax = Parallax(scene: self, items: [
             .init(fileName: "Nuvens", velocityFactor: 0.06, zIndex: -1, offset: CGVector(dx: 0, dy: 150)),
             .init(fileName: "Nuvens2", velocityFactor: 0.08, zIndex: -2, offset: CGVector(dx: 0, dy: 60)),
             .init(fileName: "Noite Estrelada", velocityFactor: 0.005, zIndex: -4, type: .Background)
         ])
+        createFallenWater()
 
 
         for node in self.children {
@@ -91,18 +94,37 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             
             if (node.name == "Fallen"){
                     if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                        giveTileMapPhysicsBodyFallen(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
+                        giveTileMapPhysicsBodyFallen(map: someTileMap, textureWidth: 64, tileMapProportion: 64)
                         someTileMap.removeFromParent()
                     }
                 }
             
             if (node.name == "Water"){
                 if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                    giveTileMapPhysicsBodyWater(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
+                    giveTileMapPhysicsBodyWater(map: someTileMap, textureWidth: 64, tileMapProportion: 64)
                     someTileMap.removeFromParent()
                 }
             }
         }
+        
+        setUserDefaults(self.name!)
+        
+        for node in self.children{
+            if node.name == "Limit"{
+                let newNode = SKSpriteNode(color: .blue, size: CGSize(width: node.frame.width, height: node.frame.height))
+                newNode.position = node.position
+                newNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.frame.width, height: node.frame.height))
+                newNode.physicsBody?.affectedByGravity = false
+                newNode.physicsBody?.isDynamic = false
+                newNode.physicsBody?.allowsRotation = false
+                newNode.physicsBody?.categoryBitMask = PhysicsCategory.limit.rawValue
+//                newNode.physicsBody?.collisionBitMask = 0
+                newNode.physicsBody?.contactTestBitMask = PhysicsCategory.water.rawValue
+                
+                addChild(newNode)
+            }
+        }
+        
     }
 
     
@@ -145,42 +167,25 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
     
     
     override func update(_ currentTime: TimeInterval) {
+        
+//        if let node = self.childNode(withName: "FallWater"){
+//            node.removeFromParent()
+//        }
+        
+//        print(player.node.position)
+        
+        virtualController.actualDeadNumber()
+        
+        applyingForceToFallWater()
     
         cameraController.update(currentTime)
         
-        if canCreatePhysicsBody{
-            for node in self.children {
-                if (node.name == "FallenCreating"){
-                    if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
-                        self.giveTileMapPhysicsBodyFallenBlocks(map: someTileMap, textureWidth: 50, tileMapProportion: 64)
-                        self.canCreatePhysicsBody = false
-                    }
-
-                    var waiting = SKAction.wait(forDuration: 0.485)
-                    
-                    if timeVariance == 0{
-                        waiting = SKAction.wait(forDuration: 0.4)
-                        timeVariance += 1
-                    }else if timeVariance < 4{
-                        waiting = SKAction.wait(forDuration: 0.600)
-                        timeVariance += 1
-                    } else{
-                        waiting = SKAction.wait(forDuration: 0.505 * 5.5)
-                        timeVariance = 1
-                    }
-                    
-                    let runAction = SKAction.run{
-                        self.canCreatePhysicsBody = true
-                        
-                    }
-                    let sequence = SKAction.sequence([waiting,runAction])
-                    run(sequence)
-                }
-            }
-        }
         
         player.update()
-        parallax.update()
+        
+        creatingLimitesForTheScene()
+        
+        
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -252,5 +257,14 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         self.addChild(ground)
     }
 
-
+    func creatWaterAnimation(){
+        for node in self.children{
+            if node.name == "WaterFake"{
+                
+            }
+            node.run(.repeatForever(.repeatForever(.animate(with: .init(format: "water1 %@", frameCount: 1...17), timePerFrame: 0.25))))
+        }
+        
+    }
+    
 }

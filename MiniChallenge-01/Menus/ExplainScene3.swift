@@ -8,12 +8,14 @@
 import SpriteKit
 
 class ExplainScene3: ExplainScene1{
+    override func didMove(to view: SKView) {
+        super.didMove(to: view)
+        setUserDefaults()
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if canSkip{
-            if let scene = SKScene(fileNamed: "MainMenu") {
-                scene.scaleMode = .aspectFill
-                self.view?.presentScene(scene, transition: SKTransition.push(with: SKTransitionDirection.up, duration: 3))
-            }
+            nextLevel("MainMenu", direction: SKTransitionDirection.up)
+            userDefaults.set(true, forKey: "winGame")
         } else{
             removeAllActions()
             label1.alpha = 1

@@ -72,6 +72,34 @@ class Player: NodeEntity, VirtualControllerTarget{
     //        }
     //    }
     
+    func die() {
+        
+        if (stateMachine.currentState is PlayerDead) {
+            return
+        }
+        
+        if let scene = node.scene as? BaseLevelScene {
+            scene.resetLevel()
+            let spawnPoint = scene.getSpawnPoint()
+            let move = SKAction.move(to: spawnPoint, duration: 0)
+            move.timingMode = .easeInEaseOut
+            
+            stateMachine.enter(PlayerDead.self)
+            node.run(.sequence([
+                move,
+                .run {
+                    self.node.physicsBody?.velocity.dx = 0
+                    self.node.physicsBody?.velocity.dy = 0
+                }
+                
+            ]))
+        }
+        
+        let somar = userDefaults.integer(forKey: "commonDeadCount") + 1
+        userDefaults.set(somar, forKey: "commonDeadCount")
+        print(userDefaults.integer(forKey: "commonDeadCount"))
+    }
+    
     func applyMachine(){
         
         stateMachine = GKStateMachine(states: [

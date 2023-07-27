@@ -12,10 +12,7 @@ class ExplainScene2: ExplainScene1{
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if canSkip{
-            if let scene = SKScene(fileNamed: "Phase1") {
-                scene.scaleMode = .aspectFill
-                self.view?.presentScene(scene, transition: SKTransition.fade(withDuration: 3))
-            }
+            nextLevel("Phase1", transition: SKTransition.fade(withDuration: 3))
         } else{
             removeAllActions()
             label1.alpha = 1

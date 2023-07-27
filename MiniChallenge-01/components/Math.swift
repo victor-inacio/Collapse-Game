@@ -82,3 +82,14 @@ extension Array where Element == SKTexture {
         })
     }
 }
+
+extension SKScene{
+    func isNodeCloseOnY(_ nodeA: SKNode, closeTo nodeB: SKNode, distanceThreshold: CGFloat) -> Bool {
+        let yDistance = abs(nodeA.position.y - nodeB.position.y)
+        return yDistance <= distanceThreshold
+    }
+    func isNodeCloseOnX(_ nodeA: SKNode, closeTo nodeB: SKNode, distanceThreshold: CGFloat) -> Bool {
+        let yDistance = abs(nodeA.position.x - nodeB.position.x)
+        return yDistance <= distanceThreshold
+    }
+}
