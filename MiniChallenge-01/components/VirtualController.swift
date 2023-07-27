@@ -169,8 +169,8 @@ class VirtualController: SKNode{
         dashButton?.position = CGPoint(x: scene.size.width / 2.6 - scene.size.width / 200, y: scene.size.height / -14 )
         pauseButton?.position = CGPoint(x: scene.size.width / 2.6 + scene.size.width / 20, y: scene.size.height / 3.5 )
         
-        skull?.position = CGPoint(x: scene.size.width / -2.24 + scene.size.width / 50, y: scene.size.height / 3.4 )
-        deadCount?.position = CGPoint(x: scene.size.width / -2.46 + scene.size.width / 50, y: scene.size.height / 3.7 )
+        skull?.position = CGPoint(x: scene.size.width / -2.24 + scene.size.width / 50, y: scene.size.height / 4.5 )
+        deadCount?.position = CGPoint(x: scene.size.width / -2.46 + scene.size.width / 50, y: scene.size.height / 4.5 )
         
         overlayPause?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 14)
         overlayShadow?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 200, y: scene.size.height / -12)
@@ -184,8 +184,6 @@ class VirtualController: SKNode{
         addJump()
         addDash()
         addController()
-        addSkull()
-        addDeadCount()
         
     }
     
@@ -398,13 +396,13 @@ class VirtualController: SKNode{
     }
     
     //DEAD COUNT
-    func addSkull(){
+    /*func addSkull(){
         addChild(skull!)
-    }
+    }*/
     
-    func addDeadCount(){
-        addChild(deadCount!)
-    }
+ // func addDeadCount(){
+ //     addChild(deadCount!)
+ // }
     
     func actualDeadNumber(){
         deadCount!.text = "\(userDefaults.integer(forKey: "commonDeadCount"))"
@@ -418,12 +416,15 @@ class VirtualController: SKNode{
         overlayPause?.addChild(overlayShadow!)
         overlayPause?.addChild(exitButton!)
         overlayPause?.addChild(soundButton!)
+        overlayPause?.addChild(skull!)
+        overlayPause?.addChild(deadCount!)
+
     }
     // PAUSE GAME
     func pauseGame() {
         isOverlay = true
         overlayPause?.isHidden = false
-        
+        movementReset(size: scene!.size)
         scene?.isPaused = true
     }
     
@@ -432,6 +433,7 @@ class VirtualController: SKNode{
         isOverlay = false
         overlayPause?.isHidden = true
         scene?.isPaused = false
+
     }
 
 }
