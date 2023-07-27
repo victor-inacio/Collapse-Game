@@ -16,7 +16,6 @@ class Player: NodeEntity, VirtualControllerTarget{
     var direction: CGVector!
     var angle: CGFloat = 0
     var canDash = false
-    var dashDuration: CGFloat = 0.25
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
     var boosting = false
