@@ -50,7 +50,7 @@ class MainMenu: SKScene{
         let touchLocation = touch.location(in: self)
         
         if newGameNode.contains(touchLocation){
-            if let scene = SKScene(fileNamed: "ExplainScene1") {
+            if let scene = SKScene(fileNamed: "Phase2") {
                 scene.scaleMode = .aspectFill
                 self.view?.presentScene(scene, transition: SKTransition.push(with: SKTransitionDirection.down, duration: 3))
             }

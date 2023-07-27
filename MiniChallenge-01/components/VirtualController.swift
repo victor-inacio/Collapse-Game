@@ -325,11 +325,8 @@ class VirtualController: SKNode{
             }
 
             if virtualJoystickB!.frame.contains(location){
-                //                        -location.x / 4 > radiusB && -location.x / 5.8 < radiusB  &&  -location.y * 0.9 > radiusB  && -location.y / 2.9 < radiusB {
-                // 0.8 é o meio até o lado para o x
                 
                 virtualJoystickF!.position = location
-                // -267
                 
             }else{
                 
