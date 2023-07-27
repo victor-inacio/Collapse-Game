@@ -107,7 +107,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
             }
         }
         
-        setUserDefaults(self.name!)
+        setUserDefaults(self.name ?? "sfsdf")
         
         for node in self.children{
             if node.name == "Limit"{
