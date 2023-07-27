@@ -41,6 +41,10 @@ class PlayerJump: PlayerState{
     
     override func update(deltaTime seconds: TimeInterval) {
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
+        
+        if (player.node.physicsBody?.velocity.dy ?? 0 < 50 || player.node.physicsBody?.velocity.dy ?? 0 > 0 && !player.pressingJump){
+            player.node.physicsBody?.velocity.dy -= player.jumpVelocityFallOff
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -57,6 +61,7 @@ class PlayerJump: PlayerState{
 class PlayerDash: PlayerState{
     
     var dashing: Bool = true
+    var canDash: Bool = true
     
     override func didEnter(from previousState: GKState?) {
         dashing = true
@@ -114,6 +119,13 @@ class PlayerFall: PlayerState {
     
     override func update(deltaTime seconds: TimeInterval) {
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
+        
+        if (player.node.physicsBody?.velocity.dy ?? 0 < 50 || player.node.physicsBody?.velocity.dy ?? 0 > 0 && !player.pressingJump){
+            if (!player.isGrounded) {
+                player.node.physicsBody?.velocity.dy -= player.jumpVelocityFallOff
+            }
+
+        }
     }
     
 }

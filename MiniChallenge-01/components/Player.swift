@@ -110,22 +110,19 @@ class Player: NodeEntity, VirtualControllerTarget{
             stateMachine.enter(PlayerFall.self)
         }
         
-        if (doubleEqual(node.physicsBody!.velocity.dy, 0) && doubleEqual(node.physicsBody!.velocity.dx, 0)) {
-            stateMachine.enter(PlayerIdle.self)
-        }
+       
        
        stateMachine.update(deltaTime: 0)
        
        lastPlayerVelocity = node.physicsBody!.velocity
        
        print(stateMachine.currentState)
-    
 
-        if (node.physicsBody?.velocity.dy ?? 0 < 50 || node.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
-            node.physicsBody?.velocity.dy -= jumpVelocityFallOff
-        }
         
-       
+        
+        if (doubleEqual(node.physicsBody!.velocity.dy, 0) && doubleEqual(node.physicsBody!.velocity.dx, 0)) {
+            stateMachine.enter(PlayerIdle.self)
+        }
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
