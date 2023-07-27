@@ -107,23 +107,10 @@ class Player: NodeEntity, VirtualControllerTarget{
        lastPlayerVelocity = node.physicsBody!.velocity
        
        print(stateMachine.currentState)
-       
-        if stateMachine.currentState is PlayerDash == false {
-            
-        } else {
-            node.physicsBody?.velocity = dashDirection * 1500
-        }
+    
 
         if (node.physicsBody?.velocity.dy ?? 0 < 50 || node.physicsBody?.velocity.dy ?? 0 > 0 && !pressingJump) && stateMachine.currentState is PlayerDash == false {
             node.physicsBody?.velocity.dy -= jumpVelocityFallOff
-        }
-        
-        if node.physicsBody?.velocity.dx == 0 && node.physicsBody?.velocity.dy == 0{
-            stateMachine.enter(PlayerIdle.self)
-        }
-        
-        if isGrounded {
-            canDash = true
         }
     }
     
@@ -205,11 +192,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         self.direction = direction
         
-        if canDash{
-            dash(direction: direction)
-            
-            stateMachine?.enter(PlayerDash.self)
-        }
+        stateMachine?.enter(PlayerDash.self)
     }
     
     func shakeScreen() {
