@@ -22,6 +22,10 @@ extension CGVector {
     }
 }
 
+func doubleEqual(_ a: Double, _ b: Double) -> Bool {
+    return fabs(a - b) < Double.ulpOfOne
+}
+
 
 extension CGPoint{
     
