@@ -11,6 +11,9 @@
 		9806B5CB2A69A719003CDE88 /* KillierCollisionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */; };
 		9806B5CD2A69BE02003CDE88 /* SKPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */; };
 		9806B5CF2A69C32B003CDE88 /* Fallen1Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9806B5CE2A69C32B003CDE88 /* Fallen1Entity.swift */; };
+		9808510B2A72CB0C007F80E9 /* PlayerStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808510A2A72CB0C007F80E9 /* PlayerStates.swift */; };
+		9808510D2A72CC4E007F80E9 /* Test.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9808510C2A72CC4E007F80E9 /* Test.sks */; };
+		980851112A72D17D007F80E9 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980851102A72D17D007F80E9 /* Test.swift */; };
 		980D33592A706E4A00944EF5 /* WhiteSpriteShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 980D33582A706E4A00944EF5 /* WhiteSpriteShader.fsh */; };
 		980D335B2A7077EF00944EF5 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 980D335A2A7077EF00944EF5 /* Shader.fsh */; };
 		980FE3652A6871F900681175 /* NodeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980FE3642A6871F900681175 /* NodeEntity.swift */; };
@@ -65,6 +68,9 @@
 		9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillierCollisionComponent.swift; sourceTree = "<group>"; };
 		9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhysicsBody.swift; sourceTree = "<group>"; };
 		9806B5CE2A69C32B003CDE88 /* Fallen1Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fallen1Entity.swift; sourceTree = "<group>"; };
+		9808510A2A72CB0C007F80E9 /* PlayerStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStates.swift; sourceTree = "<group>"; };
+		9808510C2A72CC4E007F80E9 /* Test.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Test.sks; sourceTree = "<group>"; };
+		980851102A72D17D007F80E9 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		980D33582A706E4A00944EF5 /* WhiteSpriteShader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = WhiteSpriteShader.fsh; sourceTree = "<group>"; };
 		980D335A2A7077EF00944EF5 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		980FE3642A6871F900681175 /* NodeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeEntity.swift; sourceTree = "<group>"; };
@@ -126,6 +132,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		980851082A72CA93007F80E9 /* States */ = {
+			isa = PBXGroup;
+			children = (
+				980851092A72CAF4007F80E9 /* Player */,
+				9808510A2A72CB0C007F80E9 /* PlayerStates.swift */,
+			);
+			path = States;
+			sourceTree = "<group>";
+		};
+		980851092A72CAF4007F80E9 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
 		980D33572A706E2F00944EF5 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +177,7 @@
 				E8302BEA2A6B0C6000BC9C06 /* VisualBug.swift */,
 				E8302BEC2A6B25B100BC9C06 /* Prologue.swift */,
 				98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */,
+				980851102A72D17D007F80E9 /* Test.swift */,
 			);
 			path = "Prólogo";
 			sourceTree = "<group>";
@@ -178,6 +201,7 @@
 		AB07DB3C2A5F888600721221 /* MiniChallenge-01 */ = {
 			isa = PBXGroup;
 			children = (
+				980851082A72CA93007F80E9 /* States */,
 				980D33572A706E2F00944EF5 /* Shaders */,
 				E80031082A6F15AF003F78A4 /* FinalScene */,
 				E80030FA2A6E5ACA003F78A4 /* SwinPhase */,
@@ -194,6 +218,7 @@
 				98CE02A92A64A0660032DFCC /* Prólogo */,
 				E80B5B362A65D5BE00E719E4 /* SKScene.swift */,
 				9806B5CC2A69BE02003CDE88 /* SKPhysicsBody.swift */,
+				9808510C2A72CC4E007F80E9 /* Test.sks */,
 			);
 			path = "MiniChallenge-01";
 			sourceTree = "<group>";
@@ -355,6 +380,7 @@
 				E800310C2A6F15CD003F78A4 /* FinalScene.sks in Resources */,
 				98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */,
 				E80030FE2A6E5B2C003F78A4 /* SwinPhase.sks in Resources */,
+				9808510D2A72CC4E007F80E9 /* Test.sks in Resources */,
 				E80030F52A6DE4D1003F78A4 /* ExplainScene2.sks in Resources */,
 				98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */,
 				AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */,
@@ -395,12 +421,14 @@
 				E8302BEB2A6B0C6000BC9C06 /* VisualBug.swift in Sources */,
 				98A56A282A6F2E9D00A19A18 /* Parallax.swift in Sources */,
 				E80030FC2A6E5AE0003F78A4 /* SwinPhase.swift in Sources */,
+				9808510B2A72CB0C007F80E9 /* PlayerStates.swift in Sources */,
 				984AEF0C2A64BCD300792A84 /* DoorComponent.swift in Sources */,
 				AB07DB632A60317800721221 /* VirtualController.swift in Sources */,
 				98CE02B02A64A0660032DFCC /* BaseLevelScene.swift in Sources */,
 				AB07DB682A60400000721221 /* Camera.swift in Sources */,
 				AB07DB652A60394100721221 /* Ground.swift in Sources */,
 				AB07DB5B2A5F934600721221 /* Math.swift in Sources */,
+				980851112A72D17D007F80E9 /* Test.swift in Sources */,
 				E80030EB2A6DCEB1003F78A4 /* MainMenu.swift in Sources */,
 				9806B5CF2A69C32B003CDE88 /* Fallen1Entity.swift in Sources */,
 				E80030F72A6DE4DA003F78A4 /* ExplainScene2.swift in Sources */,
