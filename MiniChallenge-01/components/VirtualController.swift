@@ -17,7 +17,8 @@ protocol VirtualControllerTarget {
 }
 
 class VirtualController: SKNode{
-    
+    var jogoPausado: SKSpriteNode?
+    var creditsButton: SKSpriteNode?
     var overlayShadow:SKSpriteNode?
     var overlayPause: SKSpriteNode?
     var isOverlay: Bool = false
@@ -52,16 +53,8 @@ class VirtualController: SKNode{
     var joystickAngleRounded: CGFloat = 0
     var velocityX: CGFloat = 0
     var velocityY: CGFloat = 0
-    var distanceX: CGFloat = 0 {
-        didSet {
-            self.target.onJoystickChange(direction: .init(x: self.velocityX, y: self.velocityY), angle: joystickAngleRounded)
-        }
-    }
-    var distanceY: CGFloat = 0 {
-        didSet {
-            self.target.onJoystickChange(direction: .init(x: self.velocityX, y: self.velocityY), angle: joystickAngleRounded)
-        }
-    }
+    var distanceX: CGFloat = 0
+    var distanceY: CGFloat = 0
     
     var joystickInUse: Bool = false
 
@@ -74,6 +67,20 @@ class VirtualController: SKNode{
         
         self.target = target
         
+        // OVERLAY JOGO PAUSADO
+        let textureJogoPausado = SKTexture(imageNamed: "jogopaused")
+        jogoPausado = SKSpriteNode(texture: textureJogoPausado, color: .white, size: textureJogoPausado.size())
+        jogoPausado?.name = "jogoPausado"
+        jogoPausado?.zPosition = 10
+        
+        
+        
+        //OVERLAY CREDITS BUTTON
+        
+        let textureCreditsButton = SKTexture(imageNamed: "credits")
+        creditsButton = SKSpriteNode(texture: textureCreditsButton, color: .white, size: textureCreditsButton.size())
+        creditsButton?.name = "credit"
+        creditsButton?.zPosition = 10
         
         
         //OVERLAY SOUND BUTTON
@@ -174,9 +181,10 @@ class VirtualController: SKNode{
         
         overlayPause?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 14)
         overlayShadow?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 200, y: scene.size.height / -12)
-        exitButton?.position = CGPoint (x: scene.size.width / 9 - scene.size.width / 20 , y: scene.size.height / -10)
-        soundButton?.position = CGPoint (x: scene.size.width / -15 - scene.size.width / 20 , y: scene.size.height / -10)
-        
+        exitButton?.position = CGPoint (x: scene.size.width / 20 - scene.size.width / 20 , y: scene.size.height / -3)
+        soundButton?.position = CGPoint (x: 0 - scene.size.width / 14.5 , y: scene.size.height / -10)
+        creditsButton?.position = CGPoint (x: 0 + scene.size.width / 14.5 , y: scene.size.height / -10)
+        jogoPausado?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 6)
         
         
         addOverlay()
@@ -223,9 +231,13 @@ class VirtualController: SKNode{
             if pauseButton!.frame.contains(location) {
                 pauseTouch = t
                 if isOverlay {
+                    pauseButton?.alpha = 0.3
+
                     resumeGame()
                 } else {
                     pauseGame()
+                    pauseButton?.alpha = 1
+
                 }
             }
             if jumpButton!.frame.contains(location){
@@ -272,6 +284,7 @@ class VirtualController: SKNode{
                         // Despausar o jogo e remover o overlay de pausa
                         resumeGame()
                     }
+                    target.onJoystickChange(direction: .init(x: 0, y: 0), angle: joystickAngleRounded)
                     movementReset(size: scene!.size)
                 }
                 
@@ -327,6 +340,8 @@ class VirtualController: SKNode{
             distanceX = CGFloat(sin(angle - CGFloat.pi / 2) * distanceFromCenter) * -1
             distanceY = CGFloat(cos(angle - CGFloat.pi / 2) * -distanceFromCenter) * -1
            
+            
+            
             let radiusB = virtualJoystickB!.size.width / 2
            
             let sinalX = signNum(num: distanceX)
@@ -339,6 +354,8 @@ class VirtualController: SKNode{
             if distanceY * CGFloat(sinalY) > radiusB - 2 && distanceY * CGFloat(sinalY) < radiusB + 2{
                 velocityX = 0
             }
+            
+            target.onJoystickChange(direction: .init(x: velocityX, y: velocityY), angle: joystickAngleRounded)
 
             if virtualJoystickB!.frame.contains(location){
                 
@@ -418,6 +435,9 @@ class VirtualController: SKNode{
         overlayPause?.addChild(soundButton!)
         overlayPause?.addChild(skull!)
         overlayPause?.addChild(deadCount!)
+        overlayPause?.addChild(creditsButton!)
+        overlayPause?.addChild(jogoPausado!)
+
 
     }
     // PAUSE GAME
