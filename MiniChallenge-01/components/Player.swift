@@ -79,7 +79,7 @@ class Player: NodeEntity, VirtualControllerTarget{
             PlayerRun(player: self),
             PlayerJump(player: self),
             PlayerDash(player: self),
-            PlayerDead(player: self),
+            PlayerDead(),
             PlayerFall(player: self)
         ])
         

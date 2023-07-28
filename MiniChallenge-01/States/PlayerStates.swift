@@ -8,21 +8,41 @@ class PlayerState: GKState {
     }
 }
 
-class PlayerIdle: PlayerState {
+class PlayerIdle: GKState{
+    
+    var player: Player!
+    
+    init(player: Player) {
+        self.player = player
+    }
+    
     override func didEnter(from previousState: GKState?) {
         player.node.physicsBody?.velocity = .init(dx: 0, dy: 0)
     }
 }
 
-class PlayerRun: PlayerState{
+class PlayerRun: GKState{
 
+    var player: Player!
+    
+    init(player: Player) {
+        self.player = player
+    }
+    
     override func update(deltaTime seconds: TimeInterval) {
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
     }
 
 }
 
-class PlayerJump: PlayerState{
+class PlayerJump: GKState{
+    
+    var player: Player!
+    
+    init(player: Player) {
+        self.player = player
+    }
+    
     override func didEnter(from previousState: GKState?) {
         if (player.canBoost) {
             player.boosting = true
@@ -58,7 +78,13 @@ class PlayerJump: PlayerState{
     }
 }
 
-class PlayerDash: PlayerState{
+class PlayerDash: GKState{
+    
+    var player: Player!
+    
+    init(player: Player) {
+        self.player = player
+    }
     
     var dashing: Bool = true
     var canDash: Bool = true
@@ -121,7 +147,13 @@ class PlayerDash: PlayerState{
     }
 }
 
-class PlayerFall: PlayerState {
+class PlayerFall: GKState {
+    
+    var player: Player!
+    
+    init(player: Player) {
+        self.player = player
+    }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         if (stateClass == PlayerJump.self) {
@@ -144,7 +176,7 @@ class PlayerFall: PlayerState {
     
 }
 
-class PlayerDead: PlayerState {
+class PlayerDead: GKState{
     
 
 }
