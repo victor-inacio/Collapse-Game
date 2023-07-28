@@ -128,6 +128,12 @@ class Player: NodeEntity, VirtualControllerTarget{
         velocityX = direction.x
         velocityY = direction.y
         
+        if (velocityX == 0 && velocityY == 0) {
+            stateMachine.enter(PlayerIdle.self)
+        } else {
+            stateMachine.enter(PlayerRun.self)
+        }
+        
         self.angle = angle
     
         
