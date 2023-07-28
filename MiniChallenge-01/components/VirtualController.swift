@@ -248,7 +248,7 @@ class VirtualController: SKNode{
                 
                 dashTouch = t
                 
-                target.onJoystickDashBtnTouch(direction: normalForDash(vector: direction))
+                target.onJoystickDashBtnTouch(direction: direction)
             }
             
             

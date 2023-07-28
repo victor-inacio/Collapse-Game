@@ -181,24 +181,24 @@ class Player: NodeEntity, VirtualControllerTarget{
            node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
         }
         
-        if isGrounded || stateMachine.currentState is PlayerDash && node.physicsBody?.velocity.dy == 0{
-            if canBoost {
-
-                boosting = true
-
-                node.run(.sequence([
-                    .wait(forDuration: 0.5),
-                    .run {
-                        self.boosting = false
-                    }
-                ]))
-            }
-
-            node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
-
-            stateMachine?.enter(PlayerJump.self)
-
-        }
+//        if isGrounded || stateMachine.currentState is PlayerDash && node.physicsBody?.velocity.dy == 0{
+//            if canBoost {
+//
+//                boosting = true
+//
+//                node.run(.sequence([
+//                    .wait(forDuration: 0.5),
+//                    .run {
+//                        self.boosting = false
+//                    }
+//                ]))
+//            }
+//
+//            node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
+//
+//            stateMachine?.enter(PlayerJump.self)
+//
+//        }
     }
     
     func onJoystickDashBtnTouch(direction: CGVector) {
