@@ -44,32 +44,26 @@ class PlayerJump: GKState{
     }
     
     override func didEnter(from previousState: GKState?) {
-        if (player.canBoost) {
-            player.boosting = true
-            
-            player.node.run(.sequence([
-                .wait(forDuration: 0.5),
-                .run {
-                    self.player.boosting = false
-                }
-            ]))
-        }
         
-        player.node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: player.node.xScale)) , dy: player.node.size.height + player.node.size.height * 1.2 ))
+//        if player.canBoost {
+//            player.boosting = true
+//
+//            player.node.run(.sequence([
+//                .wait(forDuration: 0.5),
+//                .run {
+//                    self.player.boosting = false
+//                }
+//            ]))
+//        }
     }
-    
     
     override func update(deltaTime seconds: TimeInterval) {
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
-        
-        if (player.node.physicsBody?.velocity.dy ?? 0 < 50 || player.node.physicsBody?.velocity.dy ?? 0 > 0 && !player.pressingJump){
-            player.node.physicsBody?.velocity.dy -= player.jumpVelocityFallOff
-        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         
-        if (stateClass == PlayerRun.self) {
+        if stateClass == PlayerRun.self {
             return false
         }
         
@@ -110,7 +104,7 @@ class PlayerDash: GKState{
         
         player.canDash = false
         
-        player.node.physicsBody?.applyImpulse(player.dashDirection * 300)
+    
             
         player.node.run(.sequence([
             .wait(forDuration: player.dashDuration),
@@ -166,14 +160,9 @@ class PlayerFall: GKState {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
+      
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
-        
-        if (player.node.physicsBody?.velocity.dy ?? 0 < 50 || player.node.physicsBody?.velocity.dy ?? 0 > 0 && !player.pressingJump){
-            if (!player.isGrounded) {
-                player.node.physicsBody?.velocity.dy -= player.jumpVelocityFallOff
-            }
 
-        }
     }
     
 }

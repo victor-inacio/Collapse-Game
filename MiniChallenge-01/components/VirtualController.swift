@@ -48,7 +48,11 @@ class VirtualController: SKNode{
     var joystickTouch: UITouch?
     var jumpTouch: UITouch?
     var dashTouch: UITouch?
-    var direction: CGVector = CGVector(dx: 0, dy: 0)
+    var direction: CGVector = CGVector(dx: 0, dy: 0){
+        didSet{
+            self.target.onJoystickChange(direction: CGPoint(x: self.velocityX, y: self.velocityY), angle: joystickAngleRounded)
+        }
+    }
     var joystickAngleRounded: CGFloat = 0
     var velocityX: CGFloat = 0
     var velocityY: CGFloat = 0
@@ -243,8 +247,7 @@ class VirtualController: SKNode{
                 run(SKAction.sequence([action, reverse]))
                 
                 dashTouch = t
-
-//                target.onJoystickDashBtnTouch(direction: direction)
+                
                 target.onJoystickDashBtnTouch(direction: normalForDash(vector: direction))
             }
             
@@ -264,7 +267,6 @@ class VirtualController: SKNode{
                         // Despausar o jogo e remover o overlay de pausa
                         resumeGame()
                     }
-                    target.onJoystickChange(direction: .init(x: 0, y: 0), angle: joystickAngleRounded)
                     movementReset(size: scene!.size)
                 }
                 
@@ -278,6 +280,7 @@ class VirtualController: SKNode{
     func firstTouch(location: CGPoint, touch: UITouch ){
         
         if virtualJoystickF!.frame.contains(location) && location.x < 0{
+            
             joystickInUse = true
             joystickTouch = touch
  
@@ -334,8 +337,6 @@ class VirtualController: SKNode{
             if distanceY * CGFloat(sinalY) > radiusB - 2 && distanceY * CGFloat(sinalY) < radiusB + 2{
                 velocityX = 0
             }
-            
-            target.onJoystickChange(direction: .init(x: velocityX, y: velocityY), angle: joystickAngleRounded)
 
             if virtualJoystickB!.frame.contains(location){
                 
