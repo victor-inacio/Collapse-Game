@@ -17,6 +17,7 @@ class PlayerIdle: GKState{
     }
     
     override func didEnter(from previousState: GKState?) {
+        
         player.node.physicsBody?.velocity = .init(dx: 0, dy: 0)
     }
 }
@@ -45,16 +46,6 @@ class PlayerJump: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
-//        if player.canBoost {
-//            player.boosting = true
-//
-//            player.node.run(.sequence([
-//                .wait(forDuration: 0.5),
-//                .run {
-//                    self.player.boosting = false
-//                }
-//            ]))
-//        }
     }
     
     override func update(deltaTime seconds: TimeInterval) {
@@ -63,8 +54,12 @@ class PlayerJump: GKState{
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         
-        if stateClass == PlayerRun.self {
-            return false
+        if player.canBoost{
+            if stateClass == PlayerIdle.self {
+                return true
+            } else {
+                return false
+            }
         }
         
         return true
@@ -75,11 +70,9 @@ class PlayerJump: GKState{
 class PlayerDash: GKState{
     
     var player: Player!
-    var canDash: Bool
     
-    init(player: Player, canDash: Bool) {
+    init(player: Player){
         self.player = player
-        self.canDash = canDash
     }
     
     var dashing: Bool = true
@@ -94,58 +87,18 @@ class PlayerDash: GKState{
         player.node.physicsBody?.velocity.dy = 0
         player.node.physicsBody?.affectedByGravity = false
         player.canDash = false
+        player.canBoost = true
         
         player.node.run(.sequence([.wait(forDuration: 0.2), .run{
-            self.stateMachine?.enter(PlayerRun.self)
-            self.player.node.physicsBody?.affectedByGravity = true
+         
+                self.stateMachine?.enter(PlayerRun.self)
+                self.player.canBoost = false
+                self.player.node.physicsBody?.affectedByGravity = true
         }]))
-        
 
-        dashing = true
-
-//
-//        player.dashDirection = player.direction
-//
         player.createTrail()
-
-        if player.stateMachine.currentState is PlayerIdle == false{
-            player.shakeScreen()
-        }
-//
-//        player.canBoost = true
-//
-//        let boostLifeTime = 0.1
-//
-//        player.canDash = false
-//
-////        player.node.run(.sequence([
-////            .wait(forDuration: player.dashDuration),
-////            .run{
-////                self.player.stateMachine.enter(PlayerRun.self)
-////        }]))
-////        player.node.run(.sequence([
-////            .wait(forDuration: player.dashDuration),
-////            .run{
-////
-////            self.player.node.physicsBody?.affectedByGravity = true
-////            self.dashing = false
-////
-////            self.player.node.run(.sequence([
-////
-////                .wait(forDuration: boostLifeTime),
-////                .run {
-////                    self.player.node.run(.sequence([
-////
-////                        .wait(forDuration: self.player.dashDuration),
-////                        .run {
-////                            self.canDash = true
-////                        }
-////                    ]))
-////                }
-////            ]))
-////
-////        }]))
-//
+        player.shakeScreen()
+        
         }
     
     override func willExit(to nextState: GKState) {
@@ -181,10 +134,30 @@ class PlayerFall: GKState {
     override func update(deltaTime seconds: TimeInterval) {
       
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
+        
+    }
+}
 
+
+class PlayerBoost: GKState{
+    
+    var player: Player!
+    
+    init(player: Player) {
+        self.player = player
     }
     
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+        
+//        if stateClass == PlayerIdle.self{
+//            return true
+//        }
+        
+        return false
+    }
+
 }
+
 
 class PlayerDead: GKState{
     

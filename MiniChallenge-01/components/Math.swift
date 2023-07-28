@@ -72,7 +72,7 @@ func normalForDash(vector: CGVector) -> CGVector{
         return CGVector(dx: sinalX * 1.2 , dy: 0)
    
     default:
-        return CGVector(dx: (0.5 * sinalX) * 2, dy: (0.5 * sinalY) * 2)
+        return CGVector(dx: (0.5 * sinalX) * 2, dy: (0.5 * sinalY) * 1.8)
     }
     
 }

@@ -78,9 +78,10 @@ class Player: NodeEntity, VirtualControllerTarget{
             PlayerIdle(player: self),
             PlayerRun(player: self),
             PlayerJump(player: self),
-            PlayerDash(player: self, canDash: canDash),
+            PlayerDash(player: self),
             PlayerDead(),
-            PlayerFall(player: self)
+            PlayerFall(player: self),
+            PlayerBoost(player: self)
         ])
         
         stateMachine?.enter(PlayerIdle.self)
@@ -110,7 +111,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         stateMachine.update(deltaTime: 0)
         
-//        lastPlayerVelocity = node.physicsBody!.velocity
+        lastPlayerVelocity = node.physicsBody!.velocity
         
         if (doubleEqual(node.physicsBody!.velocity.dy, 0) && doubleEqual(node.physicsBody!.velocity.dx, 0)) {
             stateMachine.enter(PlayerIdle.self)
@@ -122,8 +123,7 @@ class Player: NodeEntity, VirtualControllerTarget{
             }
         }
         
-        print(stateMachine.currentState)
-        
+        print(canBoost)
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
@@ -139,7 +139,6 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         self.angle = angle
     
-        
     }
     
     func applyMovement(distanceX: CGFloat, angle: CGFloat){
@@ -176,33 +175,25 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func jump(){
         
-        if isGrounded{
+        if isGrounded && stateMachine.currentState is PlayerDash == false{
             
             isGrounded = false
             
             stateMachine.enter(PlayerJump.self)
+          
+            node.physicsBody?.applyImpulse(CGVector(dx: node.size.width , dy: node.size.height + node.size.height * 1.2 ))
             
-           node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
-
         }
         
 //        if isGrounded || stateMachine.currentState is PlayerDash && node.physicsBody?.velocity.dy == 0{
+//
 //            if canBoost {
+//                node.physicsBody?.applyImpulse(CGVector(dx: 200 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
+//                stateMachine.enter(PlayerBoost.self)
+//            }else{
+//                self.stateMachine?.enter(PlayerRun.self)
 //
-//                boosting = true
-//
-//                node.run(.sequence([
-//                    .wait(forDuration: 0.5),
-//                    .run {
-//                        self.boosting = false
-//                    }
-//                ]))
 //            }
-//
-//            node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
-//
-//            stateMachine?.enter(PlayerJump.self)
-//
 //        }
     }
     
@@ -210,8 +201,10 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         self.direction = direction
         
-        if canDash{
+        if canDash && stateMachine.currentState is PlayerIdle == false{
+            
             stateMachine.enter(PlayerDash.self)
+            canBoost = true
             dash(direction: direction)
         }
     }
