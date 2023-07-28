@@ -16,7 +16,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     var direction: CGVector!
     var angle: CGFloat = 0
     var canDash = true
-    var dashDuration: CGFloat = 0.25
+    var dashDuration: CGFloat = 0.2
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
     var boosting = false
@@ -103,8 +103,9 @@ class Player: NodeEntity, VirtualControllerTarget{
          stateMachine.enter(PlayerFall.self)
         }
         
-        if node.physicsBody?.velocity.dy == 0{
+        if node.physicsBody?.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false{
             isGrounded = true
+            canDash = true
         }
         
         stateMachine.update(deltaTime: 0)
@@ -120,6 +121,9 @@ class Player: NodeEntity, VirtualControllerTarget{
                 node.physicsBody?.velocity.dy -= jumpVelocityFallOff
             }
         }
+        
+        print(stateMachine.currentState)
+        
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
@@ -127,7 +131,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         velocityX = direction.x
         velocityY = direction.y
         
-        if (velocityX == 0 && velocityY == 0) {
+        if velocityX == 0 && velocityY == 0 {
             stateMachine.enter(PlayerIdle.self)
         } else if stateMachine.currentState is PlayerDash == false{
             stateMachine.enter(PlayerRun.self)
@@ -206,16 +210,16 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         self.direction = direction
         
-        stateMachine.enter(PlayerDash.self)
-        
-        print(direction)
-        dash(direction: direction)
+        if canDash{
+            stateMachine.enter(PlayerDash.self)
+            dash(direction: direction)
+        }
     }
    
     
     func dash(direction: CGVector){
 
-        node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100, dy: direction.dy * 100))
+        node.physicsBody?.applyImpulse(direction * 200)
         
     }
     
@@ -229,8 +233,8 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func createTrail() {
         
-        let trailCount = 10
-        let eachTrailInterval = dashDuration / CGFloat(trailCount)
+        let trailCount = 8
+        let eachTrailInterval = dashDuration  / CGFloat(trailCount)
         
         
         node.run(.repeat(.sequence([

@@ -87,23 +87,22 @@ class PlayerDash: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
+        if !player.canDash{
+            return
+        }
+        
         player.node.physicsBody?.velocity.dy = 0
         player.node.physicsBody?.affectedByGravity = false
+        player.canDash = false
         
-        
-        player.node.run(.sequence([.wait(forDuration: 0.5), .run{
+        player.node.run(.sequence([.wait(forDuration: 0.2), .run{
             self.stateMachine?.enter(PlayerRun.self)
             self.player.node.physicsBody?.affectedByGravity = true
         }]))
         
-        
-//        if (!canDash) {
-//            return
-//        }
-//
-//        dashing = true
-//
-//        player.node.physicsBody?.affectedByGravity = false
+
+        dashing = true
+
 //
 //        player.dashDirection = player.direction
 //
@@ -147,7 +146,6 @@ class PlayerDash: GKState{
 ////
 ////        }]))
 //
-//        canDash = false
         }
     
     override func willExit(to nextState: GKState) {
