@@ -81,13 +81,15 @@ class PlayerJump: GKState{
 class PlayerDash: GKState{
     
     var player: Player!
+    var canDash: Bool
     
-    init(player: Player) {
+    init(player: Player, canDash: Bool) {
         self.player = player
+        self.canDash = canDash
     }
     
     var dashing: Bool = true
-    var canDash: Bool = true
+
     
     override func didEnter(from previousState: GKState?) {
         

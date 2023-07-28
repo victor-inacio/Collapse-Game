@@ -20,7 +20,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
     var boosting = false
-    var isGrounded = true
+    var isGrounded = false
     var dashDirection: CGVector = .init(dx: 0, dy: 0)
     var canBoost = false
     var lastPlayerVelocity: CGVector = .init(dx: 0, dy: 0)
@@ -78,7 +78,7 @@ class Player: NodeEntity, VirtualControllerTarget{
             PlayerIdle(player: self),
             PlayerRun(player: self),
             PlayerJump(player: self),
-            PlayerDash(player: self),
+            PlayerDash(player: self, canDash: canDash),
             PlayerDead(),
             PlayerFall(player: self)
         ])
@@ -100,14 +100,15 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func update() {
         
-        isGrounded = node.physicsBody!.velocity.dy == 0
-        
+        if node.physicsBody!.velocity.dy == 0{
+            isGrounded = true
+        } else {
+            isGrounded = false
+        }
         
         if (checkFall()) {
             stateMachine.enter(PlayerFall.self)
         }
-        
-       
        
        stateMachine.update(deltaTime: 0)
        
@@ -116,6 +117,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         if (doubleEqual(node.physicsBody!.velocity.dy, 0) && doubleEqual(node.physicsBody!.velocity.dx, 0)) {
             stateMachine.enter(PlayerIdle.self)
         }
+        print(isGrounded)
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
@@ -167,29 +169,28 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func jump(){
         
-        if (isGrounded) {
+        if isGrounded {
             stateMachine.enter(PlayerJump.self)
         }
         
-        return
-        
-        if isGrounded || stateMachine.currentState is PlayerRun &&  node.physicsBody?.velocity.dy == 0{
-            if (canBoost) {
-                boosting = true
-                
-                node.run(.sequence([
-                    .wait(forDuration: 0.5),
-                    .run {
-                        self.boosting = false
-                    }
-                ]))
-            }
-            
-            node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
-            
-            stateMachine?.enter(PlayerJump.self)
-            
-        }
+//        if isGrounded || stateMachine.currentState is PlayerRun && node.physicsBody?.velocity.dy == 0{
+//            if canBoost {
+//
+//                boosting = true
+//
+//                node.run(.sequence([
+//                    .wait(forDuration: 0.5),
+//                    .run {
+//                        self.boosting = false
+//                    }
+//                ]))
+//            }
+//
+//            node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
+//
+//            stateMachine?.enter(PlayerJump.self)
+//
+//        }
     }
     
     func onJoystickDashBtnTouch(direction: CGVector) {
