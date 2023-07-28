@@ -120,8 +120,6 @@ class Player: NodeEntity, VirtualControllerTarget{
                 node.physicsBody?.velocity.dy -= jumpVelocityFallOff
             }
         }
-        
-        print(stateMachine.currentState)
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
@@ -131,7 +129,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         if (velocityX == 0 && velocityY == 0) {
             stateMachine.enter(PlayerIdle.self)
-        } else {
+        } else if stateMachine.currentState is PlayerDash == false{
             stateMachine.enter(PlayerRun.self)
         }
         
@@ -209,21 +207,14 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         stateMachine.enter(PlayerDash.self)
         
+        print(direction)
         dash(direction: direction)
     }
    
     
     func dash(direction: CGVector){
-        
-        
-        
-        node.run(.sequence([
-            .wait(forDuration: 0.25),
-            .run{
-                self.stateMachine.enter(PlayerRun.self)
-        }]))
-        
-        node.physicsBody?.applyImpulse(direction * 150)
+
+//        node.physicsBody?.applyImpulse(CG)
         
     }
     
