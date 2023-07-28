@@ -413,14 +413,7 @@ class VirtualController: SKNode{
         addChild(pauseButton!)
     }
     
-    //DEAD COUNT
-    /*func addSkull(){
-        addChild(skull!)
-    }*/
-    
- // func addDeadCount(){
- //     addChild(deadCount!)
- // }
+
     
     func actualDeadNumber(){
         deadCount!.text = "\(userDefaults.integer(forKey: "commonDeadCount"))"
@@ -442,20 +435,28 @@ class VirtualController: SKNode{
 
     }
     // PAUSE GAME
+    // PAUSE GAME
     func pauseGame() {
         isOverlay = true
         overlayPause?.isHidden = false
-        movementReset(size: scene!.size)
         scene?.isPaused = true
+        
+        target.onJoystickChange(direction: .zero, angle: 0)
+        
+        movementReset(size: scene!.size)
     }
+
     
+    // RESUME GAME
     // RESUME GAME
     func resumeGame() {
         isOverlay = false
         overlayPause?.isHidden = true
         scene?.isPaused = false
 
+        target.onJoystickChange(direction: .zero, angle: 0)
     }
+
 
 }
 
