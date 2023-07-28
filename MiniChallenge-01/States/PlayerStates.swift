@@ -8,49 +8,58 @@ class PlayerState: GKState {
     }
 }
 
-class PlayerIdle: PlayerState {
+class PlayerIdle: GKState{
+    
+    var player: Player!
+    
+    init(player: Player) {
+        self.player = player
+    }
+    
     override func didEnter(from previousState: GKState?) {
+        
         player.node.physicsBody?.velocity = .init(dx: 0, dy: 0)
     }
 }
 
-class PlayerRun: PlayerState{
+class PlayerRun: GKState{
 
+    var player: Player!
+    
+    init(player: Player) {
+        self.player = player
+    }
+    
     override func update(deltaTime seconds: TimeInterval) {
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
     }
 
 }
 
-class PlayerJump: PlayerState{
-    override func didEnter(from previousState: GKState?) {
-        if (player.canBoost) {
-            player.boosting = true
-            
-            player.node.run(.sequence([
-                .wait(forDuration: 0.5),
-                .run {
-                    self.player.boosting = false
-                }
-            ]))
-        }
-        
-        player.node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: player.node.xScale)) , dy: player.node.size.height + player.node.size.height * 1.2 ))
+class PlayerJump: GKState{
+    
+    var player: Player!
+    
+    init(player: Player) {
+        self.player = player
     }
     
+    override func didEnter(from previousState: GKState?) {
+        
+    }
     
     override func update(deltaTime seconds: TimeInterval) {
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
-        
-        if (player.node.physicsBody?.velocity.dy ?? 0 < 50 || player.node.physicsBody?.velocity.dy ?? 0 > 0 && !player.pressingJump){
-            player.node.physicsBody?.velocity.dy -= player.jumpVelocityFallOff
-        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         
-        if (stateClass == PlayerRun.self) {
-            return false
+        if player.canBoost{
+            if stateClass == PlayerIdle.self {
+                return true
+            } else {
+                return false
+            }
         }
         
         return true
@@ -58,58 +67,38 @@ class PlayerJump: PlayerState{
     }
 }
 
-class PlayerDash: PlayerState{
+class PlayerDash: GKState{
+    
+    var player: Player!
+    
+    init(player: Player){
+        self.player = player
+    }
     
     var dashing: Bool = true
-    var canDash: Bool = true
+
     
     override func didEnter(from previousState: GKState?) {
         
-        if (!canDash) {
+        if !player.canDash{
             return
         }
         
-        dashing = true
+        player.node.physicsBody?.velocity.dy = 0
         player.node.physicsBody?.affectedByGravity = false
-        
-        player.dashDirection = player.direction
-        
-        player.createTrail()
-        player.shakeScreen()
+        player.canDash = false
         player.canBoost = true
         
-        let boostLifeTime = 0.1
-        
-        player.canDash = false
-        
-        player.node.physicsBody?.applyImpulse(player.dashDirection * 300)
-            
-        player.node.run(.sequence([
-            .wait(forDuration: player.dashDuration),
-            .run{
-            
-            self.player.node.physicsBody?.affectedByGravity = true
-            self.dashing = false
-            
-            self.player.node.run(.sequence([
-                
-                .wait(forDuration: boostLifeTime),
-                .run {
-                    self.player.canBoost = false
-                    
-                    self.player.node.run(.sequence([
-                        
-                        .wait(forDuration: self.player.dashDuration),
-                        .run {
-                            self.canDash = true
-                        }
-                    ]))
-                }
-            ]))
-            
+        player.node.run(.sequence([.wait(forDuration: 0.2), .run{
+         
+                self.stateMachine?.enter(PlayerRun.self)
+                self.player.canBoost = false
+                self.player.node.physicsBody?.affectedByGravity = true
         }]))
+
+        player.createTrail()
+        player.shakeScreen()
         
-        canDash = false
         }
     
     override func willExit(to nextState: GKState) {
@@ -117,14 +106,25 @@ class PlayerDash: PlayerState{
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return !dashing
+        
+        if stateClass == PlayerRun.self{
+            return true
+        }
+        
+        return false
     }
 }
 
-class PlayerFall: PlayerState {
+class PlayerFall: GKState {
+    
+    var player: Player!
+    
+    init(player: Player) {
+        self.player = player
+    }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        if (stateClass == PlayerJump.self) {
+        if stateClass == PlayerJump.self {
             return false
         }
         
@@ -132,19 +132,34 @@ class PlayerFall: PlayerState {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
+      
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
         
-        if (player.node.physicsBody?.velocity.dy ?? 0 < 50 || player.node.physicsBody?.velocity.dy ?? 0 > 0 && !player.pressingJump){
-            if (!player.isGrounded) {
-                player.node.physicsBody?.velocity.dy -= player.jumpVelocityFallOff
-            }
-
-        }
     }
-    
 }
 
-class PlayerDead: PlayerState {
+
+class PlayerBoost: GKState{
+    
+    var player: Player!
+    
+    init(player: Player) {
+        self.player = player
+    }
+    
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+        
+//        if stateClass == PlayerIdle.self{
+//            return true
+//        }
+        
+        return false
+    }
+
+}
+
+
+class PlayerDead: GKState{
     
 
 }

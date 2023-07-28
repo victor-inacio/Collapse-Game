@@ -15,12 +15,12 @@ class Player: NodeEntity, VirtualControllerTarget{
     var velocityY: CGFloat = 0
     var direction: CGVector!
     var angle: CGFloat = 0
-    var canDash = false
-    var dashDuration: CGFloat = 0.25
+    var canDash = true
+    var dashDuration: CGFloat = 0.2
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
     var boosting = false
-    var isGrounded = true
+    var isGrounded = false
     var dashDirection: CGVector = .init(dx: 0, dy: 0)
     var canBoost = false
     var lastPlayerVelocity: CGVector = .init(dx: 0, dy: 0)
@@ -79,8 +79,9 @@ class Player: NodeEntity, VirtualControllerTarget{
             PlayerRun(player: self),
             PlayerJump(player: self),
             PlayerDash(player: self),
-            PlayerDead(player: self),
-            PlayerFall(player: self)
+            PlayerDead(),
+            PlayerFall(player: self),
+            PlayerBoost(player: self)
         ])
         
         stateMachine?.enter(PlayerIdle.self)
@@ -90,44 +91,53 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         let currentVelocity = node.physicsBody?.velocity
         
-        if (doubleEqual(currentVelocity!.dy, 0)) {
+        if doubleEqual(currentVelocity!.dy, 0) {
             return false
         }
         
         return currentVelocity!.dy < 0
-        
     }
     
     func update() {
         
-        isGrounded = node.physicsBody!.velocity.dy == 0
-        
-        
-        if (checkFall()) {
-            stateMachine.enter(PlayerFall.self)
+        if checkFall() {
+         stateMachine.enter(PlayerFall.self)
         }
         
-       
-       
-       stateMachine.update(deltaTime: 0)
-       
-       lastPlayerVelocity = node.physicsBody!.velocity
+        if node.physicsBody?.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false{
+            isGrounded = true
+            canDash = true
+        }
+        
+        stateMachine.update(deltaTime: 0)
+        
+        lastPlayerVelocity = node.physicsBody!.velocity
         
         if (doubleEqual(node.physicsBody!.velocity.dy, 0) && doubleEqual(node.physicsBody!.velocity.dx, 0)) {
             stateMachine.enter(PlayerIdle.self)
         }
+        
+        if (node.physicsBody?.velocity.dy ?? 0 < 100 || node.physicsBody?.velocity.dy ?? 0 > 100 && !pressingJump) && !isGrounded{
+            if stateMachine.currentState is PlayerDash == false{
+                node.physicsBody?.velocity.dy -= jumpVelocityFallOff
+            }
+        }
+        
+        print(canBoost)
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
+       
         velocityX = direction.x
         velocityY = direction.y
-        self.angle = angle
         
-        if (velocityX == 0 && velocityY == 0) {
+        if velocityX == 0 && velocityY == 0 {
             stateMachine.enter(PlayerIdle.self)
-        } else {
+        } else if stateMachine.currentState is PlayerDash == false{
             stateMachine.enter(PlayerRun.self)
         }
+        
+        self.angle = angle
     
     }
     
@@ -139,10 +149,8 @@ class Player: NodeEntity, VirtualControllerTarget{
         if stateMachine.currentState is PlayerDash == false {
             
             if (!boosting) {
-                node.physicsBody!.velocity.dx = distanceX * 7
+                node.physicsBody!.velocity.dx = distanceX * 5
             }
-        } else {
-            
         }
         
         if angle > 1.50 || angle < -1.50{
@@ -167,36 +175,45 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func jump(){
         
-        if (isGrounded) {
+        if isGrounded && stateMachine.currentState is PlayerDash == false{
+            
+            isGrounded = false
+            
             stateMachine.enter(PlayerJump.self)
-        }
-        
-        return
-        
-        if isGrounded || stateMachine.currentState is PlayerRun &&  node.physicsBody?.velocity.dy == 0{
-            if (canBoost) {
-                boosting = true
-                
-                node.run(.sequence([
-                    .wait(forDuration: 0.5),
-                    .run {
-                        self.boosting = false
-                    }
-                ]))
-            }
-            
-            node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
-            
-            stateMachine?.enter(PlayerJump.self)
+          
+            node.physicsBody?.applyImpulse(CGVector(dx: node.size.width , dy: node.size.height + node.size.height * 1.2 ))
             
         }
+        
+//        if isGrounded || stateMachine.currentState is PlayerDash && node.physicsBody?.velocity.dy == 0{
+//
+//            if canBoost {
+//                node.physicsBody?.applyImpulse(CGVector(dx: 200 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
+//                stateMachine.enter(PlayerBoost.self)
+//            }else{
+//                self.stateMachine?.enter(PlayerRun.self)
+//
+//            }
+//        }
     }
     
     func onJoystickDashBtnTouch(direction: CGVector) {
         
         self.direction = direction
         
-        stateMachine?.enter(PlayerDash.self)
+        if canDash && stateMachine.currentState is PlayerIdle == false{
+            
+            stateMachine.enter(PlayerDash.self)
+            canBoost = true
+            dash(direction: direction)
+        }
+    }
+   
+    
+    func dash(direction: CGVector){
+
+        node.physicsBody?.applyImpulse(direction * 200)
+        
     }
     
     func shakeScreen() {
@@ -207,17 +224,10 @@ class Player: NodeEntity, VirtualControllerTarget{
         
     }
     
-    func dash(direction: CGVector){
-        
-        stateMachine.enter(PlayerDash.self)
-        
-        
-    }
-    
     func createTrail() {
         
-        let trailCount = 10
-        let eachTrailInterval = dashDuration / CGFloat(trailCount)
+        let trailCount = 8
+        let eachTrailInterval = dashDuration  / CGFloat(trailCount)
         
         
         node.run(.repeat(.sequence([
@@ -229,9 +239,7 @@ class Player: NodeEntity, VirtualControllerTarget{
                 trailSprite.position = self.node.position
                 
                 self.node.scene!.addChild(trailSprite)
-                
-                
-                
+      
                 trailSprite.alpha = 0.5
                 trailSprite.shader = shader
                 
@@ -242,9 +250,7 @@ class Player: NodeEntity, VirtualControllerTarget{
             }),
             .wait(forDuration: eachTrailInterval)
         ]), count: trailCount))
-        
     }
-    
 }
 
 
