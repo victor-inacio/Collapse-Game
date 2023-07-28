@@ -19,6 +19,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     var dashDuration: CGFloat = 0.2
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
+    var jumpWasPressed: Bool = false
     var boosting = false
     var isGrounded = false
     var dashDirection: CGVector = .init(dx: 0, dy: 0)
@@ -122,8 +123,11 @@ class Player: NodeEntity, VirtualControllerTarget{
                 node.physicsBody?.velocity.dy -= jumpVelocityFallOff
             }
         }
+        if self.jumpWasPressed{
+            self.stateMachine?.enter(PlayerBoost.self)
+        }
         
-        print(canBoost)
+        print(node.physicsBody?.velocity.dy)
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
@@ -163,7 +167,10 @@ class Player: NodeEntity, VirtualControllerTarget{
     func onJoystickJumpBtnTouchStart() {
         pressingJump = true
         
-        if pressingJump{
+        if stateMachine.currentState is PlayerDash && isGrounded{
+            jumpWasPressed = true
+        }
+        if pressingJump && stateMachine.currentState is PlayerDash == false && stateMachine.currentState is PlayerBoost == false{
             jump()
         }
     }
@@ -175,7 +182,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func jump(){
         
-        if isGrounded && stateMachine.currentState is PlayerDash == false{
+        if isGrounded{
             
             isGrounded = false
             
@@ -184,17 +191,6 @@ class Player: NodeEntity, VirtualControllerTarget{
             node.physicsBody?.applyImpulse(CGVector(dx: node.size.width , dy: node.size.height + node.size.height * 1.2 ))
             
         }
-        
-//        if isGrounded || stateMachine.currentState is PlayerDash && node.physicsBody?.velocity.dy == 0{
-//
-//            if canBoost {
-//                node.physicsBody?.applyImpulse(CGVector(dx: 200 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
-//                stateMachine.enter(PlayerBoost.self)
-//            }else{
-//                self.stateMachine?.enter(PlayerRun.self)
-//
-//            }
-//        }
     }
     
     func onJoystickDashBtnTouch(direction: CGVector) {
@@ -224,10 +220,9 @@ class Player: NodeEntity, VirtualControllerTarget{
         
     }
     
-    func createTrail() {
+    func createTrail(trailCount: Int ,duration: CGFloat) {
         
-        let trailCount = 8
-        let eachTrailInterval = dashDuration  / CGFloat(trailCount)
+        let eachTrailInterval = duration  / CGFloat(trailCount)
         
         
         node.run(.repeat(.sequence([
@@ -244,7 +239,7 @@ class Player: NodeEntity, VirtualControllerTarget{
                 trailSprite.shader = shader
                 
                 trailSprite.run(.sequence([
-                    .fadeAlpha(to: 0, duration: self.dashDuration),
+                    .fadeAlpha(to: 0, duration: duration),
                     .removeFromParent()
                 ]))
             }),
