@@ -15,7 +15,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     var velocityY: CGFloat = 0
     var direction: CGVector!
     var angle: CGFloat = 0
-    var canDash = false
+    var canDash = true
     var dashDuration: CGFloat = 0.25
     var jumpVelocityFallOff: CGFloat = 35
     var pressingJump: Bool = false
@@ -115,12 +115,13 @@ class Player: NodeEntity, VirtualControllerTarget{
             stateMachine.enter(PlayerIdle.self)
         }
         
-        if (node.physicsBody?.velocity.dy ?? 0 < 100 || node.physicsBody?.velocity.dy ?? 0 > 100 && !pressingJump) && (!isGrounded || stateMachine.currentState is PlayerDash == false){
-           node.physicsBody?.velocity.dy -= jumpVelocityFallOff
+        if (node.physicsBody?.velocity.dy ?? 0 < 100 || node.physicsBody?.velocity.dy ?? 0 > 100 && !pressingJump) && !isGrounded{
+            if stateMachine.currentState is PlayerDash == false{
+                node.physicsBody?.velocity.dy -= jumpVelocityFallOff
+            }
         }
         
-        print(isGrounded)
-        
+        print(stateMachine.currentState)
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
@@ -206,6 +207,8 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         self.direction = direction
         
+        stateMachine.enter(PlayerDash.self)
+        
         dash(direction: direction)
     }
    
@@ -214,7 +217,13 @@ class Player: NodeEntity, VirtualControllerTarget{
         
         
         
-        stateMachine.enter(PlayerDash.self)
+        node.run(.sequence([
+            .wait(forDuration: 0.25),
+            .run{
+                self.stateMachine.enter(PlayerRun.self)
+        }]))
+        
+        node.physicsBody?.applyImpulse(direction * 150)
         
     }
     

@@ -92,44 +92,50 @@ class PlayerDash: GKState{
         }
         
         dashing = true
+        
         player.node.physicsBody?.affectedByGravity = false
         
         player.dashDirection = player.direction
         
         player.createTrail()
-        player.shakeScreen()
+        
+        if player.stateMachine.currentState is PlayerIdle == false{
+            player.shakeScreen()
+        }
+        
         player.canBoost = true
         
         let boostLifeTime = 0.1
         
         player.canDash = false
         
-    
-            
-        player.node.run(.sequence([
-            .wait(forDuration: player.dashDuration),
-            .run{
-            
-            self.player.node.physicsBody?.affectedByGravity = true
-            self.dashing = false
-            
-            self.player.node.run(.sequence([
-                
-                .wait(forDuration: boostLifeTime),
-                .run {
-                    self.player.canBoost = false
-                    
-                    self.player.node.run(.sequence([
-                        
-                        .wait(forDuration: self.player.dashDuration),
-                        .run {
-                            self.canDash = true
-                        }
-                    ]))
-                }
-            ]))
-            
-        }]))
+//        player.node.run(.sequence([
+//            .wait(forDuration: player.dashDuration),
+//            .run{
+//                self.player.stateMachine.enter(PlayerRun.self)
+//        }]))
+//        player.node.run(.sequence([
+//            .wait(forDuration: player.dashDuration),
+//            .run{
+//
+//            self.player.node.physicsBody?.affectedByGravity = true
+//            self.dashing = false
+//
+//            self.player.node.run(.sequence([
+//
+//                .wait(forDuration: boostLifeTime),
+//                .run {
+//                    self.player.node.run(.sequence([
+//
+//                        .wait(forDuration: self.player.dashDuration),
+//                        .run {
+//                            self.canDash = true
+//                        }
+//                    ]))
+//                }
+//            ]))
+//
+//        }]))
         
         canDash = false
         }
