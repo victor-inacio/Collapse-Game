@@ -65,7 +65,7 @@ func normalForDash(vector: CGVector) -> CGVector{
         
     case vector.dy > 0.95 || vector.dy < -0.95:
         
-        return CGVector(dx: 0, dy: sinalY)
+        return CGVector(dx: 0, dy: sinalY * 1.5)
     
     case vector.dx > 0.95 || vector.dx < -0.95:
 

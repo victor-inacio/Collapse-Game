@@ -179,6 +179,7 @@ class Player: NodeEntity, VirtualControllerTarget{
             stateMachine.enter(PlayerJump.self)
             
            node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))
+
         }
         
 //        if isGrounded || stateMachine.currentState is PlayerDash && node.physicsBody?.velocity.dy == 0{
@@ -214,7 +215,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func dash(direction: CGVector){
 
-//        node.physicsBody?.applyImpulse(CG)
+        node.physicsBody?.applyImpulse(CGVector(dx: direction.dx * 100, dy: direction.dy * 100))
         
     }
     

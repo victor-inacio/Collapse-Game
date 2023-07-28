@@ -87,6 +87,7 @@ class PlayerDash: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
+        player.node.physicsBody?.velocity.dy = 0
         player.node.physicsBody?.affectedByGravity = false
         
         
@@ -172,7 +173,7 @@ class PlayerFall: GKState {
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        if (stateClass == PlayerJump.self) {
+        if stateClass == PlayerJump.self {
             return false
         }
         
