@@ -149,7 +149,7 @@ class PlayerBoost: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
-            self.player.node.physicsBody?.velocity.dx /= 1.5
+            self.player.node.physicsBody?.velocity.dx /= 1.7
             self.player.node.physicsBody?.applyImpulse(CGVector(dx: 0, dy: self.player.node.size.height  * 1.4 ))
         player.createTrail(trailCount: 10, duration: 0.8)
             
