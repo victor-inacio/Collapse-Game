@@ -73,7 +73,7 @@ class MainMenu: SKScene{
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
         
-        if !canContinue{
+        if canContinue{
             continueButton.alpha = 0.9
         }
         

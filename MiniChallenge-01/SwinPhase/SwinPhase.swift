@@ -61,12 +61,12 @@ class SwinPhase: BaseLevelScene{
         
         super.update(currentTime)
         if player.node.position.y < (childNode(withName: "Limiting gravity")?.position.y)! && isTouched{
-            self.physicsWorld.gravity = CGVector(dx: 0, dy: 23.8)
+            self.physicsWorld.gravity = CGVector(dx: 0, dy: 5)
         } else if  player.node.position.y > (childNode(withName: "Limiting gravity")?.position.y)!{
-            self.physicsWorld.gravity = CGVector(dx: 0, dy: -5)
+            self.physicsWorld.gravity = CGVector(dx: 0, dy: -4)
             
-        } else if player.node.position.y < (childNode(withName: "Limiting gravity")?.position.y)!{
-            player.node.physicsBody?.applyForce(CGVector(dx: 0, dy: 730))
+        } else if player.node.position.y < ((childNode(withName: "Limiting gravity")?.position.y)!) + 10{
+            player.node.physicsBody?.applyForce(CGVector(dx: 0, dy: 144))
         }
         
         if (childNode(withName: "LabelTrigger")?.position.x)! > player.node.position.x{

@@ -71,6 +71,9 @@ class Player: NodeEntity, VirtualControllerTarget{
                 }
             ]))
         }
+        
+        let deadCount = userDefaults.integer(forKey: "commonDeadCount")
+        userDefaults.set(deadCount + 1, forKey: "commonDeadCount")
     }
     
     func applyMachine(){
@@ -127,7 +130,7 @@ class Player: NodeEntity, VirtualControllerTarget{
             self.stateMachine?.enter(PlayerBoost.self)
         }
         
-        print(node.physicsBody?.velocity.dy)
+//        print(node.physicsBody?.velocity.dy)
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
