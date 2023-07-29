@@ -129,7 +129,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         if stateMachine.currentState is PlayerGrounded{
             canDash = true
         }
-        print(dashDirection)
+//        print(dashDirection)
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
@@ -197,7 +197,7 @@ class Player: NodeEntity, VirtualControllerTarget{
                 ]))
             }
             
-            print(node.xScale)
+//            print(node.xScale)
             
             
             node.physicsBody?.applyImpulse(CGVector(dx: 300 * CGFloat( signNum(num: node.xScale)) , dy: node.size.height + node.size.height * 1.2 ))

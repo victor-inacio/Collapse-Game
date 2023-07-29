@@ -58,18 +58,18 @@ class Prologue: BaseLevelScene{
             
             run(SKAction.sequence([wait, SKAction.run {
                 self.addVisualBug(nameOfTheAsset: "Bug 1")
-                self.run(SKAction.playSoundFileNamed("bugs", waitForCompletion: false))
+                self.run(SKAction.playSoundFileNamed("BUG1.mp3", waitForCompletion: false))
             }, wait, SKAction.run {
                 self.addVisualBug(nameOfTheAsset: "Bug 2")
-                self.run(SKAction.playSoundFileNamed("bugs", waitForCompletion: false))
+                self.run(SKAction.playSoundFileNamed("BUG1.mp3", waitForCompletion: false))
             }, wait, SKAction.run {
                 self.addVisualBug(nameOfTheAsset: "Bug 3")
                 self.pier.removeFromParent()
                 self.pierPhysicsBody.removeFromParent()
-                self.run(SKAction.playSoundFileNamed("bugs", waitForCompletion: false))
+                self.run(SKAction.playSoundFileNamed("BUG1.mp3", waitForCompletion: false))
             }, SKAction.wait(forDuration: 0.3), SKAction.run {
-                self.run(SKAction.playSoundFileNamed("bugs", waitForCompletion: false))
-                self.run(SKAction.playSoundFileNamed("FinalBug", waitForCompletion: false))
+                self.run(SKAction.playSoundFileNamed("BUG1.mp3", waitForCompletion: false))
+                self.run(SKAction.playSoundFileNamed("BUG2.mp3", waitForCompletion: false))
                 self.addBigVisualBug(nameOfTheAsset: "BigVisualBug")
             }, SKAction.wait(forDuration: 1), SKAction.run {
                 if let scene = SKScene(fileNamed: "ExplainScene2") {
