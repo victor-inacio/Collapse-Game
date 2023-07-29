@@ -34,12 +34,9 @@ class ParallaxItem {
     
     func update(scene: BaseLevelScene) {
         
-        applyOffset(scene: scene)
+        
         if (self.type != .Fixed) {
             fillHorizontal(scene: scene)
-            
-           
-    
         } else {
             for node in parallaxNodes {
                 node.position.x = scene.camera!.position.x + offset.dx
@@ -53,6 +50,8 @@ class ParallaxItem {
                 
             }
         }
+        
+        applyOffset(scene: scene)
     }
     
     func fillHorizontal(scene: BaseLevelScene) {
@@ -62,7 +61,7 @@ class ParallaxItem {
             
             let lastNode = parallaxNodes.last!
             let newNode = lastNode.copy() as! SKSpriteNode
-            newNode.position.x = newNode.position.x + newNode.size.width
+            newNode.position.x = newNode.position.x + newNode.size.width - 1
             
             scene.addChild(newNode)
             parallaxNodes.append(newNode)
@@ -123,7 +122,6 @@ class ParallaxItem {
     
     
 }
-
 
 class Parallax {
     
