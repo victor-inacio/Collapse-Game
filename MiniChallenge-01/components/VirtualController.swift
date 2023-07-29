@@ -85,6 +85,7 @@ class VirtualController: SKNode{
         creditsButton = SKSpriteNode(texture: textureCreditsButton, color: .white, size: textureCreditsButton.size())
         creditsButton?.name = "credit"
         creditsButton?.zPosition = 10
+        creditsButton?.alpha = 0.3
         
         
         //OVERLAY SOUND BUTTON
@@ -186,10 +187,10 @@ class VirtualController: SKNode{
         
         overlayPause?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 14)
         overlayShadow?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 200, y: scene.size.height / -12)
-        exitButton?.position = CGPoint (x: scene.size.width / 20 - scene.size.width / 20 , y: scene.size.height / -4)
-        soundButton?.position = CGPoint (x: 0 - scene.size.width / 13 , y: scene.size.height / -10)
-        creditsButton?.position = CGPoint (x: 0 + scene.size.width / 13 , y: scene.size.height / -10)
-        jogoPausado?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 18)
+        exitButton?.position = CGPoint (x: scene.size.width / 20 - scene.size.width / 20 , y: scene.size.height / -4 + 20)
+        soundButton?.position = CGPoint (x: 0 - scene.size.width / 13 , y: scene.size.height / -10 + 20)
+        creditsButton?.position = CGPoint (x: 0 + scene.size.width / 13 , y: scene.size.height / -10 + 20)
+        jogoPausado?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 18 + 20)
         
         
         addOverlay()
