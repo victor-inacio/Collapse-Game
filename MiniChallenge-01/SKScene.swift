@@ -276,7 +276,7 @@ extension BaseLevelScene{
                     
                     //Detectar quando precisa fazer um node maior
                     
-                    if (self.scene?.name == "PlataformGameScene") || (self.scene?.name == "FinalScene"){
+                    if (self.scene?.name == "PlataformGameScene") || (self.scene?.name == "FinalScene") || tileMap.name == "WaterFake"{
                         
                     } else{
                         tileNode.anchorPoint = (CGPoint(x: 0.5, y: 0.5))
