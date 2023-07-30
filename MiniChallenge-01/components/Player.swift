@@ -71,6 +71,9 @@ class Player: NodeEntity, VirtualControllerTarget{
                 }
             ]))
         }
+        
+        let deadCount = userDefaults.integer(forKey: "commonDeadCount")
+        userDefaults.set(deadCount + 1, forKey: "commonDeadCount")
     }
     
     func applyMachine(){

@@ -85,6 +85,7 @@ class VirtualController: SKNode{
         creditsButton = SKSpriteNode(texture: textureCreditsButton, color: .white, size: textureCreditsButton.size())
         creditsButton?.name = "credit"
         creditsButton?.zPosition = 10
+        creditsButton?.alpha = 0.3
         
         
         //OVERLAY SOUND BUTTON
@@ -137,6 +138,7 @@ class VirtualController: SKNode{
         deadCount?.fontName = "Futura Bold"
         deadCount?.fontSize = 40
         deadCount?.horizontalAlignmentMode = .left
+        deadCount?.zPosition = 11
         
         // JOYSTICK
         let textureControllerB = SKTexture(imageNamed: "virtualControllerB")
@@ -181,14 +183,14 @@ class VirtualController: SKNode{
         pauseButton?.position = CGPoint(x: scene.size.width / 2.6 + scene.size.width / 20, y: scene.size.height / 3.5 )
         
         skull?.position = CGPoint(x: scene.size.width / -2.24 + scene.size.width / 50, y: scene.size.height / 4.5 )
-        deadCount?.position = CGPoint(x: scene.size.width / -2.46 + scene.size.width / 50, y: scene.size.height / 4.5 )
+        deadCount?.position = CGPoint(x: scene.size.width / -2.46 + scene.size.width / 50, y: scene.size.height / 4.9 )
         
         overlayPause?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 14)
         overlayShadow?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 200, y: scene.size.height / -12)
-        exitButton?.position = CGPoint (x: scene.size.width / 20 - scene.size.width / 20 , y: scene.size.height / -3)
-        soundButton?.position = CGPoint (x: 0 - scene.size.width / 14.5 , y: scene.size.height / -10)
-        creditsButton?.position = CGPoint (x: 0 + scene.size.width / 14.5 , y: scene.size.height / -10)
-        jogoPausado?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 6)
+        exitButton?.position = CGPoint (x: scene.size.width / 20 - scene.size.width / 20 , y: scene.size.height / -4 + 20)
+        soundButton?.position = CGPoint (x: 0 - scene.size.width / 13 , y: scene.size.height / -10 + 20)
+        creditsButton?.position = CGPoint (x: 0 + scene.size.width / 13 , y: scene.size.height / -10 + 20)
+        jogoPausado?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 18 + 20)
         
         
         addOverlay()
@@ -413,14 +415,7 @@ class VirtualController: SKNode{
         addChild(pauseButton!)
     }
     
-    //DEAD COUNT
-    /*func addSkull(){
-        addChild(skull!)
-    }*/
-    
- // func addDeadCount(){
- //     addChild(deadCount!)
- // }
+
     
     func actualDeadNumber(){
         deadCount!.text = "\(userDefaults.integer(forKey: "commonDeadCount"))"
@@ -442,20 +437,28 @@ class VirtualController: SKNode{
 
     }
     // PAUSE GAME
+    // PAUSE GAME
     func pauseGame() {
         isOverlay = true
         overlayPause?.isHidden = false
-        movementReset(size: scene!.size)
         scene?.isPaused = true
+        
+        target.onJoystickChange(direction: .zero, angle: 0)
+        
+        movementReset(size: scene!.size)
     }
+
     
+    // RESUME GAME
     // RESUME GAME
     func resumeGame() {
         isOverlay = false
         overlayPause?.isHidden = true
         scene?.isPaused = false
 
+        target.onJoystickChange(direction: .zero, angle: 0)
     }
+
 
 }
 

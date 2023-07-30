@@ -41,20 +41,32 @@ class SwinPhase: BaseLevelScene{
         
         parallax = Parallax(scene: self, items: [
             .init(fileName: "New Planet", velocityFactor: 0, zIndex: -5, offset: CGVector(dx: 0, dy: 450)),
-            .init(fileName: "New Planet 2", velocityFactor: -0.02, zIndex: -4, offset: CGVector(dx: 150, dy: 200)),
+            .init(fileName: "New planet 2", velocityFactor: -0.02, zIndex: -4, offset: CGVector(dx: 150, dy: 200)),
             .init(fileName: "New Planet 3", velocityFactor: 0.06, zIndex: -3, offset: CGVector(dx: -140, dy: 200)),
         ])
+        
+        for node in self.children{
+            if (node.name == "WaterFake"){
+                if let someTileMap:SKTileMapNode = node as? SKTileMapNode{
+                    giveTileMapPhysicsBodyWater(map: someTileMap, textureWidth: 64, tileMapProportion: 64)
+                    someTileMap.removeFromParent()
+                }
+            }
+        }
+        
+        
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
         super.update(currentTime)
         if player.node.position.y < (childNode(withName: "Limiting gravity")?.position.y)! && isTouched{
-            self.physicsWorld.gravity = CGVector(dx: 0, dy: 23.8)
+            self.physicsWorld.gravity = CGVector(dx: 0, dy: 5)
         } else if  player.node.position.y > (childNode(withName: "Limiting gravity")?.position.y)!{
-            self.physicsWorld.gravity = CGVector(dx: 0, dy: -5)
+            self.physicsWorld.gravity = CGVector(dx: 0, dy: -4)
             
-        } else if player.node.position.y < (childNode(withName: "Limiting gravity")?.position.y)!{
-            player.node.physicsBody?.applyForce(CGVector(dx: 0, dy: 730))
+        } else if player.node.position.y < ((childNode(withName: "Limiting gravity")?.position.y)!) + 10{
+            player.node.physicsBody?.applyForce(CGVector(dx: 0, dy: 144))
         }
         
         if (childNode(withName: "LabelTrigger")?.position.x)! > player.node.position.x{
@@ -87,5 +99,6 @@ class SwinPhase: BaseLevelScene{
         isTouched = false
 
     }
+    
 
 }

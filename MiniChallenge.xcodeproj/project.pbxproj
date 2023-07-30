@@ -62,6 +62,10 @@
 		E8E492192A66359B00FE6C86 /* Phase2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E492182A66359B00FE6C86 /* Phase2.swift */; };
 		E8E4921E2A66476B00FE6C86 /* Phase3.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E4921D2A66476B00FE6C86 /* Phase3.swift */; };
 		E8E492202A66477500FE6C86 /* Phase3.sks in Resources */ = {isa = PBXBuildFile; fileRef = E8E4921F2A66477500FE6C86 /* Phase3.sks */; };
+		E8EE37292A7462180061A9B3 /* BUG2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E8EE37272A7462180061A9B3 /* BUG2.mp3 */; };
+		E8EE372A2A7462180061A9B3 /* BUG1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E8EE37282A7462180061A9B3 /* BUG1.mp3 */; };
+		E8EE372D2A7467400061A9B3 /* Touch.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E8EE372B2A74673F0061A9B3 /* Touch.mp3 */; };
+		E8EE372E2A7467400061A9B3 /* TouchContinued.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E8EE372C2A7467400061A9B3 /* TouchContinued.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +125,10 @@
 		E8E492182A66359B00FE6C86 /* Phase2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase2.swift; sourceTree = "<group>"; };
 		E8E4921D2A66476B00FE6C86 /* Phase3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase3.swift; sourceTree = "<group>"; };
 		E8E4921F2A66477500FE6C86 /* Phase3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Phase3.sks; sourceTree = "<group>"; };
+		E8EE37272A7462180061A9B3 /* BUG2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BUG2.mp3; sourceTree = "<group>"; };
+		E8EE37282A7462180061A9B3 /* BUG1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BUG1.mp3; sourceTree = "<group>"; };
+		E8EE372B2A74673F0061A9B3 /* Touch.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Touch.mp3; sourceTree = "<group>"; };
+		E8EE372C2A7467400061A9B3 /* TouchContinued.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TouchContinued.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +202,7 @@
 		AB07DB3C2A5F888600721221 /* MiniChallenge-01 */ = {
 			isa = PBXGroup;
 			children = (
+				E871D9CD2A743DCA00716754 /* Sounds */,
 				980D33572A706E2F00944EF5 /* Shaders */,
 				E871D9C82A70604200716754 /* Persistence */,
 				E80031082A6F15AF003F78A4 /* FinalScene */,
@@ -287,6 +296,17 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		E871D9CD2A743DCA00716754 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				E8EE372B2A74673F0061A9B3 /* Touch.mp3 */,
+				E8EE372C2A7467400061A9B3 /* TouchContinued.mp3 */,
+				E8EE37282A7462180061A9B3 /* BUG1.mp3 */,
+				E8EE37272A7462180061A9B3 /* BUG2.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		E8E4920B2A662F7800FE6C86 /* Phase1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +394,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8EE37292A7462180061A9B3 /* BUG2.mp3 in Resources */,
 				E80030F32A6DDBF1003F78A4 /* ExplainScene1.sks in Resources */,
 				98155DC62A6722C30067EA24 /* Phase2.sks in Resources */,
 				E80031072A6F1588003F78A4 /* ExplainScene3.sks in Resources */,
@@ -384,11 +405,14 @@
 				98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */,
 				E80030FE2A6E5B2C003F78A4 /* SwinPhase.sks in Resources */,
 				AB6D31472A72D22C00D31F16 /* Test.sks in Resources */,
+				E8EE372D2A7467400061A9B3 /* Touch.mp3 in Resources */,
+				E8EE372E2A7467400061A9B3 /* TouchContinued.mp3 in Resources */,
 				E80030F52A6DE4D1003F78A4 /* ExplainScene2.sks in Resources */,
 				98CE02BF2A64AAE50032DFCC /* PlataformGameScene.sks in Resources */,
 				AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */,
 				E8E492202A66477500FE6C86 /* Phase3.sks in Resources */,
 				AB07DB4E2A5F888800721221 /* LaunchScreen.storyboard in Resources */,
+				E8EE372A2A7462180061A9B3 /* BUG1.mp3 in Resources */,
 				E8E492162A6633F800FE6C86 /* Phase1.sks in Resources */,
 				980D33592A706E4A00944EF5 /* WhiteSpriteShader.fsh in Resources */,
 				98CE02B12A64A0660032DFCC /* Assets.xcassets in Resources */,
@@ -585,7 +609,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6FXWX5Z987;
+				DEVELOPMENT_TEAM = PCTRQS8Z4G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -613,7 +637,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6FXWX5Z987;
+				DEVELOPMENT_TEAM = PCTRQS8Z4G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
