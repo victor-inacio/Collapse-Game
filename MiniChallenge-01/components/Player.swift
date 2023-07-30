@@ -126,8 +126,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         if self.jumpWasPressed{
             self.stateMachine?.enter(PlayerBoost.self)
         }
-        
-        print(node.physicsBody?.velocity.dy)
+    
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
