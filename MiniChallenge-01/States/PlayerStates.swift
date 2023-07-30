@@ -10,7 +10,7 @@ class PlayerIdle: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
-        player.node.physicsBody?.velocity = .init(dx: 0, dy: 0)
+        player.node.physicsBody?.velocity.dx = 0
     }
 }
 
