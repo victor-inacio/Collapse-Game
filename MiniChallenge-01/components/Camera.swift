@@ -34,7 +34,7 @@ class CameraController {
     
     func onFinishUpdate() {
         if let target = target{
-            self.camera.run(.move(to: CGPoint(x: target.position.x + configWidth, y: target.position.y + configHeight), duration: 0.3))
+            self.camera.run(.move(to: CGPoint(x: target.position.x + configWidth, y: target.position.y + configHeight), duration: 0.21))
         }
     }
     
