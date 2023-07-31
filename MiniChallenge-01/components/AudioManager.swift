@@ -4,6 +4,19 @@ class AudioManager {
     
     static var generalVolume: Float = 1
     private var player: AVAudioPlayer!
+    public var volume: Float {
+        
+        get {
+            return self._volume
+        }
+        
+        set {
+            self._volume = newValue
+        }
+        
+    }
+    
+    private var _volume: Float = 1
     
     static var players: [AudioManager] = []
 
@@ -34,7 +47,7 @@ class AudioManager {
     
     func setVolume(volume: Float, interval: TimeInterval = 0) -> Self {
         player.setVolume(volume * AudioManager.generalVolume, fadeDuration: interval)
-        
+        self.volume = volume
         return self
     }
     
@@ -56,7 +69,7 @@ class AudioManager {
         AudioManager.generalVolume = AudioManager.generalVolume == 1 ? 0 : 1
         
         AudioManager.players.forEach { audio in
-            audio.setVolume(volume: AudioManager.generalVolume)
+            audio.player.setVolume(audio.volume * AudioManager.generalVolume, fadeDuration: 0)
         }
     }
 }

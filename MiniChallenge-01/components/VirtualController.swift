@@ -27,18 +27,7 @@ class VirtualController: SKNode{
     var isAppInForeground: Bool = true
     var exitButton: SKSpriteNode?
     var soundButton: SKSpriteNode?
-    var isSoundMuted: Bool = false {
-        didSet {
-            if isSoundMuted {
-                soundButton?.texture = SKTexture(imageNamed: "soundOff")
-                //Lógica de Desligar o som do Jogo aqui
-            
-            } else {
-                soundButton?.texture = SKTexture(imageNamed: "soundOn")
-                // Lógica de Ligar o som do Jogo aqui
-            }
-        }
-    }
+    var isSoundMuted: Bool = false
     var skull: SKSpriteNode?
     var deadCount: SKLabelNode?
     
@@ -220,7 +209,10 @@ class VirtualController: SKNode{
             }
             
             if let soundButton = soundButton, soundButton.contains(convert(location, to: overlayPause!)) {
-                isSoundMuted.toggle() // Toggle do soundButton
+                AudioManager.toggleMute()
+                soundButton.texture = SKTexture(imageNamed: AudioManager.generalVolume == 1 ? "soundOn" : "soundOff")
+                
+                // Toggle do soundButton
             }
             
             
