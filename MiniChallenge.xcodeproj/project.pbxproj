@@ -23,6 +23,7 @@
 		984BB8482A77620C00910613 /* paz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 984BB8472A77620C00910613 /* paz.mp3 */; };
 		984BB84C2A77690200910613 /* intro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 984BB84B2A77690200910613 /* intro.mp3 */; };
 		9865AC4E2A65B74F003BDA66 /* DoorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865AC4D2A65B74F003BDA66 /* DoorEntity.swift */; };
+		987818C72A781DDF00BE6C20 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987818C62A781DDF00BE6C20 /* AudioManager.swift */; };
 		98A56A282A6F2E9D00A19A18 /* Parallax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A56A272A6F2E9D00A19A18 /* Parallax.swift */; };
 		98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */; };
 		98CE02B02A64A0660032DFCC /* BaseLevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */; };
@@ -89,6 +90,7 @@
 		984BB8472A77620C00910613 /* paz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = paz.mp3; sourceTree = "<group>"; };
 		984BB84B2A77690200910613 /* intro.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = intro.mp3; sourceTree = "<group>"; };
 		9865AC4D2A65B74F003BDA66 /* DoorEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoorEntity.swift; sourceTree = "<group>"; };
+		987818C62A781DDF00BE6C20 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		98A56A272A6F2E9D00A19A18 /* Parallax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parallax.swift; sourceTree = "<group>"; };
 		98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSetAsset.sks; sourceTree = "<group>"; };
 		98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseLevelScene.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 				E85633452A671E7400FCB1FF /* FallenIceBlock.swift */,
 				9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */,
 				98A56A272A6F2E9D00A19A18 /* Parallax.swift */,
+				987818C62A781DDF00BE6C20 /* AudioManager.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 			files = (
 				E80031052A6F157D003F78A4 /* ExplainScene3.swift in Sources */,
 				E8302BED2A6B25B100BC9C06 /* Prologue.swift in Sources */,
+				987818C72A781DDF00BE6C20 /* AudioManager.swift in Sources */,
 				AB07DB462A5F888600721221 /* GameViewController.swift in Sources */,
 				AB07DB5F2A5F9C0300721221 /* SwiftUIView.swift in Sources */,
 				E85633462A671E7400FCB1FF /* FallenIceBlock.swift in Sources */,
