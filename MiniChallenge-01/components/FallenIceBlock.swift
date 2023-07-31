@@ -103,7 +103,6 @@ extension BaseLevelScene{
                     if node2.name == "Limit"{
                         if isNodeCloseOnY(node, closeTo: node2, distanceThreshold: 20) && isNodeCloseOnX(node, closeTo: node2, distanceThreshold: 300) || !isNodeCloseOnX(node, closeTo: player.node, distanceThreshold: 777){
                             node.removeFromParent()
-//                            print(node.position)
                         }
                     }
                 }
