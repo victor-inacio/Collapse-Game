@@ -25,7 +25,7 @@ class MainMenu: SKScene{
     var dieLabel: SKLabelNode!
     var canContinue: Bool = false
     
-    var player: AVAudioPlayer!
+    var player = AudioManager(fileName: "intro")
     
     override func didMove(to view: SKView){
         
@@ -44,37 +44,14 @@ class MainMenu: SKScene{
         continueButton = self.childNode(withName: "Continue")! as? SKSpriteNode
         dieLabel = childNode(withName: "HighScore")! as? SKLabelNode
         
+        player.setLoops(loops: -1).play()
+    
         
         let fadeInAction = SKAction.fadeAlpha(to: 0.1, duration: 0.2)
         let fadeOutAction = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
         let blinkSequence = SKAction.sequence([fadeInAction, fadeOutAction])
         let blinkForever = SKAction.repeat(blinkSequence, count: 7)
         dieLabel.run(blinkForever)
-        
-        print(winGame)
-        
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(.playback)
-            try audioSession.setActive(true)
-        } catch {
-            print("Setting category to AVAudioSessionCategoryPlayback failed.")
-        }
-        
-        guard let soundFileURL = Bundle.main.url(forResource: "intro", withExtension: "mp3") else {
-            print("Arquivo de som não encontrado.")
-            return
-        }
-        
-        do {
-            player = try AVAudioPlayer(contentsOf: soundFileURL)
-            player.numberOfLoops = -1
-            player.prepareToPlay()
-            player.play()
-        } catch {
-            print("Erro ao reproduzir o som: (error.localizedDescription)")
-        }
-        
     }
     
     
@@ -116,13 +93,10 @@ class MainMenu: SKScene{
         if !winGame{
             userDefaults.set(-1, forKey: "minDeadCount")
         }
-        print(winGame)
         
         winGame = userDefaults.bool(forKey: "winGame")
         commonDeadCount = userDefaults.integer(forKey: "commonDeadCount")
-        print(commonDeadCount)
         minDeadCount = userDefaults.integer(forKey: "minDeadCount")
-        print("min: \(minDeadCount)")
         levelName = userDefaults.string(forKey: "highLevelName")
         
         if levelName != nil{
