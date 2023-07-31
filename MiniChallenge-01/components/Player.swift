@@ -107,7 +107,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     
     func update() {
 
-        print(stateMachine.currentState)
+
         
         if checkFall() {
          stateMachine.enter(PlayerFall.self)

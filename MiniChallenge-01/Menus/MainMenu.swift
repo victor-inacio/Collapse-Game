@@ -62,12 +62,12 @@ class MainMenu: SKScene{
         
         if newGameNode.contains(touchLocation){
             newGameNode.alpha = 0.5
-            print(canContinue)
+            
         }
         
         if continueButton.contains(touchLocation) && canContinue{
             continueButton.alpha = 0.5
-            print("Cheguei")
+            
         }
     }
     
@@ -108,6 +108,7 @@ class MainMenu: SKScene{
         
         if levelName != nil{
             canContinue = true
+            continueButton.alpha = 0.9
         }
         
         if minDeadCount == -1 && !canContinue{

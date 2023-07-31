@@ -27,11 +27,11 @@ class AudioManager {
             try audioSession.setCategory(.playback)
             try audioSession.setActive(true)
         } catch {
-            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+            
         }
         
         guard let soundFileURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") else {
-            print("Arquivo de som não encontrado.")
+            
             return
         }
         
@@ -41,8 +41,7 @@ class AudioManager {
             
             AudioManager.players.append(self)
         } catch {
-            print("Erro ao reproduzir o som: (error.localizedDescription)")
-            print(error.localizedDescription)
+            
         }
     }
     

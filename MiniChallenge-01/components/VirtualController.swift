@@ -320,7 +320,7 @@ class VirtualController: SKNode{
     func drag(location: CGPoint) {
         
         if joystickInUse{
-            //            print("in use")
+    
             
             
             let point = CGPoint(x: location.x - virtualJoystickB!.position.x, y: location.y - virtualJoystickB!.position.y).normalize()

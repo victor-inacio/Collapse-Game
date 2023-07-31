@@ -82,9 +82,9 @@ extension BaseLevelScene{
             for row in 0..<tileMap.numberOfRows {
                 if tileMap.tileDefinition(atColumn: col, row: row) != nil{
                     array[col][row] = true
-//                    print("\(col), \(row) = true")
+
                 } else{
-//                    print("\(col), \(row) = false")
+                    
                 }
             }
         }
