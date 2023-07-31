@@ -24,8 +24,8 @@
 		984BB84C2A77690200910613 /* intro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 984BB84B2A77690200910613 /* intro.mp3 */; };
 		9865AC4E2A65B74F003BDA66 /* DoorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865AC4D2A65B74F003BDA66 /* DoorEntity.swift */; };
 		987818C72A781DDF00BE6C20 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987818C62A781DDF00BE6C20 /* AudioManager.swift */; };
-		987818CB2A782BE500BE6C20 /* weird.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 987818CA2A782BE500BE6C20 /* weird.mp3 */; };
 		987818CD2A782E2000BE6C20 /* calma-triste.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 987818CC2A782E2000BE6C20 /* calma-triste.mp3 */; };
+		987818D32A783ADA00BE6C20 /* weird.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 987818D22A783ADA00BE6C20 /* weird.mp3 */; };
 		98A56A282A6F2E9D00A19A18 /* Parallax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A56A272A6F2E9D00A19A18 /* Parallax.swift */; };
 		98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */; };
 		98CE02B02A64A0660032DFCC /* BaseLevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */; };
@@ -95,8 +95,8 @@
 		984BB84B2A77690200910613 /* intro.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = intro.mp3; sourceTree = "<group>"; };
 		9865AC4D2A65B74F003BDA66 /* DoorEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoorEntity.swift; sourceTree = "<group>"; };
 		987818C62A781DDF00BE6C20 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
-		987818CA2A782BE500BE6C20 /* weird.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = weird.mp3; path = "../../../../../../Documents/Academy/Mini Challenge 01/Sounds/weird.mp3"; sourceTree = "<group>"; };
 		987818CC2A782E2000BE6C20 /* calma-triste.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "calma-triste.mp3"; sourceTree = "<group>"; };
+		987818D22A783ADA00BE6C20 /* weird.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = weird.mp3; sourceTree = "<group>"; };
 		98A56A272A6F2E9D00A19A18 /* Parallax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parallax.swift; sourceTree = "<group>"; };
 		98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSetAsset.sks; sourceTree = "<group>"; };
 		98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseLevelScene.swift; sourceTree = "<group>"; };
@@ -211,8 +211,8 @@
 				E8EE372F2A78218E0061A9B3 /* BUG2.mp3 */,
 				984BB84B2A77690200910613 /* intro.mp3 */,
 				984BB8472A77620C00910613 /* paz.mp3 */,
-				987818CA2A782BE500BE6C20 /* weird.mp3 */,
 				987818CC2A782E2000BE6C20 /* calma-triste.mp3 */,
+				987818D22A783ADA00BE6C20 /* weird.mp3 */,
 			);
 			path = Musics;
 			sourceTree = "<group>";
@@ -447,10 +447,10 @@
 			files = (
 				E80030F32A6DDBF1003F78A4 /* ExplainScene1.sks in Resources */,
 				98155DC62A6722C30067EA24 /* Phase2.sks in Resources */,
+				987818D32A783ADA00BE6C20 /* weird.mp3 in Resources */,
 				E80031072A6F1588003F78A4 /* ExplainScene3.sks in Resources */,
 				980D335B2A7077EF00944EF5 /* Shader.fsh in Resources */,
 				AB07DB492A5F888600721221 /* Main.storyboard in Resources */,
-				987818CB2A782BE500BE6C20 /* weird.mp3 in Resources */,
 				E80030ED2A6DCED2003F78A4 /* MainMenu.sks in Resources */,
 				AB5785732A77AFF300CB4770 /* Lv3.sks in Resources */,
 				E800310C2A6F15CD003F78A4 /* FinalScene.sks in Resources */,
