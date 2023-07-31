@@ -10,13 +10,21 @@ import SpriteKit
 class Prologue: BaseLevelScene{
     var startJumpText = false
     var finishJumpText = false
-    var startAnimation: Bool = false
+    var startAnimation: Bool = false {
+        didSet {
+            if (self.startAnimation) {
+                audioPlayer.setVolume(volume: 0, interval: 1)
+            }
+        }
+    }
     var finishAnimation: Bool = false
     
     var bug: VisualBug!
     var scriptMove: SKSpriteNode!
     var pier: SKSpriteNode!
     var pierPhysicsBody: SKSpriteNode!
+    
+    var audioPlayer = AudioManager(fileName: "calma-triste")
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -40,6 +48,8 @@ class Prologue: BaseLevelScene{
             .init(fileName: "Nuvens2", velocityFactor: 0.08, zIndex: -2, offset: CGVector(dx: 0, dy: 60)),
             .init(fileName: "Noite Estrelada", velocityFactor: 0.005, zIndex: -4, type: .Background)
         ])
+        
+        audioPlayer.setVolume(volume: 1, interval: 3).setLoops(loops: -1).play()
     }
     
     override func update(_ currentTime: TimeInterval) {
