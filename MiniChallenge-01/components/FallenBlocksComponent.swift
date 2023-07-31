@@ -21,11 +21,11 @@ class FallenBlocksComponent: GKComponent {
         
         let scene = node.scene!
         
-        originalNodeClone = node.copy() as! SKSpriteNode
+        originalNodeClone = (node.copy() as! SKSpriteNode)
         originalNodeClone.physicsBody = nil
         originalNodeClone.alpha = 1
         
-        nodeClone = originalNodeClone.copy() as! SKSpriteNode
+        nodeClone = (originalNodeClone.copy() as! SKSpriteNode)
         
         scene.addChild(nodeClone)
         
@@ -40,7 +40,7 @@ class FallenBlocksComponent: GKComponent {
             } else {
                 if let otherNode = otherNode {
                     let topPositionOfBlock = node.position.y + node.size.height / 2
-                    let bottomPositionOfOtherNode = otherNode.position.y - otherNode.size.height / 2
+                    _ = otherNode.position.y - otherNode.size.height / 2
                     
                     if (otherNode.entity is Player && otherNode.position.y >= topPositionOfBlock) {
                         self.nodeClone.run(.sequence([
@@ -79,7 +79,7 @@ class FallenBlocksComponent: GKComponent {
             self.entity!.component(ofType: SpriteComponent.self)!.node = copy
             scene.addChild(copy)
             
-            nodeClone = originalNodeClone.copy() as! SKSpriteNode
+            nodeClone = (originalNodeClone.copy() as! SKSpriteNode)
             
             scene.addChild(nodeClone)
             canReset = false
@@ -94,7 +94,7 @@ extension SKAction {
         let startingY = initialPosition.y
         let numberOfShakes = duration / 0.015
         var actionsArray:[SKAction] = []
-        for index in 1...Int(numberOfShakes) {
+        for _ in 1...Int(numberOfShakes) {
             let newXPos = startingX + CGFloat(arc4random_uniform(UInt32(amplitudeX))) - CGFloat(amplitudeX / 2)
             let newYPos = startingY + CGFloat(arc4random_uniform(UInt32(amplitudeY))) - CGFloat(amplitudeY / 2)
             actionsArray.append(SKAction.move(to: CGPointMake(newXPos, newYPos), duration: 0.015))

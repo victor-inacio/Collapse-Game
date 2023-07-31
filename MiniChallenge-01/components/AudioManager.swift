@@ -46,18 +46,21 @@ class AudioManager {
         }
     }
     
+    @discardableResult
     func setVolume(volume: Float, interval: TimeInterval = 0) -> Self {
         player.setVolume(volume * AudioManager.generalVolume, fadeDuration: interval)
         self.volume = volume
         return self
     }
     
+    @discardableResult
     func setLoops(loops: Int) -> Self {
         self.player.numberOfLoops = loops
         
         return self
     }
     
+    @discardableResult
     func play() -> Self {
         player.prepareToPlay()
         player.play()

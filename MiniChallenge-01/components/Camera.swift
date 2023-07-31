@@ -51,11 +51,11 @@ class CameraController {
     private func setCameraVelocity(_ currentTime: TimeInterval) {
         let currentCameraPosition = self.camera.position
         
-        var deltaX = currentCameraPosition.x - lastCameraPosition.x
-        var deltaY =  currentCameraPosition.y - lastCameraPosition.y
+        let deltaX = currentCameraPosition.x - lastCameraPosition.x
+        let deltaY =  currentCameraPosition.y - lastCameraPosition.y
         
-        var velocityX = deltaX / deltaTime
-        var velocityY = deltaY / deltaTime
+        let velocityX = deltaX / deltaTime
+        let velocityY = deltaY / deltaTime
         
         self.cameraVelocity = .init(dx: velocityX, dy: velocityY)
         

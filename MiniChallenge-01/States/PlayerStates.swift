@@ -95,9 +95,6 @@ class PlayerDash: GKState{
         audioPlayer.setLoops(loops: 0).setVolume(volume: 0.2)
     }
     
-    
-    
-    
     override func didEnter(from previousState: GKState?) {
         
         if !player.canDash{
