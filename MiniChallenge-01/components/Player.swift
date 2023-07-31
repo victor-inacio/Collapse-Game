@@ -25,6 +25,8 @@ class Player: NodeEntity, VirtualControllerTarget{
     var dashDirection: CGVector = .init(dx: 0, dy: 0)
     var canBoost = false
     var lastPlayerVelocity: CGVector = .init(dx: 0, dy: 0)
+    var deathAudioPlayer = AudioManager(fileName: "water2")
+        .setLoops(loops: 0)
     
     init(){
         
@@ -55,6 +57,7 @@ class Player: NodeEntity, VirtualControllerTarget{
         if (stateMachine.currentState is PlayerDead) {
             return
         }
+        deathAudioPlayer.play()
         
         if let scene = node.scene as? BaseLevelScene {
             scene.resetLevel()

@@ -92,7 +92,7 @@ class PlayerDash: GKState{
     
     init(player: Player){
         self.player = player
-        audioPlayer.setLoops(loops: 0)
+        audioPlayer.setLoops(loops: 0).setVolume(volume: 0.2)
     }
     
     

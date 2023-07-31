@@ -3,6 +3,8 @@ import SpriteKit
 
 class KillerCollisionComponent: GKComponent {
     
+   
+    
     override func didAddToEntity() {
         let trigger = TriggerComponent { otherNode in
                     

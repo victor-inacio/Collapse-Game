@@ -14,6 +14,7 @@ class WaterEntity: NodeEntity {
         
         
         addComponent(spriteComponent)
+       
         addComponent(killerComponent)
         
         node.entity = self

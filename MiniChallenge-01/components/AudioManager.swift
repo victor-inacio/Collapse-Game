@@ -42,6 +42,7 @@ class AudioManager {
             AudioManager.players.append(self)
         } catch {
             print("Erro ao reproduzir o som: (error.localizedDescription)")
+            print(error.localizedDescription)
         }
     }
     
