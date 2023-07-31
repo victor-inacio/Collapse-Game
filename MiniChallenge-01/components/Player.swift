@@ -26,7 +26,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     var canBoost = false
     var lastPlayerVelocity: CGVector = .init(dx: 0, dy: 0)
     var deathAudioPlayer = AudioManager(fileName: "water2")
-        .setLoops(loops: 0)
+        .setLoops(loops: 0).setVolume(volume: 0.1)
     
     init(){
         
