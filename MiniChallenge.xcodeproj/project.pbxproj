@@ -38,7 +38,6 @@
 		AB07DB4E2A5F888800721221 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB07DB4C2A5F888800721221 /* LaunchScreen.storyboard */; };
 		AB07DB5B2A5F934600721221 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB5A2A5F934600721221 /* Math.swift */; };
 		AB07DB5D2A5F938F00721221 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB5C2A5F938F00721221 /* Player.swift */; };
-		AB07DB5F2A5F9C0300721221 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB5E2A5F9C0300721221 /* SwiftUIView.swift */; };
 		AB07DB612A602D8C00721221 /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB602A602D8C00721221 /* PhysicsCategory.swift */; };
 		AB07DB632A60317800721221 /* VirtualController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB622A60317800721221 /* VirtualController.swift */; };
 		AB07DB652A60394100721221 /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB642A60394100721221 /* Ground.swift */; };
@@ -110,7 +109,6 @@
 		AB07DB4D2A5F888800721221 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB07DB5A2A5F934600721221 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		AB07DB5C2A5F938F00721221 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		AB07DB5E2A5F9C0300721221 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		AB07DB602A602D8C00721221 /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		AB07DB622A60317800721221 /* VirtualController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualController.swift; sourceTree = "<group>"; };
 		AB07DB642A60394100721221 /* Ground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
@@ -252,7 +250,6 @@
 				E8E4920B2A662F7800FE6C86 /* Phase1 */,
 				AB5785672A775A0500CB4770 /* New Levels 1.0 */,
 				984AEF082A64BBF800792A84 /* Entities */,
-				AB07DB5E2A5F9C0300721221 /* SwiftUIView.swift */,
 				AB07DB452A5F888600721221 /* GameViewController.swift */,
 				AB07DB4A2A5F888800721221 /* Assets.xcassets */,
 				AB07DB572A5F90D600721221 /* APP */,
@@ -478,7 +475,6 @@
 				E8302BED2A6B25B100BC9C06 /* Prologue.swift in Sources */,
 				987818C72A781DDF00BE6C20 /* AudioManager.swift in Sources */,
 				AB07DB462A5F888600721221 /* GameViewController.swift in Sources */,
-				AB07DB5F2A5F9C0300721221 /* SwiftUIView.swift in Sources */,
 				E85633462A671E7400FCB1FF /* FallenIceBlock.swift in Sources */,
 				E8E492192A66359B00FE6C86 /* Phase2.swift in Sources */,
 				E8E492142A66314900FE6C86 /* Phase1.swift in Sources */,
