@@ -25,7 +25,6 @@ class PlayerRun: GKState{
     override func update(deltaTime seconds: TimeInterval) {
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
     }
-    
 }
 
 class PlayerJump: GKState{
