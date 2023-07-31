@@ -63,7 +63,7 @@ class PlayerJump: GKState{
     }
     
     override func didEnter(from previousState: GKState?) {
-        player.node.run(.repeatForever(SKAction.animate(with: .init(format: "jump frame %@", frameCount: 1...4), timePerFrame: 0.1)), withKey: "jump")
+        player.node.run(SKAction.animate(with: .init(format: "jump frame %@", frameCount: 1...3), timePerFrame: 0.1), withKey: "jump")
     }
     
     
