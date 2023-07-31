@@ -10,7 +10,7 @@ class PlayerIdle: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
-        player.node.run(.repeatForever(SKAction.animate(with: .init(format: "idle frame %@", frameCount: 1...4), timePerFrame: 0.5)), withKey: "idling")
+        player.node.run(.repeatForever(.animate(with: .init(format: "idle frame %@", frameCount: 1...4), timePerFrame: 0.5)), withKey: "idling")
        
         player.node.physicsBody?.velocity.dx = 0
     }
@@ -35,7 +35,7 @@ class PlayerRun: GKState{
     }
     
     override func didEnter(from previousState: GKState?) {
-        player.node.run(.repeatForever(SKAction.animate(with: .init(format: "animacao correndo%@", frameCount: 1...4), timePerFrame: 0.085)), withKey: "run")
+        player.node.run(.repeatForever(.animate(with: .init(format: "animacao correndo%@", frameCount: 1...4), timePerFrame: 0.085)), withKey: "run")
     }
     
     
@@ -63,7 +63,7 @@ class PlayerJump: GKState{
     }
     
     override func didEnter(from previousState: GKState?) {
-        player.node.run(SKAction.animate(with: .init(format: "jump frame %@", frameCount: 1...3), timePerFrame: 0.1), withKey: "jump")
+        player.node.run(.animate(with: .init(format: "jump frame %@", frameCount: 1...3), timePerFrame: 0.1), withKey: "jump")
     }
     
     
@@ -154,11 +154,15 @@ class PlayerFall: GKState {
     }
     
     override func didEnter(from previousState: GKState?) {
-        player.node.run(SKAction.animate(with: .init(format: "fall %@", frameCount: 1...3), timePerFrame: 0.1), withKey: "fall")
+        player.node.run(.animate(with: .init(format: "fall %@", frameCount: 1...3), timePerFrame: 0.1), withKey: "fall")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         if stateClass == PlayerJump.self {
+            return false
+        }
+        
+        if stateClass == PlayerFall.self{
             return false
         }
         
