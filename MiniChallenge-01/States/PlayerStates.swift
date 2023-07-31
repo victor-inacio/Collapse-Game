@@ -87,12 +87,15 @@ class PlayerJump: GKState{
 class PlayerDash: GKState{
     
     var player: Player!
+    var audioPlayer = AudioManager(fileName: "dash2")
+    var dashing: Bool = true
     
     init(player: Player){
         self.player = player
+        audioPlayer.setLoops(loops: 0)
     }
     
-    var dashing: Bool = true
+    
     
     
     override func didEnter(from previousState: GKState?) {
@@ -100,6 +103,8 @@ class PlayerDash: GKState{
         if !player.canDash{
             return
         }
+        
+        audioPlayer.play()
         
         player.node.physicsBody?.velocity.dy = 0
         player.node.physicsBody?.affectedByGravity = false

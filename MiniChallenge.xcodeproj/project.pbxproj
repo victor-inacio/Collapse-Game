@@ -26,6 +26,7 @@
 		987818C72A781DDF00BE6C20 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987818C62A781DDF00BE6C20 /* AudioManager.swift */; };
 		987818CD2A782E2000BE6C20 /* calma-triste.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 987818CC2A782E2000BE6C20 /* calma-triste.mp3 */; };
 		987818D32A783ADA00BE6C20 /* weird.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 987818D22A783ADA00BE6C20 /* weird.mp3 */; };
+		987818D52A78484700BE6C20 /* dash2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 987818D42A78484700BE6C20 /* dash2.mp3 */; };
 		98A56A282A6F2E9D00A19A18 /* Parallax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A56A272A6F2E9D00A19A18 /* Parallax.swift */; };
 		98CE02AF2A64A0660032DFCC /* TileSetAsset.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */; };
 		98CE02B02A64A0660032DFCC /* BaseLevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */; };
@@ -97,6 +98,7 @@
 		987818C62A781DDF00BE6C20 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		987818CC2A782E2000BE6C20 /* calma-triste.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "calma-triste.mp3"; sourceTree = "<group>"; };
 		987818D22A783ADA00BE6C20 /* weird.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = weird.mp3; sourceTree = "<group>"; };
+		987818D42A78484700BE6C20 /* dash2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dash2.mp3; sourceTree = "<group>"; };
 		98A56A272A6F2E9D00A19A18 /* Parallax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parallax.swift; sourceTree = "<group>"; };
 		98CE02AA2A64A0660032DFCC /* TileSetAsset.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSetAsset.sks; sourceTree = "<group>"; };
 		98CE02AB2A64A0660032DFCC /* BaseLevelScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseLevelScene.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				984BB8472A77620C00910613 /* paz.mp3 */,
 				987818CC2A782E2000BE6C20 /* calma-triste.mp3 */,
 				987818D22A783ADA00BE6C20 /* weird.mp3 */,
+				987818D42A78484700BE6C20 /* dash2.mp3 */,
 			);
 			path = Musics;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				E8E492162A6633F800FE6C86 /* Phase1.sks in Resources */,
 				980D33592A706E4A00944EF5 /* WhiteSpriteShader.fsh in Resources */,
 				E8EE37312A78218E0061A9B3 /* BUG2.mp3 in Resources */,
+				987818D52A78484700BE6C20 /* dash2.mp3 in Resources */,
 				98CE02B12A64A0660032DFCC /* Assets.xcassets in Resources */,
 				984BB84C2A77690200910613 /* intro.mp3 in Resources */,
 			);
