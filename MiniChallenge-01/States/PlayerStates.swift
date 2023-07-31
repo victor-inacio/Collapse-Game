@@ -10,8 +10,20 @@ class PlayerIdle: GKState{
     
     override func didEnter(from previousState: GKState?) {
         
+        player.node.run(.repeatForever(SKAction.animate(with: .init(format: "idle frame %@", frameCount: 1...4), timePerFrame: 0.5)), withKey: "idling")
+       
         player.node.physicsBody?.velocity.dx = 0
     }
+    
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+        return stateClass != PlayerIdle.self
+    }
+    
+    override func willExit(to nextState: GKState) {
+        player.node.removeAction(forKey: "idling")
+    }
+    
+
 }
 
 class PlayerRun: GKState{
@@ -22,10 +34,25 @@ class PlayerRun: GKState{
         self.player = player
     }
     
+    override func didEnter(from previousState: GKState?) {
+        player.node.run(.repeatForever(SKAction.animate(with: .init(format: "run frame %@", frameCount: 1...4), timePerFrame: 0.1)), withKey: "run")
+    }
+    
+    
+    
     override func update(deltaTime seconds: TimeInterval) {
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
     }
+    
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+        return stateClass != PlayerRun.self
+    }
+    
+    override func willExit(to nextState: GKState) {
+        player.node.removeAction(forKey: "run")
+    }
 }
+
 
 class PlayerJump: GKState{
     
@@ -36,22 +63,24 @@ class PlayerJump: GKState{
     }
     
     override func didEnter(from previousState: GKState?) {
+        player.node.run(.repeatForever(SKAction.animate(with: .init(format: "jump frame %@", frameCount: 1...4), timePerFrame: 0.1)), withKey: "jump")
+    }
+    
+    
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+        if  stateClass == PlayerJump.self || stateClass == PlayerRun.self || stateClass == PlayerBoost.self {
+            return false
+        }
         
+        return true
     }
     
     override func update(deltaTime seconds: TimeInterval) {
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        
-        
-        if stateClass == PlayerBoost.self{
-            return false
-        }
-        
-        return true
-        
+    override func willExit(to nextState: GKState) {
+        player.node.removeAction(forKey: "jump")
     }
 }
 
@@ -122,6 +151,10 @@ class PlayerFall: GKState {
         self.player = player
     }
     
+    override func didEnter(from previousState: GKState?) {
+        player.node.run(.repeatForever(SKAction.animate(with: .init(format: "fall %@", frameCount: 1...3), timePerFrame: 0.1)), withKey: "fall")
+    }
+    
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         if stateClass == PlayerJump.self {
             return false
@@ -134,6 +167,10 @@ class PlayerFall: GKState {
         
         player.applyMovement(distanceX: player.velocityX, angle: player.angle)
         
+    }
+    
+    override func willExit(to nextState: GKState) {
+        player.node.removeAction(forKey: "fall")
     }
 }
 

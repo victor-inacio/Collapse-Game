@@ -103,7 +103,7 @@ class Player: NodeEntity, VirtualControllerTarget{
     }
     
     func update() {
-        
+
         if checkFall() {
          stateMachine.enter(PlayerFall.self)
         }

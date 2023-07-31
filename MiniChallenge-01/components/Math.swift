@@ -81,7 +81,7 @@ func normalForDash(vector: CGVector) -> CGVector{
 extension Array where Element == SKTexture {
     init(format: String, frameCount: ClosedRange<Int>){
         self = frameCount.map({ (index) in
-            let imageName = String(format: format, "\(index)")
+            let imageName = String(format: format, String(index))
             return SKTexture(imageNamed: imageName)
         })
     }
