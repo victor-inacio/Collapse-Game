@@ -6,6 +6,7 @@
 //
 
 import SpriteKit
+import AVFAudio
 
 class MainMenu: SKScene{
     var newGameNode: SKSpriteNode!
@@ -24,7 +25,10 @@ class MainMenu: SKScene{
     var dieLabel: SKLabelNode!
     var canContinue: Bool = false
     
+    var player: AVAudioPlayer!
+    
     override func didMove(to view: SKView){
+        
         
         cloud1 = childNode(withName: "Cloud 1")! as? SKSpriteNode
         cloud2 = childNode(withName: "Cloud 2")! as? SKSpriteNode
@@ -49,9 +53,31 @@ class MainMenu: SKScene{
         
         print(winGame)
         
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(.playback)
+            try audioSession.setActive(true)
+        } catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+        }
         
+        guard let soundFileURL = Bundle.main.url(forResource: "intro", withExtension: "mp3") else {
+            print("Arquivo de som não encontrado.")
+            return
+        }
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: soundFileURL)
+            player.numberOfLoops = -1
+            player.prepareToPlay()
+            player.play()
+        } catch {
+            print("Erro ao reproduzir o som: (error.localizedDescription)")
+        }
         
     }
+    
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
