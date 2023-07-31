@@ -370,6 +370,9 @@ class VirtualController: SKNode{
                 
                 virtualJoystickF!.position = location
             }
+            if location.x > 0{
+                movementReset(size: scene!.size)
+            }
         }
     }
     
