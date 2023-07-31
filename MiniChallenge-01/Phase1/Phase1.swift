@@ -39,7 +39,6 @@ class Phase1: BaseLevelScene{
             .init(fileName: "New Planet 3", velocityFactor: 0.10, zIndex: -3, offset: CGVector(dx: -140, dy: -190)),
         ])
         
-//        print(levelName!)
     }
     
     override func update(_ currentTime: TimeInterval) {
