@@ -12,6 +12,7 @@ class ExplainScene2: ExplainScene1{
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if canSkip{
+            player.setVolume(volume: 0, interval: 3)
             nextLevel("Phase1", transition: SKTransition.fade(withDuration: 3))
         } else{
             removeAllActions()

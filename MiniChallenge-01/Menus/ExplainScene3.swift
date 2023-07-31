@@ -14,6 +14,7 @@ class ExplainScene3: ExplainScene1{
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if canSkip{
+            player.setVolume(volume: 0, interval: 3)
             nextLevel("MainMenu", direction: SKTransitionDirection.up)
             userDefaults.set(true, forKey: "winGame")
         } else{
