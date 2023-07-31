@@ -47,8 +47,6 @@
 		AB07DB682A60400000721221 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB672A60400000721221 /* Camera.swift */; };
 		AB5785692A775ADD00CB4770 /* Lv1.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5785682A775ADD00CB4770 /* Lv1.swift */; };
 		AB57856B2A775AF400CB4770 /* lv 1.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB57856A2A775AF400CB4770 /* lv 1.sks */; };
-		AB57856D2A77AD8A00CB4770 /* Lv2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB57856C2A77AD8A00CB4770 /* Lv2.swift */; };
-		AB57856F2A77AD9C00CB4770 /* Lv2.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB57856E2A77AD9C00CB4770 /* Lv2.sks */; };
 		AB5785712A77AFE100CB4770 /* Lv3.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5785702A77AFE100CB4770 /* Lv3.swift */; };
 		AB5785732A77AFF300CB4770 /* Lv3.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB5785722A77AFF300CB4770 /* Lv3.sks */; };
 		AB6D31452A72D21C00D31F16 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6D31442A72D21C00D31F16 /* Test.swift */; };
@@ -121,8 +119,6 @@
 		AB07DB672A60400000721221 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		AB5785682A775ADD00CB4770 /* Lv1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lv1.swift; sourceTree = "<group>"; };
 		AB57856A2A775AF400CB4770 /* lv 1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "lv 1.sks"; sourceTree = "<group>"; };
-		AB57856C2A77AD8A00CB4770 /* Lv2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lv2.swift; sourceTree = "<group>"; };
-		AB57856E2A77AD9C00CB4770 /* Lv2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Lv2.sks; sourceTree = "<group>"; };
 		AB5785702A77AFE100CB4770 /* Lv3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lv3.swift; sourceTree = "<group>"; };
 		AB5785722A77AFF300CB4770 /* Lv3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Lv3.sks; sourceTree = "<group>"; };
 		AB6D31442A72D21C00D31F16 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
@@ -307,8 +303,6 @@
 			children = (
 				AB5785682A775ADD00CB4770 /* Lv1.swift */,
 				AB57856A2A775AF400CB4770 /* lv 1.sks */,
-				AB57856C2A77AD8A00CB4770 /* Lv2.swift */,
-				AB57856E2A77AD9C00CB4770 /* Lv2.sks */,
 				AB5785702A77AFE100CB4770 /* Lv3.swift */,
 				AB5785722A77AFF300CB4770 /* Lv3.sks */,
 			);
@@ -462,7 +456,6 @@
 				AB57856B2A775AF400CB4770 /* lv 1.sks in Resources */,
 				AB07DB4B2A5F888800721221 /* Assets.xcassets in Resources */,
 				E8E492202A66477500FE6C86 /* Phase3.sks in Resources */,
-				AB57856F2A77AD9C00CB4770 /* Lv2.sks in Resources */,
 				AB07DB4E2A5F888800721221 /* LaunchScreen.storyboard in Resources */,
 				984BB8482A77620C00910613 /* paz.mp3 in Resources */,
 				E8E492162A6633F800FE6C86 /* Phase1.sks in Resources */,
@@ -516,7 +509,6 @@
 				AB07DB652A60394100721221 /* Ground.swift in Sources */,
 				AB07DB5B2A5F934600721221 /* Math.swift in Sources */,
 				AB6D31452A72D21C00D31F16 /* Test.swift in Sources */,
-				AB57856D2A77AD8A00CB4770 /* Lv2.swift in Sources */,
 				E80030EB2A6DCEB1003F78A4 /* MainMenu.swift in Sources */,
 				9806B5CF2A69C32B003CDE88 /* Fallen1Entity.swift in Sources */,
 				E80030F72A6DE4DA003F78A4 /* ExplainScene2.swift in Sources */,
