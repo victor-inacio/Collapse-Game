@@ -13,6 +13,8 @@ class ExplainScene1: SKScene{
     var label2: SKLabelNode!
     var continueButton: SKSpriteNode!
     
+    var player = AudioManager(fileName: "weird")
+    
     override func didMove(to view: SKView) {
         label1 = childNode(withName: "Label1")! as? SKLabelNode
         label2 = childNode(withName: "Label2")! as? SKLabelNode
@@ -26,12 +28,16 @@ class ExplainScene1: SKScene{
             self.blinkModeSprite(shapeNode: self.continueButton)
             self.canSkip = true
         }]))
+        
+        player.setVolume(volume: 1).setLoops(loops: -1).play()
             
         setUserDefaults(self.name!)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if canSkip{
+            
+            player.setVolume(volume: 0, interval: 3)
             nextLevel("PlataformGameScene", direction: SKTransitionDirection.up)
         } else{
             removeAllActions()
