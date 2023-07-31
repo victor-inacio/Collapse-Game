@@ -235,7 +235,7 @@ class VirtualController: SKNode{
                 } else {
                     pauseGame()
                     pauseButton?.alpha = 1
-
+                    
                 }
             }
             if jumpButton!.frame.contains(location){
