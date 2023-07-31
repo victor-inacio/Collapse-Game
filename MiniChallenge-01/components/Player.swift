@@ -211,6 +211,8 @@ class Player: NodeEntity, VirtualControllerTarget{
 
         node.physicsBody?.applyImpulse(direction * 200)
         
+        node.texture = SKTexture(imageNamed: "Dash lado")
+        
     }
     
     func shakeScreen() {
