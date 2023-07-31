@@ -35,7 +35,7 @@ class PlayerRun: GKState{
     }
     
     override func didEnter(from previousState: GKState?) {
-        player.node.run(.repeatForever(SKAction.animate(with: .init(format: "run frame %@", frameCount: 1...4), timePerFrame: 0.1)), withKey: "run")
+        player.node.run(.repeatForever(SKAction.animate(with: .init(format: "animacao correndo%@", frameCount: 1...4), timePerFrame: 0.085)), withKey: "run")
     }
     
     
