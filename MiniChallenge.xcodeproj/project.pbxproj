@@ -163,17 +163,9 @@
 		980851082A72CA93007F80E9 /* States */ = {
 			isa = PBXGroup;
 			children = (
-				980851092A72CAF4007F80E9 /* Player */,
 				9808510A2A72CB0C007F80E9 /* PlayerStates.swift */,
 			);
 			path = States;
-			sourceTree = "<group>";
-		};
-		980851092A72CAF4007F80E9 /* Player */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Player;
 			sourceTree = "<group>";
 		};
 		980D33572A706E2F00944EF5 /* Shaders */ = {
@@ -250,7 +242,6 @@
 			isa = PBXGroup;
 			children = (
 				984BB8492A77622900910613 /* Audios */,
-				980851082A72CA93007F80E9 /* States */,
 				980D33572A706E2F00944EF5 /* Shaders */,
 				E871D9C82A70604200716754 /* Persistence */,
 				E80031082A6F15AF003F78A4 /* FinalScene */,
@@ -265,6 +256,7 @@
 				AB07DB452A5F888600721221 /* GameViewController.swift */,
 				AB07DB4A2A5F888800721221 /* Assets.xcassets */,
 				AB07DB572A5F90D600721221 /* APP */,
+				980851082A72CA93007F80E9 /* States */,
 				AB07DB592A5F921500721221 /* components */,
 				98CE02A92A64A0660032DFCC /* Prólogo */,
 				E80B5B362A65D5BE00E719E4 /* SKScene.swift */,
