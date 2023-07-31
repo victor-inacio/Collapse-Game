@@ -26,7 +26,7 @@ class BigVisualBug{
     let node: SKSpriteNode!
     
     init(){
-        let bugTexture = SKTexture(imageNamed: "BigVisualBug")
+        let bugTexture = SKTexture(imageNamed: "BigVisualBug 1")
         
         node = SKSpriteNode(texture: bugTexture)
         

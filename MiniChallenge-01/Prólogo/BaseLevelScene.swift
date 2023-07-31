@@ -11,7 +11,6 @@ import GameplayKit
 import AVFAudio
 
 class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
-    private var ground = Ground()
     var shine = SKShapeNode()
     private var plataform: SKSpriteNode = SKSpriteNode()
     
@@ -241,11 +240,7 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         self.addChild(player.node)
     }
 
-    func addGround(){
-        ground.position = CGPoint(x: size.width * 0.5 , y: size.height * 0.1 - ground.size.height)
-        self.addChild(ground)
-    }
-
+    
     
     
 }

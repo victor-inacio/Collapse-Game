@@ -82,14 +82,12 @@ class MainMenu: SKScene{
         
         if newGameNode.contains(touchLocation){
             userDefaults.set(0, forKey: "commonDeadCount")
-            run(SKAction.playSoundFileNamed("Touch", waitForCompletion: false))
             
             player.setVolume(volume: 0, interval: 3)
             nextLevel("ExplainScene1", direction: SKTransitionDirection.down)
         }
         
         if continueButton.contains(touchLocation) && canContinue{
-            run(SKAction.playSoundFileNamed("TouchContinued", waitForCompletion: false))
             player.setVolume(volume: 0, interval: 3)
             nextLevel(levelName ?? "ExplainScene1", transition: SKTransition.fade(with: .white, duration: 1.4))
         }
