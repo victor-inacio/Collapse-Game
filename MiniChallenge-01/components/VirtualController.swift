@@ -17,7 +17,8 @@ protocol VirtualControllerTarget {
 }
 
 class VirtualController: SKNode{
-    
+    var jogoPausado: SKSpriteNode?
+    var creditsButton: SKSpriteNode?
     var overlayShadow:SKSpriteNode?
     var overlayPause: SKSpriteNode?
     var isOverlay: Bool = false
@@ -48,7 +49,11 @@ class VirtualController: SKNode{
     var joystickTouch: UITouch?
     var jumpTouch: UITouch?
     var dashTouch: UITouch?
-    var direction: CGVector = CGVector(dx: 0, dy: 0)
+    var direction: CGVector = CGVector(dx: 0, dy: 0){
+        didSet{
+            self.target.onJoystickChange(direction: CGPoint(x: self.velocityX, y: self.velocityY), angle: joystickAngleRounded)
+        }
+    }
     var joystickAngleRounded: CGFloat = 0
     var velocityX: CGFloat = 0
     var velocityY: CGFloat = 0
@@ -66,6 +71,21 @@ class VirtualController: SKNode{
         
         self.target = target
         
+        // OVERLAY JOGO PAUSADO
+        let textureJogoPausado = SKTexture(imageNamed: "jogopaused")
+        jogoPausado = SKSpriteNode(texture: textureJogoPausado, color: .white, size: textureJogoPausado.size())
+        jogoPausado?.name = "jogoPausado"
+        jogoPausado?.zPosition = 10
+        
+        
+        
+        //OVERLAY CREDITS BUTTON
+        
+        let textureCreditsButton = SKTexture(imageNamed: "credits")
+        creditsButton = SKSpriteNode(texture: textureCreditsButton, color: .white, size: textureCreditsButton.size())
+        creditsButton?.name = "credit"
+        creditsButton?.zPosition = 10
+        creditsButton?.alpha = 0.3
         
         
         //OVERLAY SOUND BUTTON
@@ -118,6 +138,7 @@ class VirtualController: SKNode{
         deadCount?.fontName = "Futura Bold"
         deadCount?.fontSize = 40
         deadCount?.horizontalAlignmentMode = .left
+        deadCount?.zPosition = 11
         
         // JOYSTICK
         let textureControllerB = SKTexture(imageNamed: "virtualControllerB")
@@ -162,13 +183,14 @@ class VirtualController: SKNode{
         pauseButton?.position = CGPoint(x: scene.size.width / 2.6 + scene.size.width / 20, y: scene.size.height / 3.5 )
         
         skull?.position = CGPoint(x: scene.size.width / -2.24 + scene.size.width / 50, y: scene.size.height / 4.5 )
-        deadCount?.position = CGPoint(x: scene.size.width / -2.46 + scene.size.width / 50, y: scene.size.height / 4.5 )
+        deadCount?.position = CGPoint(x: scene.size.width / -2.46 + scene.size.width / 50, y: scene.size.height / 4.9 )
         
         overlayPause?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 14)
         overlayShadow?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 200, y: scene.size.height / -12)
-        exitButton?.position = CGPoint (x: scene.size.width / 9 - scene.size.width / 20 , y: scene.size.height / -10)
-        soundButton?.position = CGPoint (x: scene.size.width / -15 - scene.size.width / 20 , y: scene.size.height / -10)
-        
+        exitButton?.position = CGPoint (x: scene.size.width / 20 - scene.size.width / 20 , y: scene.size.height / -4 + 20)
+        soundButton?.position = CGPoint (x: 0 - scene.size.width / 13 , y: scene.size.height / -10 + 20)
+        creditsButton?.position = CGPoint (x: 0 + scene.size.width / 13 , y: scene.size.height / -10 + 20)
+        jogoPausado?.position = CGPoint (x: scene.size.width / 3 - scene.size.width / 3 , y: scene.size.height / 18 + 20)
         
         
         addOverlay()
@@ -215,9 +237,13 @@ class VirtualController: SKNode{
             if pauseButton!.frame.contains(location) {
                 pauseTouch = t
                 if isOverlay {
+                    pauseButton?.alpha = 0.3
+
                     resumeGame()
                 } else {
                     pauseGame()
+                    pauseButton?.alpha = 1
+
                 }
             }
             if jumpButton!.frame.contains(location){
@@ -243,8 +269,7 @@ class VirtualController: SKNode{
                 run(SKAction.sequence([action, reverse]))
                 
                 dashTouch = t
-
-//                target.onJoystickDashBtnTouch(direction: direction)
+                
                 target.onJoystickDashBtnTouch(direction: normalForDash(vector: direction))
             }
             
@@ -264,7 +289,6 @@ class VirtualController: SKNode{
                         // Despausar o jogo e remover o overlay de pausa
                         resumeGame()
                     }
-                    target.onJoystickChange(direction: .init(x: 0, y: 0), angle: joystickAngleRounded)
                     movementReset(size: scene!.size)
                 }
                 
@@ -278,6 +302,7 @@ class VirtualController: SKNode{
     func firstTouch(location: CGPoint, touch: UITouch ){
         
         if virtualJoystickF!.frame.contains(location) && location.x < 0{
+            
             joystickInUse = true
             joystickTouch = touch
  
@@ -334,8 +359,6 @@ class VirtualController: SKNode{
             if distanceY * CGFloat(sinalY) > radiusB - 2 && distanceY * CGFloat(sinalY) < radiusB + 2{
                 velocityX = 0
             }
-            
-            target.onJoystickChange(direction: .init(x: velocityX, y: velocityY), angle: joystickAngleRounded)
 
             if virtualJoystickB!.frame.contains(location){
                 
@@ -392,14 +415,7 @@ class VirtualController: SKNode{
         addChild(pauseButton!)
     }
     
-    //DEAD COUNT
-    /*func addSkull(){
-        addChild(skull!)
-    }*/
-    
- // func addDeadCount(){
- //     addChild(deadCount!)
- // }
+
     
     func actualDeadNumber(){
         deadCount!.text = "\(userDefaults.integer(forKey: "commonDeadCount"))"
@@ -415,23 +431,34 @@ class VirtualController: SKNode{
         overlayPause?.addChild(soundButton!)
         overlayPause?.addChild(skull!)
         overlayPause?.addChild(deadCount!)
+        overlayPause?.addChild(creditsButton!)
+        overlayPause?.addChild(jogoPausado!)
+
 
     }
+    // PAUSE GAME
     // PAUSE GAME
     func pauseGame() {
         isOverlay = true
         overlayPause?.isHidden = false
-        movementReset(size: scene!.size)
         scene?.isPaused = true
+        
+        target.onJoystickChange(direction: .zero, angle: 0)
+        
+        movementReset(size: scene!.size)
     }
+
     
+    // RESUME GAME
     // RESUME GAME
     func resumeGame() {
         isOverlay = false
         overlayPause?.isHidden = true
         scene?.isPaused = false
 
+        target.onJoystickChange(direction: .zero, angle: 0)
     }
+
 
 }
 

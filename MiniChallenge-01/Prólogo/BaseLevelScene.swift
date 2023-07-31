@@ -8,9 +8,9 @@
 import Foundation
 import SpriteKit
 import GameplayKit
+import AVFAudio
 
 class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
-    
     private var ground = Ground()
     var shine = SKShapeNode()
     private var plataform: SKSpriteNode = SKSpriteNode()
@@ -257,14 +257,6 @@ class BaseLevelScene: SKScene, SKPhysicsContactDelegate{
         self.addChild(ground)
     }
 
-    func creatWaterAnimation(){
-        for node in self.children{
-            if node.name == "WaterFake"{
-                
-            }
-            node.run(.repeatForever(.repeatForever(.animate(with: .init(format: "water1 %@", frameCount: 1...17), timePerFrame: 0.25))))
-        }
-        
-    }
+    
     
 }

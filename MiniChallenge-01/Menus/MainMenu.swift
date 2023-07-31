@@ -85,10 +85,12 @@ class MainMenu: SKScene{
         
         if newGameNode.contains(touchLocation){
             newGameNode.alpha = 0.5
+            print(canContinue)
         }
         
         if continueButton.contains(touchLocation) && canContinue{
             continueButton.alpha = 0.5
+            print("Cheguei")
         }
     }
     
@@ -103,11 +105,14 @@ class MainMenu: SKScene{
         
         if newGameNode.contains(touchLocation){
             userDefaults.set(0, forKey: "commonDeadCount")
-            nextLevel("Test", direction: SKTransitionDirection.down)
+            run(SKAction.playSoundFileNamed("Touch", waitForCompletion: false))
+            
+            nextLevel("ExplainScene1", direction: SKTransitionDirection.down)
         }
         
         if continueButton.contains(touchLocation) && canContinue{
-            nextLevel(levelName ?? "Test", transition: SKTransition.fade(with: .white, duration: 1.4))
+            run(SKAction.playSoundFileNamed("TouchContinued", waitForCompletion: false))
+            nextLevel(levelName ?? "ExplainScene1", transition: SKTransition.fade(with: .white, duration: 1.4))
         }
     }
     
@@ -116,18 +121,17 @@ class MainMenu: SKScene{
         if !winGame{
             userDefaults.set(-1, forKey: "minDeadCount")
         }
-        print(winGame)
+//        print(winGame)
         
         winGame = userDefaults.bool(forKey: "winGame")
         commonDeadCount = userDefaults.integer(forKey: "commonDeadCount")
-        print(commonDeadCount)
+//        print(commonDeadCount)
         minDeadCount = userDefaults.integer(forKey: "minDeadCount")
-        print("min: \(minDeadCount)")
+//        print("min: \(minDeadCount)")
         levelName = userDefaults.string(forKey: "highLevelName")
         
         if levelName != nil{
             canContinue = true
-            continueButton.alpha = 0.9
         }
         
         if minDeadCount == -1 && !canContinue{
