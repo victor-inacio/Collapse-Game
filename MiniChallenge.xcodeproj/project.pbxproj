@@ -43,7 +43,6 @@
 		AB07DB5D2A5F938F00721221 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB5C2A5F938F00721221 /* Player.swift */; };
 		AB07DB612A602D8C00721221 /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB602A602D8C00721221 /* PhysicsCategory.swift */; };
 		AB07DB632A60317800721221 /* VirtualController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB622A60317800721221 /* VirtualController.swift */; };
-		AB07DB652A60394100721221 /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB642A60394100721221 /* Ground.swift */; };
 		AB07DB682A60400000721221 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07DB672A60400000721221 /* Camera.swift */; };
 		AB5785692A775ADD00CB4770 /* Lv1.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5785682A775ADD00CB4770 /* Lv1.swift */; };
 		AB57856B2A775AF400CB4770 /* lv 1.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB57856A2A775AF400CB4770 /* lv 1.sks */; };
@@ -115,7 +114,6 @@
 		AB07DB5C2A5F938F00721221 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		AB07DB602A602D8C00721221 /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		AB07DB622A60317800721221 /* VirtualController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualController.swift; sourceTree = "<group>"; };
-		AB07DB642A60394100721221 /* Ground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
 		AB07DB672A60400000721221 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		AB5785682A775ADD00CB4770 /* Lv1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lv1.swift; sourceTree = "<group>"; };
 		AB57856A2A775AF400CB4770 /* lv 1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "lv 1.sks"; sourceTree = "<group>"; };
@@ -284,7 +282,6 @@
 				AB07DB602A602D8C00721221 /* PhysicsCategory.swift */,
 				AB07DB5C2A5F938F00721221 /* Player.swift */,
 				AB07DB622A60317800721221 /* VirtualController.swift */,
-				AB07DB642A60394100721221 /* Ground.swift */,
 				AB07DB672A60400000721221 /* Camera.swift */,
 				984AEF0B2A64BCD300792A84 /* DoorComponent.swift */,
 				984AEF0D2A64C42B00792A84 /* TriggerComponent.swift */,
@@ -506,7 +503,6 @@
 				E871D9CA2A70605100716754 /* Persistence.swift in Sources */,
 				98CE02B02A64A0660032DFCC /* BaseLevelScene.swift in Sources */,
 				AB07DB682A60400000721221 /* Camera.swift in Sources */,
-				AB07DB652A60394100721221 /* Ground.swift in Sources */,
 				AB07DB5B2A5F934600721221 /* Math.swift in Sources */,
 				AB6D31452A72D21C00D31F16 /* Test.swift in Sources */,
 				E80030EB2A6DCEB1003F78A4 /* MainMenu.swift in Sources */,
