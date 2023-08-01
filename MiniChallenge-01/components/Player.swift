@@ -111,7 +111,7 @@ class Player: NodeEntity, VirtualControllerTarget{
             stateMachine.enter(PlayerFall.self)
         }
         
-        if node.physicsBody?.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false{
+        if node.physicsBody?.velocity.dy == 0 && stateMachine.currentState is PlayerDash == false {
             isGrounded = true
             canDash = true
         }
@@ -135,9 +135,11 @@ class Player: NodeEntity, VirtualControllerTarget{
                 stateMachine.enter(PlayerFall.self)
             }
         }
+        
         if self.jumpWasPressed{
             self.stateMachine?.enter(PlayerBoost.self)
         }
+        
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
