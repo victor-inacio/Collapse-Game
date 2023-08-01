@@ -154,7 +154,7 @@ class PlayerFall: GKState {
     }
     
     override func didEnter(from previousState: GKState?) {
-        player.node.run(.animate(with: .init(format: "fall %@", frameCount: 1...3), timePerFrame: 0.1), withKey: "fall")
+        player.node.run(.animate(with: .init(format: "fall %@", frameCount: 2...3), timePerFrame: 0.1), withKey: "fall")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
