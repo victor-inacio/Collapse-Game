@@ -52,6 +52,7 @@
 		AB6D31452A72D21C00D31F16 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6D31442A72D21C00D31F16 /* Test.swift */; };
 		AB6D31472A72D22C00D31F16 /* Test.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB6D31462A72D22C00D31F16 /* Test.sks */; };
 		AB7A31852A7948580076BB73 /* lvForDash.sks in Resources */ = {isa = PBXBuildFile; fileRef = AB7A31842A7948580076BB73 /* lvForDash.sks */; };
+		ABA37D532A79749D00F62FCB /* Light.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA37D522A79749D00F62FCB /* Light.swift */; };
 		E80030EB2A6DCEB1003F78A4 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030EA2A6DCEB1003F78A4 /* MainMenu.swift */; };
 		E80030ED2A6DCED2003F78A4 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = E80030EC2A6DCED2003F78A4 /* MainMenu.sks */; };
 		E80030F12A6DDBBB003F78A4 /* ExplainScene1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80030F02A6DDBBB003F78A4 /* ExplainScene1.swift */; };
@@ -125,6 +126,7 @@
 		AB6D31442A72D21C00D31F16 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		AB6D31462A72D22C00D31F16 /* Test.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Test.sks; sourceTree = "<group>"; };
 		AB7A31842A7948580076BB73 /* lvForDash.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = lvForDash.sks; sourceTree = "<group>"; };
+		ABA37D522A79749D00F62FCB /* Light.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Light.swift; sourceTree = "<group>"; };
 		E80030EA2A6DCEB1003F78A4 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		E80030EC2A6DCED2003F78A4 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		E80030F02A6DDBBB003F78A4 /* ExplainScene1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainScene1.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				9806B5CA2A69A719003CDE88 /* KillierCollisionComponent.swift */,
 				98A56A272A6F2E9D00A19A18 /* Parallax.swift */,
 				987818C62A781DDF00BE6C20 /* AudioManager.swift */,
+				ABA37D522A79749D00F62FCB /* Light.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				AB07DB462A5F888600721221 /* GameViewController.swift in Sources */,
 				E85633462A671E7400FCB1FF /* FallenIceBlock.swift in Sources */,
 				E8E492192A66359B00FE6C86 /* Phase2.swift in Sources */,
+				ABA37D532A79749D00F62FCB /* Light.swift in Sources */,
 				E8E492142A66314900FE6C86 /* Phase1.swift in Sources */,
 				9806B5CD2A69BE02003CDE88 /* SKPhysicsBody.swift in Sources */,
 				98155DC82A672DD30067EA24 /* FallenBlocksComponent.swift in Sources */,
