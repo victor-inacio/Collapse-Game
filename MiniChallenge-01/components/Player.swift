@@ -123,7 +123,7 @@ class Player: NodeEntity, VirtualControllerTarget{
           
             if (doubleEqual(node.physicsBody!.velocity.dy, 0) && doubleEqual(node.physicsBody!.velocity.dx, 0)){
                 stateMachine.enter(PlayerIdle.self)
-            } else {
+            } else if node.physicsBody?.velocity.dy == 0 {
                 stateMachine.enter(PlayerRun.self)
             }
             
@@ -138,7 +138,6 @@ class Player: NodeEntity, VirtualControllerTarget{
         if self.jumpWasPressed{
             self.stateMachine?.enter(PlayerBoost.self)
         }
-        print(stateMachine.currentState)
     }
     
     func onJoystickChange(direction: CGPoint, angle: CGFloat) {
