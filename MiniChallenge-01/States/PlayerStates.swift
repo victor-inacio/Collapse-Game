@@ -101,6 +101,8 @@ class PlayerDash: GKState{
             return
         }
         
+        player.node.texture = SKTexture(imageNamed: "Dash Att")
+        
         audioPlayer.play()
         
         player.node.physicsBody?.velocity.dy = 0
