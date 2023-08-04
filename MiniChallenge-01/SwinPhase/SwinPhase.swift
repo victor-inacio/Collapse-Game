@@ -31,7 +31,6 @@ class SwinPhase: BaseLevelScene{
         swinButton.zPosition = (virtualController.jumpButton?.zPosition)!
         swinButton.alpha = 0.9
         
-        
         virtualController.jumpButton?.alpha = 0
         virtualController.dashButton?.alpha = 0
         
