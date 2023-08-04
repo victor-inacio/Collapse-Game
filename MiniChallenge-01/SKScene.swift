@@ -9,6 +9,8 @@ import SpriteKit
 import GameplayKit
 
 extension BaseLevelScene{
+    
+    // Criando corpo físico para os corpos que caem
     func giveTileMapPhysicsBodyFallen(map: SKTileMapNode, textureWidth: Double, tileMapProportion: Double){
         
         let proportion = (textureWidth / tileMapProportion)
@@ -60,7 +62,9 @@ extension BaseLevelScene{
             }
         }
     }
+    //
     
+    // Criando corpo físico para o chão
     func giveTileMapPhysicsBodyFloor(map: SKTileMapNode, textureWidth: Double, tileMapProportion: Double){
         
         let proportion = (textureWidth / tileMapProportion)
@@ -149,7 +153,9 @@ extension BaseLevelScene{
             }
         }
     }
+    //
     
+    // Criando o corpo físico para as paredes
     func giveTileMapPhysicsBodyWall(map: SKTileMapNode, textureWidth: Double, tileMapProportion: Double){
         
         let proportion = (textureWidth / tileMapProportion)
@@ -246,7 +252,9 @@ extension BaseLevelScene{
             }
         }
     }
+    //
     
+    // Criando o corpo físico para a água
     func giveTileMapPhysicsBodyWater(map: SKTileMapNode, textureWidth: Double, tileMapProportion: Double){
         
         let proportion = (textureWidth / tileMapProportion)

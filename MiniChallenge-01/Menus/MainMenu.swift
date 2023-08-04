@@ -9,6 +9,8 @@ import SpriteKit
 import AVFAudio
 
 class MainMenu: SKScene{
+    
+    // Variáveis para cada node da cena
     var newGameNode: SKSpriteNode!
     var continueButton: SKSpriteNode!
     var cloud1: SKSpriteNode!
@@ -21,15 +23,21 @@ class MainMenu: SKScene{
     var limit2: SKSpriteNode!
     var restart: SKSpriteNode!
     var restart2: SKSpriteNode!
-    var rndNumber: Int!
     var dieLabel: SKLabelNode!
+    //
+    
+    
+    //    var rndNumber: Int!
+    
+    // Variável que define se a opção continuar está disponível
     var canContinue: Bool = false
+    
     
     var player = AudioManager(fileName: "intro")
     
     override func didMove(to view: SKView){
         
-        
+        // Associando cada node do editor a uma variável
         cloud1 = childNode(withName: "Cloud 1")! as? SKSpriteNode
         cloud2 = childNode(withName: "Cloud 2")! as? SKSpriteNode
         cloud3 = childNode(withName: "Cloud 3")! as? SKSpriteNode
@@ -46,7 +54,7 @@ class MainMenu: SKScene{
         
         player.setLoops(loops: -1).play()
     
-        
+        // Fazer o número mínimo de mortes piscar toda vez que o menu é iniciado
         let fadeInAction = SKAction.fadeAlpha(to: 0.1, duration: 0.2)
         let fadeOutAction = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
         let blinkSequence = SKAction.sequence([fadeInAction, fadeOutAction])
@@ -60,55 +68,71 @@ class MainMenu: SKScene{
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
         
+        // Criando a sensação de toques nos botões de new game e continue
         if newGameNode.contains(touchLocation){
             newGameNode.alpha = 0.5
-            
         }
         
         if continueButton.contains(touchLocation) && canContinue{
             continueButton.alpha = 0.5
-            
         }
+        //
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // Volta o newgame e o continue ao alpha original
         newGameNode.alpha = 0.9
-        guard let touch = touches.first else { return }
-        let touchLocation = touch.location(in: self)
         
         if canContinue{
             continueButton.alpha = 0.9
         }
+        //
         
+        // Pega o toque e guarda em uma constantes
+        guard let touch = touches.first else { return }
+        let touchLocation = touch.location(in: self)
+        //
+        
+        // Zerar o contandor de mortes genérico e chamar a próxima cena
         if newGameNode.contains(touchLocation){
             userDefaults.set(0, forKey: "commonDeadCount")
             
             player.setVolume(volume: 0, interval: 3)
             nextLevel("ExplainScene1", direction: SKTransitionDirection.down)
         }
+        //
         
+        // Chamar a cena atual em que o usuário se encontra puxando do userDefaults
         if continueButton.contains(touchLocation) && canContinue{
             player.setVolume(volume: 0, interval: 3)
             nextLevel(levelName ?? "ExplainScene1", transition: SKTransition.fade(with: .white, duration: 1.4))
         }
+        //
     }
     
     override func update(_ currentTime: TimeInterval) {
         
+        // Definindo um valor negativo ao número de mortes para facilitar na hora da verificação do número mínimo de mortes
         if !winGame{
             userDefaults.set(-1, forKey: "minDeadCount")
         }
+        //
         
+        // Atualizar as variáveis com seus respectivos userDefaults
         winGame = userDefaults.bool(forKey: "winGame")
         commonDeadCount = userDefaults.integer(forKey: "commonDeadCount")
         minDeadCount = userDefaults.integer(forKey: "minDeadCount")
         levelName = userDefaults.string(forKey: "highLevelName")
+        //
         
+        // Mudar o alpha do continue se alguma fase existir
         if levelName != nil{
             canContinue = true
             continueButton.alpha = 0.9
         }
+        //
         
+        // Lógico para determinar o menor número de mortes
         if minDeadCount == -1 && !canContinue{
             let deadNumber = userDefaults.integer(forKey: "commonDeadCount")
             userDefaults.set(deadNumber, forKey: "minDeadCount")
@@ -116,17 +140,22 @@ class MainMenu: SKScene{
             let deadNumber = userDefaults.integer(forKey: "commonDeadCount")
             userDefaults.set(deadNumber, forKey: "minDeadCount")
         }
+        //
         
-        
-        
+        // Definindo o textos do menor número de mortes
         dieLabel.text = "Menor número de mortes: \((winGame) ? String(minDeadCount) : "---" )"
+        //
+        
+        // Movimentando os elementos gráficos do menu
         cloud1!.position.x += 0.15
         cloud2!.position.x += 0.1
         cloud3!.position.x += 0.2
         cloud4!.position.x += 0.05
         cloud5!.position.x += 0.13
         moon.position.y += 0.05
+        //
         
+        // Reiniciando a posição de cada elementos gráfico da cena
         if cloud1.position.x > limit.position.x{
             cloud1.position.x = restart.position.x
         } else if cloud2.position.x > limit.position.x{
@@ -140,12 +169,15 @@ class MainMenu: SKScene{
         }else if cloud5.position.y > limit.position.y{
             cloud5.position.y = restart.position.y
         }
+        //
     }
     
     
 }
 
+// Criando uma extensão para facilitar na hora de criar uma nova cena
 extension SKScene{
+    
     func nextLevel(_ a: String, direction: SKTransitionDirection){
         if let scene = SKScene(fileNamed: a){
             scene.scaleMode = .aspectFill
@@ -159,4 +191,5 @@ extension SKScene{
             self.view?.presentScene(scene, transition: transition)
         }
     }
+    
 }

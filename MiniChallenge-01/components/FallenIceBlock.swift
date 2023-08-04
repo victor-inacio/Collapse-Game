@@ -9,6 +9,7 @@ import SpriteKit
 
 extension BaseLevelScene{
     
+    // Sumonar os blocos de água que caem
     func createFallenWater(){
         for node in self.children {
             if (node.name == "FallenCreating"){
@@ -29,7 +30,9 @@ extension BaseLevelScene{
             }
         }
     }
+    //
     
+    // Criando o corpo físico da água que caem
     func giveTileMapPhysicsBodyFallenBlocks(map: SKTileMapNode, textureWidth: Double, tileMapProportion: Double){
         
         let proportion = (textureWidth / tileMapProportion)
@@ -96,6 +99,8 @@ extension BaseLevelScene{
         
     }
     
+    
+    // Criando uma solução para fazer a água que cae desaparecer da cena
     func creatingLimitesForTheScene(){
         for node in self.children{
             if node.name == "FallWater"{
@@ -112,6 +117,7 @@ extension BaseLevelScene{
         }
     }
     
+    // Aplicando uma força para a águ cair mais rápido
     func applyingForceToFallWater(){
         for node in self.children{
             if node.name == "FallWater"{
