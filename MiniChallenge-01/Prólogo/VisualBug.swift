@@ -8,6 +8,7 @@
 import SpriteKit
 
 class VisualBug{
+    // Criando e animando o bug visual simples
     let node: SKSpriteNode!
     
     init(){
@@ -23,6 +24,7 @@ class VisualBug{
 }
 
 class BigVisualBug{
+    // Criando e animando o bug visual Grande
     let node: SKSpriteNode!
     
     init(){
@@ -37,6 +39,7 @@ class BigVisualBug{
 
 extension SKScene{
     func addVisualBug(nameOfTheAsset: String){
+        // Adicionando o bug na cena
         for node in self.children {
             if (node.name == nameOfTheAsset){
                 
@@ -55,6 +58,7 @@ extension SKScene{
     }
     
     func addBigVisualBug(nameOfTheAsset: String){
+        // Adicionando o bug grande na cena
         for node in self.children {
             if (node.name == nameOfTheAsset){
                 

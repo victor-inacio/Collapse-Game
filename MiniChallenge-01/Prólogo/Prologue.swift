@@ -19,7 +19,7 @@ class Prologue: BaseLevelScene{
     }
     var finishAnimation: Bool = false
     
-    var bug: VisualBug!
+    
     var scriptMove: SKSpriteNode!
     var pier: SKSpriteNode!
     var pierPhysicsBody: SKSpriteNode!
@@ -28,26 +28,42 @@ class Prologue: BaseLevelScene{
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        
+        // Relacionando node do editor a variáveis
         scriptMove = childNode(withName: "ScriptMove")! as? SKSpriteNode
         pier = childNode(withName: "Pier")! as? SKSpriteNode
         pierPhysicsBody = childNode(withName: "PierPhysicsBody")! as? SKSpriteNode
+        //
         
-        bug = VisualBug()
         addVisualBug(nameOfTheAsset: "Bug")
         
+        // Pegando o tamanho do botão de jump
         let controllerSize = virtualController.jumpButton?.size
+        //
+        
+        // Criando brilho para o botão de pulo
         shine = SKShapeNode(ellipseOf: CGSize(width: (controllerSize?.width ?? 60) + 10 , height: (controllerSize?.height ?? 60) + 10))
         shine.lineWidth = 25
+        //
+        
+        // Alterando a altura da câmera
         cameraController.configHeight = 130
+        //
+        
+        // Tirando o botão de dash da cena alterando o zPosition e o alpha
         virtualController.dashButton?.zPosition = -10
         virtualController.dashButton?.alpha = 0
+        //
+        
         virtualController.jumpButton?.alpha = 0
         
+        // Adicionar o parallax
         parallax = Parallax(scene: self, items: [
             .init(fileName: "Nuvens", velocityFactor: 0.06, zIndex: -1, offset: CGVector(dx: 0, dy: 150)),
             .init(fileName: "Nuvens2", velocityFactor: 0.08, zIndex: -2, offset: CGVector(dx: 0, dy: 60)),
             .init(fileName: "Noite Estrelada", velocityFactor: 0.005, zIndex: -4, type: .Background)
         ])
+        //
         
         audioPlayer.setVolume(volume: 1, interval: 3).setLoops(loops: -1).play()
     }
@@ -55,7 +71,7 @@ class Prologue: BaseLevelScene{
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
         
-        // Prologue Start animation
+        // Início da animação do prólogo
         if startAnimation && !finishAnimation{
             camera2.zPosition = -10
             camera2.alpha = 0
@@ -107,14 +123,6 @@ class Prologue: BaseLevelScene{
             camera2.addChild(shine)
             virtualController.jumpButton?.alpha = 0.9
             
-            run(SKAction.sequence([SKAction.wait(forDuration: 0.5),SKAction.run {
-                for node in self.children{
-                    if node.name == "Block"{
-                        node.removeFromParent()
-                    }
-                }
-            }]))
-            
             blinkMode(shapeNode: shine)
             
             finishJumpText = true
@@ -123,9 +131,12 @@ class Prologue: BaseLevelScene{
             startJumpText = true
         }
         
+        // Atualizar o parallax
         parallax.update()
+        //
     }
     
+    // Mudar o alpha de um node
     func changeNodeAlpha(name: String, alpha: Double){
         for node in self.children{
             if node.name == name{
@@ -136,6 +147,7 @@ class Prologue: BaseLevelScene{
 }
 
 extension SKScene{
+    // Fazer um node piscar algumas vezes
     func blinkMode(shapeNode: SKShapeNode){
         let fadeInAction = SKAction.fadeAlpha(to: 0.1, duration: 0.5)
                 let fadeOutAction = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
@@ -148,6 +160,6 @@ extension SKScene{
         }]) )
                 
     }
-    
+    //
     
 }
