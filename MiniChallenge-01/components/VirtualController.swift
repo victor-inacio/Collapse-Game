@@ -207,12 +207,12 @@ class VirtualController: SKNode{
             if isOverlay && jumpButton!.frame.contains(location) {
                 return
             }
-            
+            // Toggle do soundButton
+
             if let soundButton = soundButton, soundButton.contains(convert(location, to: overlayPause!)) {
                 AudioManager.toggleMute()
                 soundButton.texture = SKTexture(imageNamed: AudioManager.generalVolume == 1 ? "soundOn" : "soundOff")
                 
-                // Toggle do soundButton
             }
             
             
@@ -225,17 +225,17 @@ class VirtualController: SKNode{
                 }
             }
 
-            
+            // Registra o toque do botão de pause e realiza as ações necessárias
             if pauseButton!.frame.contains(location) {
                 pauseTouch = t
                 if isOverlay {
-                    pauseButton?.alpha = 0.3
+                    pauseButton?.texture = SKTexture(imageNamed:"pause" )
 
                     resumeGame()
                 } else {
                     pauseGame()
-                    pauseButton?.alpha = 1
-                    
+                    pauseButton?.texture = SKTexture(imageNamed:"playButton" )
+
                 }
             }
             if jumpButton!.frame.contains(location){
@@ -431,8 +431,7 @@ class VirtualController: SKNode{
 
 
     }
-    // PAUSE GAME
-    // PAUSE GAME
+    // PAUSE THE GAME
     func pauseGame() {
         isOverlay = true
         overlayPause?.isHidden = false
@@ -444,8 +443,7 @@ class VirtualController: SKNode{
     }
 
     
-    // RESUME GAME
-    // RESUME GAME
+    // RESUME THE GAME
     func resumeGame() {
         isOverlay = false
         overlayPause?.isHidden = true
