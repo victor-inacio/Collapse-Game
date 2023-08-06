@@ -1,7 +1,7 @@
 import SpriteKit
 import GameplayKit
 
-
+// O component trigger chama uma função quando algo toca no corpo físico de um sprite
 class TriggerComponent: GKComponent {
     
     var callback: (_ otherNode: SKSpriteNode?) -> Void

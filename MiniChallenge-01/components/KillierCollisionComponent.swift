@@ -1,6 +1,7 @@
 import GameplayKit
 import SpriteKit
 
+// Componente para ser implementado em sprites que matam o jogador ao encostar
 class KillerCollisionComponent: GKComponent {
     
    

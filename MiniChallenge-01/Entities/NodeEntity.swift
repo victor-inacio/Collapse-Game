@@ -1,6 +1,7 @@
 import SpriteKit
 import GameplayKit
 
+// Entidade que implementa um SpriteComponent 
 class NodeEntity: GKEntity {
     
     var node: SKSpriteNode {

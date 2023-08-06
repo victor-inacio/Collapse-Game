@@ -1,6 +1,8 @@
 import GameplayKit
 import SpriteKit
 
+// Entidade de porta
+// Cria uma entidade e implementa os componentes necessários
 class DoorEntity: GKEntity {
     
     init(node: SKSpriteNode) {

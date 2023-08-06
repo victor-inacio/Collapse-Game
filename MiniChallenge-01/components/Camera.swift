@@ -7,6 +7,7 @@
 
 import SpriteKit
 
+// Controlador da camera da cena
 class CameraController {
         
     var camera: SKCameraNode!
@@ -38,6 +39,7 @@ class CameraController {
         }
     }
     
+    // Roda em todo update da cena
     func update(_ currentTime: TimeInterval) {
         deltaTime = currentTime - lastTime
         
@@ -48,6 +50,7 @@ class CameraController {
         lastTime = currentTime
     }
     
+    // Atualiza a velocidade da câmera
     private func setCameraVelocity(_ currentTime: TimeInterval) {
         let currentCameraPosition = self.camera.position
         
@@ -62,6 +65,7 @@ class CameraController {
         lastCameraPosition = currentCameraPosition
     }
     
+    // Método para limitar a posição da câmera
     private func createConstraints() {
     
         let boundLeft = self.boundaries!.calculateAccumulatedFrame().minX + self.camera.scene!.size.width / 2

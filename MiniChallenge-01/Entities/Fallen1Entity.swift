@@ -1,6 +1,7 @@
 import SpriteKit
 import GameplayKit
 
+// Entidade dos blocos que caem. Implementa o FallenBlocksComponent
 class Fallen1Entity: NodeEntity {
     
     override init(node: SKSpriteNode) {

@@ -1,6 +1,7 @@
 import GameplayKit
 import SpriteKit
 
+// Componente que coloca um SKSpriteNode em um GKEntity
 class SpriteComponent: GKComponent {
     
     var node: SKSpriteNode!

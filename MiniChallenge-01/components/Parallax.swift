@@ -5,6 +5,7 @@ enum ParallaxType {
     case Default, Background, Fixed
 }
 
+// Classe de uma camada do Parallax
 class ParallaxItem {
     var velocityFactor: CGFloat
     var parallaxNodes: [SKSpriteNode] = []
@@ -31,7 +32,7 @@ class ParallaxItem {
         parallaxNodes.append(node)
     }
         
-    
+    // Roda em todo o update da cena
     func update(scene: BaseLevelScene) {
         
         
@@ -54,6 +55,7 @@ class ParallaxItem {
         applyOffset(scene: scene)
     }
     
+    // Preenche os sprites horizontalmente pela tela
     func fillHorizontal(scene: BaseLevelScene) {
         let camera = scene.camera!
         
@@ -112,6 +114,7 @@ class ParallaxItem {
         }
     }
     
+    // Muda o eixo x dos sprites para dar a ilusão de profundidade (parallax)
     func applyOffset(scene: BaseLevelScene) {
         let cameraController = scene.cameraController
         
@@ -123,6 +126,7 @@ class ParallaxItem {
     
 }
 
+// Classe que cria o plano de fundo em parallax
 class Parallax {
     
     var scene: BaseLevelScene
@@ -136,6 +140,7 @@ class Parallax {
         setup()
     }
     
+    // Faz o setup de todos os sprites de parallax
     func setup() {
         
         for item in items {
@@ -153,6 +158,7 @@ class Parallax {
         
     }
     
+    // Roda em todo o update da cena
     func update() {
         
         for item in items {

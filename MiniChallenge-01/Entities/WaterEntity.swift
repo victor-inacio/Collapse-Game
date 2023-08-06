@@ -1,6 +1,7 @@
 import SpriteKit
 import GameplayKit
 
+// Entidade da água. Mata o personagem ao ser tocada
 class WaterEntity: NodeEntity {
     
     

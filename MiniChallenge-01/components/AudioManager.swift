@@ -1,5 +1,9 @@
 import AVFAudio
 
+
+// Classe que cuida das emissões de áudio do jogo
+
+// Ele é uma classe Builder, que significa que vários métodos deles retornam a própria instância da classe, o que facilita ao chamar vários métodos do objeto de uma vez só.
 class AudioManager {
     
     static var generalVolume: Float = 1
@@ -45,6 +49,8 @@ class AudioManager {
         }
     }
     
+    
+    // O discardableResult serve para o Swift não der warning quando eu chamar estes métodos e não usar o valor retornado por eles
     @discardableResult
     func setVolume(volume: Float, interval: TimeInterval = 0) -> Self {
         player.setVolume(volume * AudioManager.generalVolume, fadeDuration: interval)

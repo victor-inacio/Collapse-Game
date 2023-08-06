@@ -1,5 +1,7 @@
 import GameplayKit
 
+// Este arquivo possui as classes de todas as classes do Player
+
 class PlayerIdle: GKState{
     
     var player: Player!

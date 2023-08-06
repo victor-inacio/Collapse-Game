@@ -1,6 +1,7 @@
 import GameplayKit
 import SpriteKit
 
+// Componente dos blocos que caem quando o player os toca
 class FallenBlocksComponent: GKComponent {
     
     var canBeDestoyed = false
@@ -25,10 +26,14 @@ class FallenBlocksComponent: GKComponent {
         originalNodeClone.physicsBody = nil
         originalNodeClone.alpha = 1
         
+        // O clone foi feito para que o corpo físico do bloco não trema também
+        // Assim só o clone (que possui textura, mas não corpo físco) treme, mas o node original (que possui corpo físico, mas não textura) fica parado.
+        // Isso evita que o player seja jogado para longe quando o bloco estiver tremendo
         nodeClone = (originalNodeClone.copy() as! SKSpriteNode)
         
         scene.addChild(nodeClone)
         
+        // Código que roda quando o player encosta no bloco
         let triggerComponent = TriggerComponent { otherNode in
             let node = self.entity!.component(ofType: SpriteComponent.self)!.node!
             if (self.canBeDestoyed) {
@@ -63,12 +68,15 @@ class FallenBlocksComponent: GKComponent {
             
         }
         
+        
         self.entity?.addComponent(triggerComponent)
+        
         node.physicsBody?.categoryBitMask = PhysicsCategory.fallen.rawValue
         node.physicsBody?.collisionBitMask = PhysicsCategory.player.rawValue
        
     }
     
+    // Método que é chamado ao reiniciar a fase
     func reset() {
         if (canReset) {
             self.entity!.component(ofType: SpriteComponent.self)!.node!.removeFromParent()
@@ -88,6 +96,7 @@ class FallenBlocksComponent: GKComponent {
     }
 }
 
+// SKAction para tremer algo
 extension SKAction {
     class func shake(initialPosition:CGPoint, duration:Float, amplitudeX:Int = 10, amplitudeY:Int = 0) -> SKAction {
         let startingX = initialPosition.x

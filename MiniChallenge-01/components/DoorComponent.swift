@@ -1,6 +1,8 @@
 import GameplayKit
 import SpriteKit
 
+// Componentes de portas
+// As portas que levam o jogador de um cenário para outro quando encostadas por ele
 class DoorComponent: GKComponent {
     override func didAddToEntity() {
         
