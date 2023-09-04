@@ -24,7 +24,7 @@ Collapse is an exciting adventure game developed in the Apple Developer Academy 
 ## Download on the AppStore
 
 <a href="https://apps.apple.com/br/app/collapse/id6456223138">
-<img src="qr-code.png" />
+<img src="qr-code.png" width="300" />
 </a>
 
 ## Installing
